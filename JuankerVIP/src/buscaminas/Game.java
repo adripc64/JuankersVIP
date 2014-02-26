@@ -12,6 +12,8 @@ public class Game extends Service {
 	private Font font;
 
 	private Texture texBackground;
+	
+	private Minefield minefield;
 
 	public void onStart() {
 
@@ -19,6 +21,8 @@ public class Game extends Service {
 
 		// Crec que aci es on se te que crear el tablero y generar la posicio
 		// aleatoria de les bombes, pero ni idea...
+		minefield = new Minefield(16,16,20);
+		System.out.println(minefield);
 
 		font = new Font("data/COMIC.ttf", 48.0f);
 
