@@ -12,7 +12,7 @@ public class Buscaminas extends Service {
 	}
 	
 	public void onStart() {
-		
+		//asdfa
 	}
 	
 }
