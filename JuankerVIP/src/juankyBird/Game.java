@@ -28,7 +28,7 @@ public class Game extends Service {
 		tuberia1=new Tuberia();
 		tuberia2=tuberia1;
 
-		texBackground = new Texture("PNG", "data/paisaje.png");//aço es molt xapussa sa darreglar
+		texBackground = new Texture("PNG", "data/paisaje.png");//aï¿½o es molt xapussa sa darreglar
 
 		EventMan.addListener(this);
 	}
@@ -78,8 +78,8 @@ public class Game extends Service {
 	@Override
 	public void onDraw() {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
-				new Color(255, 255, 255));//aço davant que es lo que primer se te que fer.
-		
+				new Color(255, 255, 255));//aï¿½o davant que es lo que primer se te que fer.
+		System.out.println(texBackground.getW());
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
 		float x = (Window.getW() - w) / 3.0f;
