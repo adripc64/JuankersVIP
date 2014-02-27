@@ -2,6 +2,7 @@ package juankyBird;
 
 import fge.App;
 import fge.Color;
+import fge.Event;
 import fge.Render;
 import fge.Service;
 import fge.Window;
@@ -17,7 +18,7 @@ public class Game extends Service {
 		ancho = 64;
 		largo = 64;
 		esquinaX = (Window.getW() - ancho) / 2;
-		altura = 0.0f;
+		altura = Window.getH()/2;//0.0f;
 	}
 	
 	public void onStop() {
@@ -26,9 +27,17 @@ public class Game extends Service {
 	
 	//app.getFTime temps per frame
 	public void onMove() {//constante descendente y implementacion de  onUp
-		altura -= 8.0f * App.getFTime();
-		System.out.println(altura);
-	}
+		if(altura>0){
+			altura -= 200.0f * App.getFTime();
+		}
+		else{
+			//com se fa per a parar?
+		}
+		Event e=new Event( , );
+		if(e.getType()==Event.MOUSE_PRESSED){
+			altura=altura+10;
+		}
+		}
 	
 	public void onDraw() {
 		Render.DrawBox(esquinaX, Window.getH()-largo-altura, ancho, largo, new Color(255,0,0));
