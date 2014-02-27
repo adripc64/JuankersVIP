@@ -1,5 +1,5 @@
 package juankyBird;
 
-public class Mon {
+public class tuberia {
 	
 }
