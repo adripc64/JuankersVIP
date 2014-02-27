@@ -42,7 +42,7 @@ public class Game extends Service {
 	
 	//private GameState gameState
 	
-	
+	@Override
 	public void onStart() {
 		
 		EventMan.addListener(this);
@@ -65,14 +65,17 @@ public class Game extends Service {
 		
 	}
 	
+	@Override
 	public void onStop() {
 	
 	}
 	
+	@Override
 	public void onMove() {
 		
 	}
 	
+	@Override
 	public void onDraw()  {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(), new Color(255,255,255), 0, 0, 800 / 350.f, 600 / 259.f);
 		board.Draw();
@@ -149,6 +152,18 @@ public class Game extends Service {
 			currentPlayer = gs.currentPlayer;
 			board.setBoardCells(gs.boardCells);
 		}	
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	////////////////////////////////////////////////////////////////////////

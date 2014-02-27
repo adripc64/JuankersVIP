@@ -1,6 +1,6 @@
 package fge;
 
-public class Service {
+public abstract class Service {
 	
 	private boolean stopped = true;
 	private boolean paused = false;
@@ -36,13 +36,14 @@ public class Service {
 		onResume();
 	}
 	
-
-	public void onMove() {}
-	public void onDraw() {}
-	public void onStart() {}
-	public void onStop() {}
-	public void onPause() {}
-	public void onResume() {}
+	protected abstract void onStart();
+	protected abstract void onStop();
+	
+	protected abstract void onPause();
+	protected abstract void onResume();
+	
+	protected abstract void onMove();
+	protected abstract void onDraw();
 	
 	public boolean doEvent(Event e) {
 		return false;
