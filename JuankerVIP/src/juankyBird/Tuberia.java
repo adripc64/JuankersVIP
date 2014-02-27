@@ -23,6 +23,10 @@ public class Tuberia {
 	public float getYT(){
 		return yT;
 	}
+	
+	public void setYT(float YT){
+		this.yT=YT;
+	}
 	public void setX(float X){
 		this.x=X;
 	}

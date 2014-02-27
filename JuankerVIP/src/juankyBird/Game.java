@@ -72,6 +72,11 @@ public class Game extends Service {
 			tuberia1.setX(tuberia1.getX() +desplazamiento *App.getFTime());
 			tuberia2.setX(tuberia2.getX()+desplazamiento*App.getFTime());
 		}
+		if(tuberia1.getX() > Window.getW()){
+			tuberia1.setX(0);
+			tuberia1.setYT((float) Math.random()*(Window.getH()));
+			
+		}
 		
 	}
 
