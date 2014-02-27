@@ -46,6 +46,7 @@ public class Game extends Service {
 
 	public void onDraw() {
 		Render.DrawBox(esquinaX, Window.getH()-largo-altura, ancho, largo, new Color(255,0,0));
+		//aci el dibuix per a la tuberia.
 	}
 	
 	public boolean doEvent(Event e) {
