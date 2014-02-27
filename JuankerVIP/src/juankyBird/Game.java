@@ -4,7 +4,6 @@ import fge.App;
 import fge.Color;
 import fge.Event;
 import fge.EventMan;
-import fge.Mouse;
 import fge.Render;
 import fge.Service;
 import fge.Window;
@@ -21,7 +20,7 @@ public class Game extends Service {
 		ancho = 64;
 		largo = 64;
 		esquinaX = (Window.getW() - ancho) / 2;
-		altura = Window.getH()/2;//0.0f;
+		altura.setAltura(Window.getH()/2);
 		aceleracion = 0.0f;
 		
 		EventMan.addListener(this);
