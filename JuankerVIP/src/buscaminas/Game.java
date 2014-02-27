@@ -15,6 +15,7 @@ public class Game extends Service {
 	
 	private Minefield minefield;
 
+	
 	public void onStart() {
 
 		texBackground = new Texture("PNG", "data/grey_wash_wall512.png");
