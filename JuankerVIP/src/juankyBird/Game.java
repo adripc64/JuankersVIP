@@ -12,7 +12,8 @@ import fge.Window;
 public class Game extends Service {
 
 	private Pardal pardal;
-	private Tuberia tuberia;
+	private Tuberia tuberia1;
+	private Tuberia tuberia2;
 	private float aceleracion;
 	private float desplazamiento;
 	private Texture texBackground;
@@ -24,7 +25,8 @@ public class Game extends Service {
 		desplazamiento=0.0f;
 		pardal = new Pardal();
 		pardal.setAltura(Window.getH() / 2.0f);
-		tuberia=new Tuberia();
+		tuberia1=new Tuberia();
+		tuberia2=tuberia1;
 
 		texBackground = new Texture("PNG", "data/paisaje.png");//aço es molt xapussa sa darreglar
 
@@ -33,7 +35,7 @@ public class Game extends Service {
 
 	@Override
 	public void onStop() {
-
+		
 	}
 
 	@Override
@@ -64,12 +66,13 @@ public class Game extends Service {
 			pardal.setAltura(0);
 		}
 	
-		if(tuberia.getX()>=0){
+		if(tuberia1.getX()>=0){
 			desplazamiento +=100.0f*App.getFTime();
 			if(desplazamiento > 100) desplazamiento=100.0f;
-			tuberia.setX(tuberia.getX() +desplazamiento *App.getFTime());
+			tuberia1.setX(tuberia1.getX() +desplazamiento *App.getFTime());
+			tuberia2.setX(tuberia2.getX()+desplazamiento*App.getFTime());
 		}
-		System.out.println(tuberia.getX());
+		
 	}
 
 	@Override
@@ -82,18 +85,24 @@ public class Game extends Service {
 		float x = (Window.getW() - w) / 3.0f;
 		float y = Window.getH() - h - pardal.getAltura();
 
-		int wT=tuberia.getTextura().getW();
-		int hT=tuberia.getTextura().getH();
-		float xT=Window.getW()-wT-tuberia.getX();//constante
-		float yT=tuberia.getYT();
-		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT,
+		int wT=tuberia1.getTextura().getW();
+		int hT=tuberia1.getTextura().getH();
+		float xT=Window.getW()-wT-tuberia1.getX();//constante
+		float yT=tuberia1.getYT();
+		Render.DrawTex(tuberia1.getTextura(), xT, yT, wT, hT,
+				new Color(255, 255, 255));
+		
+		int wT2=tuberia2.getTextura().getW();
+		int hT2=tuberia2.getTextura().getH();
+		float xT2=Window.getW()-wT-tuberia2.getX();//constante
+		float yT2=tuberia2.getYT()+tuberia1.getTextura().getW()+tuberia1.getSeparacion();
+		Render.DrawTex(tuberia2.getTextura(), xT2, yT2, wT2, hT2,
 				new Color(255, 255, 255));
 		
 		Render.DrawTex(pardal.getTextura(), x, y, w, h,
 				new Color(255, 255, 255));
 		
-		
-		
+
 	
 	}
 
