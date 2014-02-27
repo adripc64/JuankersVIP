@@ -79,7 +79,7 @@ public class Game extends Service {
 	public void onDraw() {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
 				new Color(255, 255, 255));//a�o davant que es lo que primer se te que fer.
-		System.out.println(texBackground.getW());
+
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
 		float x = (Window.getW() - w) / 3.0f;
