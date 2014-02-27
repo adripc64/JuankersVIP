@@ -16,7 +16,7 @@ public class Game extends Service {
 		ancho = 100;
 		largo = 100;
 		esquinaX = (Window.getW() - ancho) / 2;
-		altura = (Window.getH() - largo) / 2;
+		altura =0;// Window.getH() / 2;
 	}
 	
 	public void onStop() {
@@ -30,11 +30,11 @@ public class Game extends Service {
 		
 	}
 	public void onDown(){//per a no parar de baixar fins tocar terra.
-		altura=
+		altura=Window.getH()-altura;
 	}
 	
 	public void onDraw() {
-		Render.DrawBox(esquinaX, esquinaY, ancho, largo, new Color(255,0,0));
+		Render.DrawBox(esquinaX, Window.getH()-altura, ancho, largo, new Color(255,0,0));
 	}
 
 }
