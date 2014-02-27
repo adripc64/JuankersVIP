@@ -51,6 +51,9 @@ public class Game extends Service {
 		if(pardal.getAltura() < 0){
 			pardal.setAltura(0);
 		}
+		if(pardal.getAltura() > Window.getH()-64){
+			pardal.setAltura(Window.getH()-64);
+		}
 	}
 
 	@Override
@@ -67,7 +70,7 @@ public class Game extends Service {
 	
 	public boolean doEvent(Event e) {
 		
-		if (e.getType() == Event.MOUSE_PRESSED) {
+		if (e.getType() == Event.MOUSE_PRESSED || e.getType() == Event.KEY_PRESSED) {
 			
 			//int mx = Mouse.getX();
 			//int my = Mouse.getY();
