@@ -1,14 +1,22 @@
 package juankyBird;
 
+import fge.Color;
+import fge.Render;
 import fge.Service;
+import fge.Window;
 
 public class Game extends Service {
+	
 	private int esquinaX;
 	private int esquinaY;
 	private int largo;
 	private int ancho;
+	
 	public void onStart() {
-		
+		ancho = 100;
+		largo = 100;
+		esquinaX = (Window.getW() - ancho) / 2;
+		esquinaY = (Window.getH() - largo) / 2;
 	}
 	
 	public void onStop() {
@@ -26,7 +34,7 @@ public class Game extends Service {
 	}
 	
 	public void onDraw() {
-		
+		Render.DrawBox(esquinaX, esquinaY, ancho, largo, new Color(255,0,0));
 	}
 
 }
