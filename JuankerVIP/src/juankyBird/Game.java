@@ -13,8 +13,8 @@ public class Game extends Service {
 	private int ancho;
 	
 	public void onStart() {
-		ancho = 100;
-		largo = 100;
+		ancho = 64;
+		largo = 64;
 		esquinaX = (Window.getW() - ancho) / 2;
 		altura =0;// Window.getH() / 2;
 	}

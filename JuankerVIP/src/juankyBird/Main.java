@@ -9,7 +9,7 @@ public class Main extends Service {
 	public static Game game = new Game();
 	
 	public static void main(String[] args) {
-		App.run(main, 600, 800);
+		App.run(main, 480, 640);
 	}
 	
 	public void onStart() {
