@@ -33,15 +33,17 @@ public class Game extends Service {
 	
 	//app.getFTime temps per frame
 	public void onMove() {//constante descendente y implementacion de  onUp
-		if(altura>0){
+	
+		if(altura>=0){
 			aceleracion += 750.0f * App.getFTime();
 			if (aceleracion > 250) aceleracion = 250.0f;
 			altura -= aceleracion * App.getFTime();
 		}
-		else{
-			//com se fa per a parar?
-			altura = 0.0f;
+		if(altura<0){
+			altura =0;
 		}
+		
+		System.out.println(altura);
 	}
 
 	public void onDraw() {
@@ -56,7 +58,7 @@ public class Game extends Service {
 			//int my = Mouse.getY();
 			
 			// Ací es cuan li has de donar el empuje...
-			aceleracion = -300.0f;
+			aceleracion = -400.0f;
 			
 		}
 		
