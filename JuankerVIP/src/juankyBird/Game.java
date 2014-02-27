@@ -42,8 +42,6 @@ public class Game extends Service {
 		if(altura<0){
 			altura =0;
 		}
-		
-		System.out.println(altura);
 	}
 
 	public void onDraw() {
