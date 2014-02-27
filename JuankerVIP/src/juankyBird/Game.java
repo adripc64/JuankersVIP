@@ -1,5 +1,6 @@
 package juankyBird;
 
+import fge.App;
 import fge.Color;
 import fge.Render;
 import fge.Service;
@@ -8,7 +9,7 @@ import fge.Window;
 public class Game extends Service {
 	
 	private int esquinaX;
-	private int altura;
+	private double altura;
 	private int largo;
 	private int ancho;
 	
@@ -22,9 +23,9 @@ public class Game extends Service {
 	public void onStop() {
 		
 	}
-
+//app.getFTime temps per frame
 	public void onMove() {//constante descendente y implementacion de  onUp
-		
+		altura=0.01*App.getFTime();
 	}
 	public void onUp(){//per a cuan pulses cap a dalt
 		
