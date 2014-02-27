@@ -10,7 +10,7 @@ public class Main extends Service {
 	public static Game game = new Game();
 	
 	public static void main(String[] args) {
-		App.run(main, 600, 600);
+		App.run(main, 640, 640);
 	}
 	
 	@Override
