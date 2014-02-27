@@ -66,7 +66,7 @@ public class Game extends Service {
 
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
-		float x = (Window.getW() - w) / 2.0f;
+		float x = (Window.getW() - w) / 3.0f;
 		float y = Window.getH() - h - pardal.getAltura();
 
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
