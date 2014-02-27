@@ -8,7 +8,7 @@ import fge.Window;
 public class Game extends Service {
 	
 	private int esquinaX;
-	private int esquinaY;
+	private int altura;
 	private int largo;
 	private int ancho;
 	
@@ -16,7 +16,7 @@ public class Game extends Service {
 		ancho = 100;
 		largo = 100;
 		esquinaX = (Window.getW() - ancho) / 2;
-		esquinaY = (Window.getH() - largo) / 2;
+		altura = (Window.getH() - largo) / 2;
 	}
 	
 	public void onStop() {
@@ -30,7 +30,7 @@ public class Game extends Service {
 		
 	}
 	public void onDown(){//per a no parar de baixar fins tocar terra.
-		
+		altura=
 	}
 	
 	public void onDraw() {
