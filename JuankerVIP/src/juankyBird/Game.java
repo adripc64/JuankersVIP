@@ -4,6 +4,7 @@ import fge.App;
 import fge.Color;
 import fge.Event;
 import fge.EventMan;
+import fge.Mouse;
 import fge.Render;
 import fge.Service;
 import fge.Window;
@@ -51,6 +52,7 @@ public class Game extends Service {
 			//int my = Mouse.getY();
 			
 			// Ací es cuan li has de donar el empuje...
+			altura+=9000.0f*App.getFTime();
 			
 		}
 		
