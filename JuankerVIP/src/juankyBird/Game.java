@@ -42,12 +42,11 @@ public class Game extends Service {
 		if(altura<0){
 			altura =0;
 		}
-		
-		System.out.println(altura);
 	}
 
 	public void onDraw() {
 		Render.DrawBox(esquinaX, Window.getH()-largo-altura, ancho, largo, new Color(255,0,0));
+		//aci el dibuix per a la tuberia.
 	}
 	
 	public boolean doEvent(Event e) {
