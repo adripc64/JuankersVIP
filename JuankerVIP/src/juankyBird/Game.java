@@ -8,8 +8,8 @@ import fge.Window;
 
 public class Game extends Service {
 	
-	private int esquinaX;
-	private double altura;
+	private float esquinaX;
+	private float altura;
 	private int largo;
 	private int ancho;
 	
@@ -17,21 +17,17 @@ public class Game extends Service {
 		ancho = 64;
 		largo = 64;
 		esquinaX = (Window.getW() - ancho) / 2;
-		altura =0;// Window.getH() / 2;
+		altura = 0.0f;
 	}
 	
 	public void onStop() {
 		
 	}
-//app.getFTime temps per frame
+	
+	//app.getFTime temps per frame
 	public void onMove() {//constante descendente y implementacion de  onUp
-		altura=0.01*App.getFTime();
-	}
-	public void onUp(){//per a cuan pulses cap a dalt
-		
-	}
-	public void onDown(){//per a no parar de baixar fins tocar terra.
-		altura=Window.getH()-altura;
+		altura -= 8.0f * App.getFTime();
+		System.out.println(altura);
 	}
 	
 	public void onDraw() {

@@ -30,7 +30,7 @@ public final class App {
 	}
 	
 	public static void start() {
-		
+		lastTime = time = getTime();
 	}
 	
 	public static void loop() {
