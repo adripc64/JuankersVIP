@@ -12,22 +12,26 @@ import fge.Window;
 public class Game extends Service {
 
 	private Pardal pardal;
-	private Tuberia tuberia1;
-	private Tuberia tuberia2;
+	private Tuberia tuberia;
 	private float aceleracion;
-	private float desplazamiento;
+	private float tubSpeed = 200.0f;
 	private Texture texBackground;
+	private float backgroundUX = 0.0f;
+	private float backgroundSpeed = 30.0f;
+	
+	private Texture texTuboCuerpo;
 
 	@Override
 	public void onStart() {
 		aceleracion = 0.0f;
-		desplazamiento = 0.0f;
 		pardal = new Pardal();
-		tuberia1=new Tuberia();
-		
-		tuberia2=tuberia1;
+		tuberia=new Tuberia();
+		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
+
 		texBackground = new Texture("PNG", "data/paisaje.png"); // aï¿½o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pájaro
+		
+		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
 		
 		EventMan.addListener(this);
 	}
@@ -51,6 +55,9 @@ public class Game extends Service {
  
 	@Override
 	public void onMove() { // Constante descendente e implementacion de onUp
+		// Movimiento del background
+		backgroundUX += (backgroundSpeed / Window.getW()) * App.getFTime();
+		
 		// Movimiento del pajaro
 		if(pardal.getAltura() >= Window.getH() - 60){ // Llega arriba de la pantalla el pajaro
 			aceleracion = 250.0f;
@@ -67,18 +74,13 @@ public class Game extends Service {
 		}
 		
 		// Movimiento de las tuberias
-		if(tuberia1.getX() >= 0){
-			desplazamiento += 100.0f * App.getFTime();
-			if(desplazamiento > 100) 
-				desplazamiento=100.0f;
-			
-			tuberia1.setX(tuberia1.getX() + desplazamiento * App.getFTime());
-			tuberia2.setX(tuberia2.getX() + desplazamiento * App.getFTime());
-		}
-		// Cuando llega al final, aparece otra vez al principio y se genera aleatoriamente la altura
-		if(tuberia1.getX() > Window.getW()){ 
-			tuberia1.setX(0);
-			tuberia1.setYT((float) Math.random() * (Window.getH()));
+		if(tuberia.getX() > -tuberia.getTextura().getW()){
+			float tubx = tuberia.getX() - tubSpeed * App.getFTime();
+			tuberia.setX(tubx);
+		} else {
+			tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
+			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion()-100.0f));
+			tuberia.setYT(tuby);
 		}
 		
 	}
@@ -86,23 +88,18 @@ public class Game extends Service {
 	@Override
 	public void onDraw() {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
-				new Color(255, 255, 255)); //aï¿½o davant que es lo que primer se te que fer
+				new Color(255, 255, 255), backgroundUX, 0.0f, 1.0f, 1.0f);
 
-		// Dibujando tubería 1
-		int wT=tuberia1.getTextura().getW();
-		int hT=tuberia1.getTextura().getH();
-		float xT=Window.getW() - wT - tuberia1.getX(); // Constante
-		float yT=tuberia1.getYT();
-		Render.DrawTex(tuberia1.getTextura(), xT, yT, wT, hT,
-				new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpo, 0, 0, 128, 512, new Color(255,255,255), 0, 0, 1, 512/8.f);
 		
-		// Dibujando tubería 2
-		int wT2=tuberia2.getTextura().getW();
-		int hT2=tuberia2.getTextura().getH();
-		float xT2=Window.getW() - wT - tuberia2.getX(); // Constante
-		float yT2=tuberia2.getYT() + tuberia1.getTextura().getW() + tuberia1.getSeparacion();
-		Render.DrawTex(tuberia2.getTextura(), xT2, yT2, wT2, hT2,
-				new Color(255, 255, 255));
+		// Dibujando tubería 
+		int wT=tuberia.getTextura().getW();
+		int hT=tuberia.getTextura().getH();
+		float xT=tuberia.getX(); // Constante
+		float yT=tuberia.getYT();
+		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
+		yT+=hT+tuberia.getSeparacion();
+		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
 		
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
