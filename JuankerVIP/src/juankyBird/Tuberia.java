@@ -10,8 +10,9 @@ public class Tuberia {
 	private int separacion;
 	
 	public Tuberia(){
-		tex=new Texture("PNG","data/ball64.png");
-		yT=((float) Math.random()*(Window.getH()-tex.getH()));//random
+		tex=new Texture("PNG","data/tubo.png");
+		// yT=((float) Math.random() * (Window.getH() - tex.getH()));
+		yT=((float) Math.random() * Window.getH()); // Random
 	}
 	
 	public Texture getTextura(){
@@ -32,7 +33,7 @@ public class Tuberia {
 	}
 
 	public float getSeparacion() {
-		separacion = 100;
+		separacion = 130;
 		return separacion;
 	}
 
