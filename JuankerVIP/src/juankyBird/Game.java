@@ -90,7 +90,7 @@ public class Game extends Service {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
 				new Color(255, 255, 255), backgroundUX, 0.0f, 1.0f, 1.0f);
 
-		Render.DrawTex(texTuboCuerpo, 0, 0, 128, 512, new Color(255,255,255), 0, 0, 1, 512/8.f);
+		// Render.DrawTex(texTuboCuerpo, 0, 0, 128, 512, new Color(255,255,255), 0, 0, 1, 512/8.f);
 		
 		// Dibujando tubería 
 		int wT=tuberia.getTextura().getW();
@@ -118,7 +118,7 @@ public class Game extends Service {
 			// int my = Mouse.getY();
 
 			// AcÃ­ es cuan li has de donar el empuje...
-			aceleracion = -400.0f;
+			aceleracion = -350.0f;
 
 		}
 		return false;
