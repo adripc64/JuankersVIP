@@ -1,21 +1,18 @@
 package airHockey;
 
-import fge.App;
+import fge.Color;
+import fge.Render;
 import fge.Service;
-import fge.ServiceMan;
+import fge.Texture;
+import fge.Window;
 
-public class Main extends Service{
-
-	public static Main main = new Main();
-	public static Game game = new Game();
+public class Game extends Service {
 	
-	public static void main(String[] args) {
-		App.run(main, 1024, 512);
-	}
+	private Texture texBackground;
 	
 	@Override
 	public void onStart() {
-		ServiceMan.runService(game);
+		texBackground = new Texture("PNG", "data/airhockey/campo.png");
 	}
 
 	@Override
@@ -44,7 +41,8 @@ public class Main extends Service{
 
 	@Override
 	protected void onDraw() {
-		// TODO Auto-generated method stub
+		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
+				new Color(255, 255, 255));
 		
 	}
 
