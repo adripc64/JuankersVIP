@@ -1,6 +1,7 @@
 package fge;
 
 import org.lwjgl.Sys;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
@@ -48,6 +49,7 @@ public final class App {
 	
 	public static void end() {
 		Display.destroy();
+		AL.destroy();
 	}
 	
 	private static void move() {
