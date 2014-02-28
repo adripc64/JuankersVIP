@@ -102,7 +102,7 @@ public class Game extends Service {
 			
 		yT+=hT+tuberia.getSeparacion();
 		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
-		Render.DrawTex(texTuboCuerpo, xT, Window.getH(), wT,Window.getH()-(yT+hT), new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, new Color(255, 255, 255));
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
