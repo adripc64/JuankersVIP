@@ -20,6 +20,7 @@ public class Game extends Service {
 	private float backgroundSpeed = 30.0f;
 	
 	private Texture texTuboCuerpo;
+	private Texture texTuboCuerpoInv;
 
 	@Override
 	public void onStart() {
@@ -32,7 +33,7 @@ public class Game extends Service {
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pájaro
 		
 		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
-		
+		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv.png");
 		EventMan.addListener(this);
 	}
 
@@ -82,8 +83,6 @@ public class Game extends Service {
 			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
 			tuberia.setYT(tuby);
 		}
-
-		
 	}
 
 	@Override
@@ -98,10 +97,12 @@ public class Game extends Service {
 		int hT=tuberia.getTextura().getH();
 		float xT=tuberia.getX(); // Constante
 		float yT=tuberia.getYT();
-		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
+		Render.DrawTex(tuberia.getTexturaInv(), xT, yT, wT, hT, new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpoInv, xT, 0, wT, yT+hT-70, new Color(255, 255, 255));
+			
 		yT+=hT+tuberia.getSeparacion();
 		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
-		
+		Render.DrawTex(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, new Color(255, 255, 255));
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
