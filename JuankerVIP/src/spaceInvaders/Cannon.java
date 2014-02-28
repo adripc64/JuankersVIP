@@ -8,6 +8,7 @@ public class Cannon {
 	private float coordinateY;
 	private Texture cannonTexture;
 	private int lives;
+	private float shooter;
 
 	public Cannon() {
 		cannonTexture = new Texture("PNG", "data/spaceInvaders/cannon.png");
@@ -44,5 +45,9 @@ public class Cannon {
 	
 	public int getLives(){
 		return  lives;
+	}
+	
+	public float getShooter(){
+		return coordinateX+cannonTexture.getW()/2;
 	}
 }
