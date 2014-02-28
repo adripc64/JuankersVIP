@@ -79,7 +79,7 @@ public class Game extends Service {
 			tuberia.setX(tubx);
 		} else {
 			tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
-			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion()-tuberia.getTextura().getH()));
+			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
 			tuberia.setYT(tuby);
 		}
 
