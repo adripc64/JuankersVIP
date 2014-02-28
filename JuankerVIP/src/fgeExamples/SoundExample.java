@@ -3,6 +3,7 @@ package fgeExamples;
 import fge.App;
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
@@ -70,7 +71,7 @@ public class SoundExample extends Service implements EventListener {
 	
 	@Override
 	public boolean doEvent(Event e) {
-		if (e.getType() == Event.KEY_PRESSED) {
+		if (e.getType() == EventType.KEY_PRESSED) {
 			if (e.getValue() == Keyboard.KEY_SPACE) sound.play(false);
 			if (e.getValue() == Keyboard.KEY_S) sound.stop();
 			if (e.getValue() == Keyboard.KEY_L) sound.play(true);

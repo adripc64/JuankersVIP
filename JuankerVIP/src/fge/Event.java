@@ -2,22 +2,34 @@ package fge;
 
 public class Event {
 	
-	public final static int KEY_PRESSED = 0;
-	public final static int KEY_RELEASED = 1;
-	public final static int MOUSE_PRESSED = 2;
-	public final static int MOUSE_RELEASED = 3;
-	public final static int MOUSE_MOVE = 4;
-	public final static int MOUSE_WHEEL = 5;
-	
-	private int m_EventType;
-	private int m_EventValue;
-	
-	public Event(int _eventType, int _eventValue) {
-		m_EventType = _eventType;
-		m_EventValue = _eventValue;
+	public enum EventType {
+		KEY_PRESSED,
+		KEY_RELEASED,
+		MOUSE_PRESSED,
+		MOUSE_RELEASED,
+		MOUSE_MOVE,
+		MOUSE_WHEEL;
 	}
 	
-	public int getType() { return m_EventType; }
-	public int getValue() { return m_EventValue; }
+	private EventType type;
+	private int value;
+	
+	public Event(EventType type, int value) {
+		this.type = type;
+		this.value = value;
+	}
+	
+	/**
+	 * Obtiene el tipo de evento.
+	 * 
+	 * @return Devuelve el tipo de evento.
+	 */
+	public EventType getType() { return type; }
+	
+	/***
+	 * 
+	 * @return Devuelve el valor.
+	 */
+	public int getValue() { return value; }
 		
 }

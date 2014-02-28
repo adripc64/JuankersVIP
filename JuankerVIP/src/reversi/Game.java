@@ -6,6 +6,7 @@ import reversi.Board.PieceColor;
 
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
@@ -85,7 +86,7 @@ public class Game extends Service implements EventListener {
 	
 	@Override
 	public boolean doEvent(Event e) {
-		if (e.getType() == Event.MOUSE_PRESSED) {
+		if (e.getType() == EventType.MOUSE_PRESSED) {
 			
 			int mx = Mouse.getX();
 			int my = Mouse.getY();	
@@ -123,7 +124,7 @@ public class Game extends Service implements EventListener {
 				return true;
 			}
 			
-		} else if (e.getType() == Event.KEY_RELEASED) {
+		} else if (e.getType() == EventType.KEY_RELEASED) {
 			if (e.getValue() == Keyboard.KEY_LEFT) {
 				undoMove();
 			}

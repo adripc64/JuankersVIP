@@ -3,6 +3,7 @@ package juankyBird;
 import fge.App;
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Render;
@@ -115,8 +116,8 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	public boolean doEvent(Event e) {
-		if (e.getType() == Event.MOUSE_PRESSED
-				|| e.getType() == Event.KEY_PRESSED) {
+		if (e.getType() == EventType.MOUSE_PRESSED
+				|| e.getType() == EventType.KEY_PRESSED) {
 
 			// int mx = Mouse.getX();
 			// int my = Mouse.getY();
