@@ -1,6 +1,6 @@
 package fge;
 
-public abstract class Service {
+public abstract class Service  {
 	
 	private boolean stopped = true;
 	private boolean paused = false;
@@ -44,9 +44,5 @@ public abstract class Service {
 	
 	protected abstract void onMove();
 	protected abstract void onDraw();
-	
-	public boolean doEvent(Event e) {
-		return false;
-	}
 	
 }

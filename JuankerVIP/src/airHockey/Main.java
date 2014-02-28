@@ -1,18 +1,13 @@
-package javi;
+package airHockey;
 
-import fge.App;
 import fge.Service;
 
 public class Main extends Service{
-	public static Main main = new Main();
-	
-	public static void main(String[] args) {
-		App.run(main, 640, 640);
-	}
-	
+
 	@Override
-	public void onStart() {
+	protected void onStart() {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -45,5 +40,4 @@ public class Main extends Service{
 		
 	}
 
-	
 }
