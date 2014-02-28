@@ -4,19 +4,64 @@ public class Intersect {
 	
 	// Point
 	
-	public static boolean PointWithLine(float _px, float _py, float _x1, float _y1, float _x2, float _y2) {
-		return (Misc.AngleBetweenPoints(_x1, _y1, _x2, _y2) == Misc.AngleBetweenPoints(_x1, _y1, _px, _py));
+	/***
+	 * Comprueba si un punto está en una línea.
+	 * 
+	 * @param px Coordenada x del punto.
+	 * @param py Coordenada y del punto.
+	 * @param x1 Coordenada x del extremo inicial de la línea.
+	 * @param y1 Coordenada y del extremo inicial de la línea.
+	 * @param x2 Coordenada x del extremo final de la línea.
+	 * @param y2 Coordenada y del extremo final de la línea.
+	 * @return Devuelve true si el punto está en la línea.
+	 */
+	public static boolean PointWithLine(float px, float py, float x1, float y1, float x2, float y2) {
+		return (Misc.AngleBetweenPoints(x1, y1, x2, y2) == Misc.AngleBetweenPoints(x1, y1, px, py));
 	}
 	
-	public static boolean PointWithRect(float _px, float _py, float _rx, float _ry, float _rw, float _rh) {
-		return (_px >= _rx && _px <= (_rx + _rw) && _py >= _ry && _py <= (_ry + _rh));
+	/***
+	 * Comprueba si un punto está en un rectángulo.
+	 * 
+	 * @param px Coordenada x del punto.
+	 * @param py Coordenada y del punto.
+	 * @param x1 Coordenada x del rectángulo.
+	 * @param y1 Coordenada y del rectángulo.
+	 * @param x2 Anchura del rectángulo.
+	 * @param y2 Altura del rectángulo.
+	 * @return Devuelve true si el punto está en el rectángulo.
+	 */
+	public static boolean PointWithRect(float px, float py, float rx, float ry, float rw, float rh) {
+		return (px >= rx && px <= (rx + rw) && py >= ry && py <= (ry + rh));
 	}
 	
-	public static boolean PointWithCircle(float _px, float _py, float _cx, float _cy, float _cr) {
-		return ((Math.pow(_px - _cx, 2) + Math.pow(_py - _cy, 2)) <= Math.pow(_cr, 2));
+	/***
+	 * Comprueba si un punto está en un círculo.
+	 * 
+	 * @param px Coordenada x del punto.
+	 * @param py Coordenada y del punto.
+	 * @param cx Coordenada x del centro del círculo.
+	 * @param cy Coordenada y del centro del círculo.
+	 * @param cr Radiod del círculo.
+	 * @return Devuelve tru si el punto está en el círculo.
+	 */
+	public static boolean PointWithCircle(float px, float py, float cx, float cy, float cr) {
+		return ((Math.pow(px - cx, 2) + Math.pow(py - cy, 2)) <= Math.pow(cr, 2));
 	}
 	
-	public static boolean PointWithTriangle(float _px, float _py, float _ax, float _ay, float _bx, float _by, float _cx, float _cy) {
+	/***
+	 * Comprueba si un punto está en un triángulo.
+	 * 
+	 * @param px Coordenada x del punto.
+	 * @param py Coordenada y del punto.
+	 * @param ax Coordenada x del vértice a.
+	 * @param ay Coordenada y del vértice a.
+	 * @param bx Coordenada x del vértice b.
+	 * @param by Coordenada y del vértice b.
+	 * @param cx Coordenada x del vértice c.
+	 * @param cy Coordenada y del vértice c.
+	 * @return Devuelve true si está en el triángulo.
+	 */
+	public static boolean PointWithTriangle(float px, float py, float ax, float ay, float bx, float by, float cx, float cy) {
 		return false;
 	}
 	
