@@ -3,6 +3,7 @@ package spaceInvaders;
 
 import fge.Color;
 import fge.Event;
+import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
 import fge.Keyboard;
@@ -11,7 +12,7 @@ import fge.Service;
 import fge.Texture;
 import fge.Window;
 
-public class Game extends Service {
+public class Game extends Service implements EventListener {
 
 	private Cannon cannon;
 	private Invader invader;
@@ -28,7 +29,7 @@ public class Game extends Service {
 		cannon = new Cannon();
 		cannon.setX(Window.getW() / 2 - cannon.getTextura().getW() / 2);
 		font = new Font("data/spaceInvaders/daville.ttf", 48.0f);
-		EventMan.addListener(this); // No se pa k val
+		EventMan.addListener(this);
 	}
 
 	@Override
