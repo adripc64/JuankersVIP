@@ -5,12 +5,14 @@ import fge.Window;
 
 public class Tuberia {
 	private Texture tex;
+	private Texture texInv;
 	private float x;
 	private float yT;
 	private int separacion;
 	
 	public Tuberia(){
 		tex=new Texture("PNG","data/tubo.png");
+		texInv=new Texture("PNG","data/tuboInv.png");
 		// yT=((float) Math.random() * (Window.getH() - tex.getH()));
 		yT=0;
 		separacion = 150;
@@ -18,6 +20,9 @@ public class Tuberia {
 	
 	public Texture getTextura(){
 		return tex;
+	}
+	public Texture getTexturaInv(){
+		return texInv;
 	}
 	public float getX(){
 		return x;
