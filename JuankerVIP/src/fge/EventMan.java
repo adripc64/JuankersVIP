@@ -7,9 +7,9 @@ import org.lwjgl.input.Mouse;
 
 public final class EventMan {
 	
-	private static ArrayList<Service> serviceList = new ArrayList<Service>();
+	private static ArrayList<EventListener> serviceList = new ArrayList<EventListener>();
 	
-	public static void addListener(Service s) {
+	public static void addListener(EventListener s) {
 		serviceList.add(s);
 	}
 	
