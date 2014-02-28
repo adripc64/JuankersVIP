@@ -63,8 +63,8 @@ public class Game extends Service {
 		// Dibujando mazo 1
 		int wM1 = mazo1.getTex().getW();
 		int hM1 = mazo1.getTex().getH();
-		float xM1 = (Window.getW() / 4.0f);
-		float yM1 = (Window.getH() / 2.0f) - (ball.getTex().getH() / 2);
+		float xM1 = (Window.getW() / 4.0f) - (mazo1.getTex().getW() / 2);
+		float yM1 = (Window.getH() / 2.0f) - (mazo1.getTex().getH() / 2);
 		Render.DrawTex(mazo1.getTex(), xM1, yM1, wM1, hM1, new Color(255, 255, 255));
 		
 	}
