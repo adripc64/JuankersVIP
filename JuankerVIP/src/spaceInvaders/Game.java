@@ -17,6 +17,7 @@ public class Game extends Service implements EventListener {
 	private Cannon cannon;
 	private Invader invader;
 	private Bunker bunker;
+	private int score = 0;
 
 	private Texture textureBackground;
 	
@@ -28,7 +29,8 @@ public class Game extends Service implements EventListener {
 				"data/spaceInvaders/spaceBackground.png");
 		cannon = new Cannon();
 		cannon.setX(Window.getW() / 2 - cannon.getTextura().getW() / 2);
-		font = new Font("data/spaceInvaders/daville.ttf", 48.0f);
+		cannon.setY(Window.getH()-cannon.getTextura().getH()-20);
+		font = new Font("data/spaceInvaders/daville.ttf", 30.0f);
 		EventMan.addListener(this);
 	}
 
@@ -52,8 +54,24 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onMove() {
-		// TODO Auto-generated method stub
+		
+		physicsCannon();
 
+	}
+
+	private void physicsCannon() {
+		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT)){
+			cannon.setX(cannon.getX()-5);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT)){
+			cannon.setX(cannon.getX()+5);
+		}
+		if(cannon.getX()<0){
+			cannon.setX(0);
+		}
+		if(cannon.getX()>Window.getW()-cannon.getTextura().getW()){
+			cannon.setX(Window.getW()-cannon.getTextura().getW());
+		}
 	}
 
 	@Override
@@ -64,25 +82,19 @@ public class Game extends Service implements EventListener {
 
 		Texture cannonTexture = cannon.getTextura();
 		float cannonX = cannon.getX();
-		float cannonY = 20;
+		float cannonY = cannon.getY();
 		int cannonW = cannon.getTextura().getW();
 		int cannonH = cannon.getTextura().getH();
 		Render.DrawTex(cannonTexture, cannonX, cannonY, cannonW, cannonH,
 				new Color(255, 255, 255));
 
-		font.Draw(16, 16, "Lives: " + cannon.getLives(), new Color(255,0,0));
+		font.Draw(30, 16, "Score: " + score, new Color(0,255,0));
+		font.Draw(Window.getW()-150, 16, "Lives: " + cannon.getLives(), new Color(0,255,0));
 	}
 
+	@Override
 	public boolean doEvent(Event e) {
-		if (e.getValue() == Keyboard.KEY_LEFT) {
-			
-		}
-		if (e.getValue() == Keyboard.KEY_RIGHT) {
-
-		}
-		if (e.getValue() == Keyboard.KEY_SPACE) {
-
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -5,6 +5,7 @@ import fge.Texture;
 public class Cannon {
 
 	private float coordinateX;
+	private float coordinateY;
 	private Texture cannonTexture;
 	private int lives;
 
@@ -17,10 +18,18 @@ public class Cannon {
 		return coordinateX;
 	}
 
-	public void setX(float altura) {
-		this.coordinateX = altura;
+	public void setX(float x) {
+		this.coordinateX = x;
 	}
 
+	public float getY() {
+		return coordinateY;
+	}
+
+	public void setY(float y) {
+		this.coordinateY = y;
+	}
+	
 	public Texture getTextura() {
 		return cannonTexture;
 	}
