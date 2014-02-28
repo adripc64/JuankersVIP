@@ -74,12 +74,12 @@ public class Game extends Service {
 		}
 		
 		// Movimiento de las tuberias
-		if(tuberia.getX() > -tuberia.getTextura().getW()){
+		if(tuberia.getX() > 0-tuberia.getTextura().getW()){
 			float tubx = tuberia.getX() - tubSpeed * App.getFTime();
 			tuberia.setX(tubx);
 		} else {
 			tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
-			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion()-100.0f));
+			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion()+tuberia.getTextura().getH()))-tuberia.getTextura().getH();
 			tuberia.setYT(tuby);
 		}
 		
