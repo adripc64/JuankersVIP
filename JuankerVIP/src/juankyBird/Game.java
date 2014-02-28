@@ -3,13 +3,14 @@ package juankyBird;
 import fge.App;
 import fge.Color;
 import fge.Event;
+import fge.EventListener;
 import fge.EventMan;
 import fge.Render;
 import fge.Service;
 import fge.Texture;
 import fge.Window;
 
-public class Game extends Service {
+public class Game extends Service implements EventListener {
 
 	private Pardal pardal;
 	private Tuberia tuberia;
@@ -30,7 +31,7 @@ public class Game extends Service {
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 
 		texBackground = new Texture("PNG", "data/paisaje.png"); // aï¿½o es molt xapussa sa darreglar
-		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pájaro
+		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pï¿½jaro
 		
 		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
 		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv.png");
@@ -92,7 +93,7 @@ public class Game extends Service {
 
 		// Render.DrawTex(texTuboCuerpo, 0, 0, 128, 512, new Color(255,255,255), 0, 0, 1, 512/8.f);
 		
-		// Dibujando tubería 
+		// Dibujando tuberï¿½a 
 		int wT=tuberia.getTextura().getW();
 		int hT=tuberia.getTextura().getH();
 		float xT=tuberia.getX(); // Constante
@@ -112,6 +113,7 @@ public class Game extends Service {
 				new Color(255, 255, 255));	
 	}
 
+	@Override
 	public boolean doEvent(Event e) {
 		if (e.getType() == Event.MOUSE_PRESSED
 				|| e.getType() == Event.KEY_PRESSED) {
