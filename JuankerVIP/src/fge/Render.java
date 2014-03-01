@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 public class Render {
 	
 	public static void DrawText(Font _font, float _x, float _y, String _text, Color _c) {
-		_font.Draw(_x, _y, _text, _c);
+		DrawTex(_font.getStringTexture(_text), _x, _y, _c);
 	}
 	
 	public static void DrawTex(Texture _tex, float _x, float _y, Color _c) {

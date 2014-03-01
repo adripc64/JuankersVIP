@@ -1,5 +1,8 @@
 package fge;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import org.lwjgl.Sys;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;

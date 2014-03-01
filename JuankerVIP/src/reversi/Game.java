@@ -81,7 +81,7 @@ public class Game extends Service implements EventListener {
 	public void onDraw()  {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(), new Color(255,255,255), 0, 0, 800 / 350.f, 600 / 259.f);
 		board.Draw();
-		font.Draw(16, 16, "Black: " + board.getBlackPieces() + "  -  White: " + board.getWhitePieces(), new Color(255,0,0));
+		Render.DrawText(font, 16, 16, "Black: " + board.getBlackPieces() + "  -  White: " + board.getWhitePieces(), new Color(255,0,0));
 	}
 	
 	@Override

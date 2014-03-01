@@ -1,57 +1,41 @@
 package fge;
 
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
-import org.newdawn.slick.util.ResourceLoader;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import java.awt.FontFormatException;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Font {
 
-	private TrueTypeFont m_Font;
-	private UnicodeFont unicodeFont;
-	BitmapFont bmFont;
+	private java.awt.Font font;
+	private float fontSize;
 
 	public Font(String _fontPath, float _size) {
 		
-		/*FreeTypeFontGenerator ftfgen = new FreeTypeFontGenerator(Gdx.files.internal(_fontPath));
-		bmFont = ftfgen.generateFont((int) _size);
-		ftfgen.dispose();*/
-		
 		try {
-			java.awt.Font awtFont = java.awt.Font.createFont(
-					java.awt.Font.TRUETYPE_FONT,
-					ResourceLoader.getResourceAsStream(_fontPath));
-			awtFont = awtFont.deriveFont(_size);
-			unicodeFont = new UnicodeFont(awtFont);
-			unicodeFont.getEffects().add(new ColorEffect(java.awt.Color.white));
-			unicodeFont.addAsciiGlyphs();
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-			unicodeFont.loadGlyphs();
-			GL11.glPopAttrib();
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			//m_Font = new TrueTypeFont(awtFont, false);
-			
-		} catch (Exception e) {
+			font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new FileInputStream(_fontPath));
+			font = font.deriveFont(_size);
+			fontSize = _size;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (FontFormatException e) {
 			e.printStackTrace();
 		}
+
 	}
 
-	public void Draw(float _x, float _y, String _text, Color _c) {
-		org.newdawn.slick.Color _color = new org.newdawn.slick.Color(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		unicodeFont.drawString(_x, _y, _text, _color);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		/*SpriteBatch sprBatch = new SpriteBatch();
-		sprBatch.begin();
-		bmFont.setColor(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
-		bmFont.draw(sprBatch, _text, _x, _y);
-		sprBatch.end();*/
+	public Texture getStringTexture(String str) {
+		
+		BufferedImage bufImg = new BufferedImage(1024, (int) fontSize, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = bufImg.createGraphics();
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2d.setFont(font);
+		g2d.setColor(java.awt.Color.white);	
+		g2d.drawString(str, 0, fontSize);
+		g2d.dispose();
+		
+		return new Texture(bufImg);		
 	}
 }

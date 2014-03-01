@@ -27,6 +27,10 @@ public class Texture {
 		
 	}
 	
+	public Texture(BufferedImage bufImg) {
+		loadTexture(bufImg);
+	}
+	
 	public int getTextureId() { return texId; }
 	public int getW() { return texWidth; }
 	public int getH() { return texHeight; }

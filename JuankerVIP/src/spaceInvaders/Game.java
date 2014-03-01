@@ -87,8 +87,8 @@ public class Game extends Service implements EventListener {
 		Render.DrawTex(cannonTexture, cannonX, cannonY, cannonW, cannonH,
 				new Color(255, 255, 255));
 
-		font.Draw(30, 16, "Score: " + score, new Color(0,255,0));
-		font.Draw(Window.getW()-150, 16, "Lives: " + cannon.getLives(), new Color(0,255,0));
+		Render.DrawText(font, 30, 16, "Score: " + score, new Color(0,255,0));
+		Render.DrawText(font, Window.getW()-150, 16, "Lives: " + cannon.getLives(), new Color(0,255,0));
 	}
 
 	@Override

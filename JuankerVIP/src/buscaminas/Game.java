@@ -54,6 +54,6 @@ public class Game extends Service {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
 				new Color(255, 255, 255), 0, 0, 800 / 350.f, 600 / 259.f);
 		board.draw();
-		font.Draw(16, 16, "Buscaminas", new Color(255, 255, 0));
+		Render.DrawText(font, 16, 16, "Buscaminas", new Color(255, 255, 0));
 	}
 }
