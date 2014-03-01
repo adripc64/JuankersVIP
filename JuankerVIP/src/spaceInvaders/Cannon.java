@@ -2,7 +2,7 @@ package spaceInvaders;
 
 import fge.Texture;
 
-public class Cannon {
+public class Cannon implements Drawable {
 
 	private float coordinateX;
 	private float coordinateY;
@@ -30,24 +30,24 @@ public class Cannon {
 	public void setY(float y) {
 		this.coordinateY = y;
 	}
-	
-	public Texture getTextura() {
+
+	public Texture getTexture() {
 		return cannonTexture;
 	}
-	
-	public void die(){
-		lives-=1;
+
+	public void die() {
+		lives -= 1;
 	}
 
-	public void setLive(){
-		lives+=1;
+	public void setLive() {
+		lives += 1;
 	}
-	
-	public int getLives(){
-		return  lives;
+
+	public int getLives() {
+		return lives;
 	}
-	
-	public float getShooter(){
-		return coordinateX+cannonTexture.getW()/2;
+
+	public float getShooter() {
+		return coordinateX + cannonTexture.getW() / 2;
 	}
 }
