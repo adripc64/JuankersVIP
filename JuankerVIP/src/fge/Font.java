@@ -19,11 +19,11 @@ public class Font {
 
 	public Font(String _fontPath, float _size) {
 		
-		FreeTypeFontGenerator ftfgen = new FreeTypeFontGenerator(Gdx.files.internal(_fontPath));
+		/*FreeTypeFontGenerator ftfgen = new FreeTypeFontGenerator(Gdx.files.internal(_fontPath));
 		bmFont = ftfgen.generateFont((int) _size);
-		ftfgen.dispose();
+		ftfgen.dispose();*/
 		
-		/*try {
+		try {
 			java.awt.Font awtFont = java.awt.Font.createFont(
 					java.awt.Font.TRUETYPE_FONT,
 					ResourceLoader.getResourceAsStream(_fontPath));
@@ -40,18 +40,18 @@ public class Font {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	public void Draw(float _x, float _y, String _text, Color _c) {
-		/*org.newdawn.slick.Color _color = new org.newdawn.slick.Color(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
+		org.newdawn.slick.Color _color = new org.newdawn.slick.Color(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		unicodeFont.drawString(_x, _y, _text, _color);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);*/
-		SpriteBatch sprBatch = new SpriteBatch();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		/*SpriteBatch sprBatch = new SpriteBatch();
 		sprBatch.begin();
 		bmFont.setColor(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
 		bmFont.draw(sprBatch, _text, _x, _y);
-		sprBatch.end();
+		sprBatch.end();*/
 	}
 }
