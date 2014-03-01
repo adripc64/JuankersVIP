@@ -14,10 +14,12 @@ import fge.Event.EventType;
 
 public class MenuPausa extends Service implements EventListener {
 	private Texture texReini;
+	private Texture texApa;
 	private Game game;
 	
 	public MenuPausa() {
 		texReini = new Texture("PNG", "data/reiniciar.png");
+		texApa= new Texture("PNG", "data/apagar.png");
 	}
 	
 	@Override
@@ -34,11 +36,16 @@ public class MenuPausa extends Service implements EventListener {
 
 			int mx = Mouse.getX();
 			int my = Mouse.getY();
-			if(mx>=(Window.getW()-30)/2&&mx<(Window.getW()-30)-30 && my>=(Window.getH()-30)/2 && my<(Window.getH()-30)+30 ){
+			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW()-30) && (my>=(Window.getH()-30)/2 && my<=(Window.getH()+30/2) )){
 				stop();
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
 				game.start();
 			}
+			/*if(mx>=(Window.getW()-20)/2&&mx<(Window.getW()-20)-30 && my>=(Window.getH()-20)/2 && my<(Window.getH()-20)+30 ){
+				stop();
+				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
+				
+			}*/
 
 		}
 		return false;
@@ -69,7 +76,7 @@ public class MenuPausa extends Service implements EventListener {
 
 	@Override
 	protected void onDraw() {
-		Render.DrawTex(texReini, (Window.getW()-30)/2, (Window.getH()-30)/2, 100, 100, new Color(255, 255, 255));
-		
+		Render.DrawTex(texReini, (Window.getW()-100)/2, (Window.getH()-30)/2, 100, 100, new Color(255, 255, 255));
+		Render.DrawTex(texApa, (Window.getW()+50)/2, (Window.getH()-30)/2, 55, 55, new Color(255, 255, 255));
 	}
 }
