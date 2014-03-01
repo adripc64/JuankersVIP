@@ -1,15 +1,16 @@
-package juankyBird;
+package airHockey;
 
 import fge.App;
 import fge.Service;
 import fge.ServiceMan;
 
-public class Main extends Service {
+public class Main extends Service{
+
 	public static Main main = new Main();
 	public static Game game = new Game();
 	
 	public static void main(String[] args) {
-		App.run(main, 480, 640);
+		App.run(main, 1024, 512);
 	}
 	
 	@Override
@@ -19,7 +20,7 @@ public class Main extends Service {
 
 	@Override
 	protected void onStop() {
-		game.pause();
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -46,4 +47,5 @@ public class Main extends Service {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

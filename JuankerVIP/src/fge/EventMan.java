@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import fge.Event.EventType;
+
 public final class EventMan {
 	
-	private static ArrayList<Service> serviceList = new ArrayList<Service>();
+	private static ArrayList<EventListener> serviceList = new ArrayList<EventListener>();
 	
-	public static void addListener(Service s) {
+	public static void addListener(EventListener s) {
 		serviceList.add(s);
 	}
 	
@@ -30,17 +32,17 @@ public final class EventMan {
 		
 		if (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
-				_e = new Event(Event.KEY_PRESSED, Keyboard.getEventKey());
+				_e = new Event(EventType.KEY_PRESSED, Keyboard.getEventKey());
 			} else {
-				_e = new Event(Event.KEY_RELEASED, Keyboard.getEventKey());
+				_e = new Event(EventType.KEY_RELEASED, Keyboard.getEventKey());
 			}			
 		}
 		
 		if (Mouse.next()) {
 		    if (Mouse.getEventButtonState()) {
-		    	_e = new Event(Event.MOUSE_PRESSED, Mouse.getEventButton());
+		    	_e = new Event(EventType.MOUSE_PRESSED, Mouse.getEventButton());
 		    } else {
-		    	_e = new Event(Event.MOUSE_RELEASED, Mouse.getEventButton());
+		    	_e = new Event(EventType.MOUSE_RELEASED, Mouse.getEventButton());
 		    }
 		}
 		

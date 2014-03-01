@@ -3,36 +3,46 @@ package juankyBird;
 import fge.App;
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
+import fge.EventListener;
 import fge.EventMan;
 import fge.Render;
 import fge.Service;
 import fge.Texture;
 import fge.Window;
 
-public class Game extends Service {
+public class Game extends Service implements EventListener {
 
 	private Pardal pardal;
 	private Tuberia tuberia;
+	private Tuberia tuberia2;
 	private float aceleracion;
 	private float tubSpeed = 200.0f;
 	private Texture texBackground;
 	private float backgroundUX = 0.0f;
-	private float backgroundSpeed = 30.0f;
+	private float backgroundSpeed = 40.0f;
+	private boolean contador=false;
+	private int buro;
+	private float posPardal;
 	
 	private Texture texTuboCuerpo;
+	private Texture texTuboCuerpoInv;
 
 	@Override
 	public void onStart() {
 		aceleracion = 0.0f;
 		pardal = new Pardal();
 		tuberia=new Tuberia();
+		tuberia2=new Tuberia();
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
-
+		buro=0;
+		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
+			
 		texBackground = new Texture("PNG", "data/paisaje.png"); // aï¿½o es molt xapussa sa darreglar
-		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pájaro
+		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el pï¿½jaro
 		
 		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
-		
+		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv.png");
 		EventMan.addListener(this);
 	}
 
@@ -57,7 +67,7 @@ public class Game extends Service {
 	public void onMove() { // Constante descendente e implementacion de onUp
 		// Movimiento del background
 		backgroundUX += (backgroundSpeed / Window.getW()) * App.getFTime();
-		
+		buro++;
 		// Movimiento del pajaro
 		if(pardal.getAltura() >= Window.getH() - 60){ // Llega arriba de la pantalla el pajaro
 			aceleracion = 250.0f;
@@ -71,18 +81,36 @@ public class Game extends Service {
 		}
 		if (pardal.getAltura() < 0) {
 			pardal.setAltura(0);
+			pause();
 		}
 		
 		// Movimiento de las tuberias
-		if(tuberia.getX() > -tuberia.getTextura().getW()){
+		if(tuberia.getX() > 0-tuberia.getTextura().getW()){
 			float tubx = tuberia.getX() - tubSpeed * App.getFTime();
 			tuberia.setX(tubx);
 		} else {
 			tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
-			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion()-100.0f));
+			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
 			tuberia.setYT(tuby);
 		}
+		//tuberia 2
 		
+		if((tuberia.getX()<=(Window.getW()/2+tuberia.getTextura().getW()/2)) && contador==false){
+			contador=true;
+		}
+		if(tuberia2.getX() > 0-tuberia2.getTextura().getW()&&contador==true){
+			float tubx2 = tuberia2.getX() - tubSpeed * App.getFTime();
+			tuberia2.setX(tubx2);
+		} else {
+			tuberia2.setX(Window.getH()+tuberia2.getTextura().getW()+50);
+			float tuby2 = (float) (Math.random() * (Window.getH()-tuberia2.getSeparacion())-tuberia.getSeparacion()-100);
+			tuberia2.setYT(tuby2);
+		}
+		//vamos a empezar con las colisiones
+		System.out.println(pardal.getAltura()+" ejeY  "+tuberia.getTextura().getH());
+		if(pardal.getAltura()<=(tuberia.getTextura().getH()-30)&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
+			pause();
+		}
 	}
 
 	@Override
@@ -90,35 +118,49 @@ public class Game extends Service {
 		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
 				new Color(255, 255, 255), backgroundUX, 0.0f, 1.0f, 1.0f);
 
-		Render.DrawTex(texTuboCuerpo, 0, 0, 128, 512, new Color(255,255,255), 0, 0, 1, 512/8.f);
-		
-		// Dibujando tubería 
+		// Dibujando tuberia 
 		int wT=tuberia.getTextura().getW();
 		int hT=tuberia.getTextura().getH();
 		float xT=tuberia.getX(); // Constante
 		float yT=tuberia.getYT();
-		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
+		Render.DrawTex(tuberia.getTexturaInv(), xT, yT, wT, hT, new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpoInv, xT, 0, wT, yT+hT-70, new Color(255, 255, 255));
+			
 		yT+=hT+tuberia.getSeparacion();
 		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, new Color(255, 255, 255));
+		//tuberia2
+		int wT2=tuberia2.getTextura().getW();
+		int hT2=tuberia2.getTextura().getH();
+		float xT2=tuberia2.getX(); // Constante
+		float yT2=tuberia2.getYT();
+		Render.DrawTex(tuberia2.getTexturaInv(), xT2, yT2, wT2, hT2, new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpoInv, xT2, 0, wT2, yT2+hT2-70, new Color(255, 255, 255));
+			
+		yT2+=hT2+tuberia2.getSeparacion();
+		Render.DrawTex(tuberia2.getTextura(), xT2, yT2, wT2, hT2, new Color(255, 255, 255));
+		Render.DrawTex(texTuboCuerpo, xT2, Window.getH(), wT2,yT2-Window.getH()+80, new Color(255, 255, 255));
+		
 		
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
-		float x = (Window.getW() - w) / 3.0f;
+		float x = posPardal;
 		float y = Window.getH() - h - pardal.getAltura();
 		Render.DrawTex(pardal.getTextura(), x, y, w, h,
 				new Color(255, 255, 255));	
 	}
 
+	@Override
 	public boolean doEvent(Event e) {
-		if (e.getType() == Event.MOUSE_PRESSED
-				|| e.getType() == Event.KEY_PRESSED) {
+		if (e.getType() == EventType.MOUSE_PRESSED
+				|| e.getType() == EventType.KEY_PRESSED) {
 
 			// int mx = Mouse.getX();
 			// int my = Mouse.getY();
 
 			// AcÃ­ es cuan li has de donar el empuje...
-			aceleracion = -400.0f;
+			aceleracion = -350.0f;
 
 		}
 		return false;

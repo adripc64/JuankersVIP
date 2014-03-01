@@ -6,6 +6,8 @@ import reversi.Board.PieceColor;
 
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
+import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
 import fge.Keyboard;
@@ -15,7 +17,7 @@ import fge.Service;
 import fge.Texture;
 import fge.Window;
 
-public class Game extends Service {
+public class Game extends Service implements EventListener {
 	
 	private class GameState {
 		private Player currentPlayer;
@@ -82,8 +84,9 @@ public class Game extends Service {
 		font.Draw(16, 16, "Black: " + board.getBlackPieces() + "  -  White: " + board.getWhitePieces(), new Color(255,0,0));
 	}
 	
+	@Override
 	public boolean doEvent(Event e) {
-		if (e.getType() == Event.MOUSE_PRESSED) {
+		if (e.getType() == EventType.MOUSE_PRESSED) {
 			
 			int mx = Mouse.getX();
 			int my = Mouse.getY();	
@@ -121,7 +124,7 @@ public class Game extends Service {
 				return true;
 			}
 			
-		} else if (e.getType() == Event.KEY_RELEASED) {
+		} else if (e.getType() == EventType.KEY_RELEASED) {
 			if (e.getValue() == Keyboard.KEY_LEFT) {
 				undoMove();
 			}
