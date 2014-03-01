@@ -4,17 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 public class Render {
 	
-	private static void initGL() {
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
-		GL11.glLoadIdentity();
-		GL11.glOrtho(0, Window.getW(), Window.getH(), 0, 1, -1);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
-		// Enable transparency
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	}
-	
 	public static void DrawText(Font _font, float _x, float _y, String _text, Color _c) {
 		_font.Draw(_x, _y, _text, _c);
 	}
@@ -32,8 +21,7 @@ public class Render {
 		GL11.glColor4f(_c.getRf(), _c.getGf(), _c.getBf(), _c.getAf());
 		
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
-		_tex.bind(); // or GL11.glBind(texture.getTextureID());
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, _tex.getTextureId());
 		 
 		GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(_ux,_uy);
@@ -58,7 +46,7 @@ public class Render {
 	 */
 	public static void DrawPoint(float x, float y, Color color) {
 		
-		initGL();
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
 		
 		GL11.glPushMatrix();			
@@ -93,6 +81,7 @@ public class Render {
 	 */
 	public static void DrawLine(float x1, float y1, float x2, float y2, Color color, float width) {
 		
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
 		GL11.glLineWidth(width);
 		

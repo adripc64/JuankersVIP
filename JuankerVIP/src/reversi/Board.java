@@ -66,10 +66,10 @@ public class Board {
 		m_Rows = _rows;
 		m_CellSize = 64;
 		
-		texBackground = new Texture("PNG", "data/reversi_board512.png");
-		texPieceBlack = new Texture("PNG", "data/piece_black64.png");
-		texPieceWhite = new Texture("PNG", "data/piece_white64.png");
-		texValid = new Texture("PNG", "data/valid64.png");
+		texBackground = new Texture("data/reversi_board512.png");
+		texPieceBlack = new Texture("data/piece_black64.png");
+		texPieceWhite = new Texture("data/piece_white64.png");
+		texValid = new Texture("data/valid64.png");
 		
 		boardCells = new Cell[m_Cols * m_Rows];
 		for (int i = 0; i < boardCells.length; i++) boardCells[i] = new Cell();

@@ -25,8 +25,7 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onStart() {
-		textureBackground = new Texture("PNG",
-				"data/spaceInvaders/spaceBackground.png");
+		textureBackground = new Texture("data/spaceInvaders/spaceBackground.png");
 		cannon = new Cannon();
 		cannon.setX(Window.getW() / 2 - cannon.getTextura().getW() / 2);
 		cannon.setY(Window.getH()-cannon.getTextura().getH()-20);

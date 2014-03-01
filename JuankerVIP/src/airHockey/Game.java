@@ -21,7 +21,7 @@ public class Game extends Service implements EventListener {
 	@Override
 	public void onStart() {
 		// Fondo de pantalla
-		texBackground = new Texture("PNG", "data/airhockey/campo.png");
+		texBackground = new Texture("data/airhockey/campo.png");
 		
 		// Pelota
 		ball = new Ball();

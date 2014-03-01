@@ -8,7 +8,7 @@ public class Mazo {
 	private float yMazo;
 	
 	public Mazo(){
-		tex = new Texture("PNG", "data/airhockey/mazo_blanco.png");
+		tex = new Texture("data/airhockey/mazo_blanco.png");
 	}
 
 	public Texture getTex() {

@@ -18,8 +18,8 @@ public class MenuPausa extends Service implements EventListener {
 	private Game game;
 	
 	public MenuPausa() {
-		texReini = new Texture("PNG", "data/reiniciar.png");
-		texApa= new Texture("PNG", "data/apagar.png");
+		texReini = new Texture("data/reiniciar.png");
+		texApa= new Texture("data/apagar.png");
 	}
 	
 	@Override

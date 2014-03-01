@@ -43,11 +43,11 @@ public class Game extends Service implements EventListener {
 		buro=0;
 		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
 			
-		texBackground = new Texture("PNG", "data/paisaje.png"); // a�o es molt xapussa sa darreglar
+		texBackground = new Texture("data/paisaje.png"); // a�o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
 		
-		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
-		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv3.png");
+		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
+		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
 		EventMan.addListener(this);
 		
 		pausa = new MenuPausa();

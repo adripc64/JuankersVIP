@@ -11,7 +11,7 @@ public class Cannon {
 	private float shooter;
 
 	public Cannon() {
-		cannonTexture = new Texture("PNG", "data/spaceInvaders/cannon.png");
+		cannonTexture = new Texture("data/spaceInvaders/cannon.png");
 		lives = 3;
 	}
 

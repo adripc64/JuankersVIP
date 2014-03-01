@@ -49,7 +49,7 @@ public class Game extends Service implements EventListener {
 		
 		EventMan.addListener(this);
 		
-		texBackground = new Texture("PNG", "data/grey_wash_wall512.png");
+		texBackground = new Texture("data/grey_wash_wall512.png");
 		
 		playerBlack = new Player("Player 1", PieceColor.BLACK, true);
 		playerWhite = new Player("Player 2", PieceColor.WHITE, false);

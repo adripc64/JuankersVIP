@@ -18,7 +18,7 @@ public class Game extends Service {
 	@Override
 	public void onStart() {
 
-		texBackground = new Texture("PNG", "data/grey_wash_wall512.png");
+		texBackground = new Texture("data/grey_wash_wall512.png");
 		board = new Board(10, 10);
 		minefield = new Minefield(16, 16, 20);
 		System.out.println(minefield);
