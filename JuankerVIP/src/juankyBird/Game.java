@@ -45,7 +45,7 @@ public class Game extends Service implements EventListener {
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
 		
 		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
-		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv.png");
+		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv3.png");
 		EventMan.addListener(this);
 	}
 
