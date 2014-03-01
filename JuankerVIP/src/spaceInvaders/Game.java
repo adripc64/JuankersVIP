@@ -135,7 +135,7 @@ public class Game extends Service implements EventListener {
 	@Override
 	protected void onDraw() {
 
-		Render.DrawTex(textureBackground, 0, 0, Window.getW(), Window.getH(),
+		Render.DrawTexture(textureBackground, 0, 0, Window.getW(), Window.getH(), 0,
 				new Color(255, 255, 255));
 
 		Texture cannonTexture = cannon.getTexture();
@@ -143,7 +143,7 @@ public class Game extends Service implements EventListener {
 		float cannonY = cannon.getY();
 		int cannonW = cannon.getTexture().getW();
 		int cannonH = cannon.getTexture().getH();
-		Render.DrawTex(cannonTexture, cannonX, cannonY, cannonW, cannonH,
+		Render.DrawTexture(cannonTexture, cannonX, cannonY, cannonW, cannonH, 0,
 				new Color(255, 255, 255));
 
 		Render.DrawText(font, 30, 16, "Score: " + score, new Color(0, 255, 0));
@@ -167,7 +167,7 @@ public class Game extends Service implements EventListener {
 				invaderY = invader.getY();
 				invaderW = invaderTexture.getW();
 				invaderH = invaderTexture.getH();
-				Render.DrawTex(invaderTexture, invaderX, invaderY, invaderW,
+				Render.DrawTexture(invaderTexture, invaderX, invaderY, invaderW, 0,
 						invaderH, new Color(0, 0, 255));
 			}
 		}
