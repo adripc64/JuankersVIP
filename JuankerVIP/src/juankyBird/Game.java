@@ -75,8 +75,8 @@ public class Game extends Service implements EventListener {
 		}
 		if (pardal.getAltura() >= 0 && pardal.getAltura() < Window.getH()) {
 			aceleracion += 750.0f * App.getFTime();
-			if (aceleracion > 250)
-				aceleracion = 250.0f;
+			if (aceleracion > 300)
+				aceleracion = 300.0f;
 			pardal.setAltura(pardal.getAltura() - aceleracion * App.getFTime());
 		}
 		if (pardal.getAltura() < 0) {
@@ -107,8 +107,21 @@ public class Game extends Service implements EventListener {
 			tuberia2.setYT(tuby2);
 		}
 		//vamos a empezar con las colisiones
-		System.out.println(pardal.getAltura()+" ejeY  "+tuberia.getTextura().getH());
-		if(pardal.getAltura()<=(tuberia.getTextura().getH()-30)&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
+		//colisio amb la primera tuberia inferior
+		if(pardal.getAltura()<=(tuberia.getTextura().getH()-40-tuberia.getYT())&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
+			pause();
+		}
+		//colisio amb la primera tuberia superior
+		if(pardal.getAltura()>=(tuberia.getTexturaInv().getH()+90-tuberia.getYT())&&(tuberia.getX()-tuberia.getTexturaInv().getW()/2)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTexturaInv().getW()/2+50)){
+			pause();
+		}
+		//colisio amb la segona tuberia inferior
+		if(pardal.getAltura()<=(tuberia2.getTextura().getH()-30-tuberia2.getYT())&&(tuberia2.getX()-tuberia2.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia2.getX()+tuberia2.getTextura().getW()/2)){
+			pause();
+		}
+		//colisio amb la segona tuberia superior
+		System.out.println(tuberia2.getYT());
+		if(pardal.getAltura()>=(tuberia2.getTexturaInv().getH()+90-tuberia2.getYT())&&(tuberia2.getX()-tuberia2.getTexturaInv().getW()/2)<=(posPardal)&&posPardal<=(tuberia2.getX()+tuberia2.getTexturaInv().getW()/2+50)){
 			pause();
 		}
 	}
