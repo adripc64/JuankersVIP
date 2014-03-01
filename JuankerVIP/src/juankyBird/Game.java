@@ -107,9 +107,8 @@ public class Game extends Service implements EventListener {
 			tuberia2.setYT(tuby2);
 		}
 		//vamos a empezar con las colisiones
-		System.out.println(pardal.getAltura()+" ejeY  "+tuberia.getYT());
-		System.out.println(posPardal+" ejeX "+tuberia.getX());
-		if(pardal.getAltura()<=tuberia.getYT()){//&&(-posPardal)==tuberia.getX()){
+		System.out.println(pardal.getAltura()+" ejeY  "+tuberia.getTextura().getH());
+		if(pardal.getAltura()<=(tuberia.getTextura().getH()-70)&&(tuberia.getX()-tuberia.getTextura().getW()/2)<=(posPardal)){
 			pause();
 		}
 	}
