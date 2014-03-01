@@ -19,7 +19,7 @@ public class Main extends Service {
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
+		game.pause();
 		
 	}
 
