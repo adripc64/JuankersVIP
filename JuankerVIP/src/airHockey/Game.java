@@ -72,6 +72,7 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo1(){
+
 		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT))
 			mazo1.setxMazo(mazo1.getxMazo() - 5.0f);
 		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT))
@@ -79,8 +80,8 @@ public class Game extends Service implements EventListener {
 		
 		if(mazo1.getxMazo() < 0)					// Si se sale por la parte izquierda de la pantalla
 			mazo1.setxMazo(0);
-		if(mazo1.getxMazo() > Window.getW() / 2)	// Si se sale de su campo
-			mazo1.setxMazo(Window.getW() / 2);
+		if(mazo1.getxMazo()+mazo1.getTex().getW() > Window.getW() / 2)	// Si se sale de su campo
+			mazo1.setxMazo(Window.getW() / 2 - mazo1.getTex().getW());
 		if(mazo1.getyMazo() < 0)					// Si se sale por la parte de ARRIBA de la pantalla
 			mazo1.setyMazo(0);
 		if(mazo1.getyMazo() > Window.getH())		// Si se sale por la parte de ABAJO de la pantalla
@@ -102,8 +103,8 @@ public class Game extends Service implements EventListener {
 		// Dibujando mazo 1
 		int wM1 = mazo1.getTex().getW();
 		int hM1 = mazo1.getTex().getH();
-		float xM1 = (Window.getW() / 4.0f) - (mazo1.getTex().getW() / 2);
-		float yM1 = (Window.getH() / 2.0f) - (mazo1.getTex().getH() / 2);
+		float xM1 = mazo1.getxMazo();
+		float yM1 = mazo1.getyMazo();
 		Render.DrawTex(mazo1.getTex(), xM1, yM1, wM1, hM1, new Color(255, 255, 255));
 	}
 	
