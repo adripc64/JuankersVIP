@@ -28,26 +28,28 @@ public final class EventMan {
 	
 	private static Event nextEvent() {
 		
-		Event _e = null;
+		Event e = null;
 		
 		if (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
-				_e = new Event(EventType.KEY_PRESSED, Keyboard.getEventKey());
+				e = new Event(EventType.KEY_PRESSED, Keyboard.getEventKey());
 			} else {
-				_e = new Event(EventType.KEY_RELEASED, Keyboard.getEventKey());
+				e = new Event(EventType.KEY_RELEASED, Keyboard.getEventKey());
 			}			
 		}
 		
 		if (Mouse.next()) {
-		    if (Mouse.getEventButtonState()) {
-		    	_e = new Event(EventType.MOUSE_PRESSED, Mouse.getEventButton());
-		    } else {
-		    	_e = new Event(EventType.MOUSE_RELEASED, Mouse.getEventButton());
-		    }
+			if (Mouse.getEventDX() != 0 || Mouse.getEventDY() != 0)
+				e = new Event(EventType.MOUSE_MOVE, 0);
+			else if (Mouse.getEventButtonState())
+		    	e = new Event(EventType.MOUSE_PRESSED, Mouse.getEventButton());
+			else
+		    	e = new Event(EventType.MOUSE_RELEASED, Mouse.getEventButton());
+		    
 		}
 		
 		
-		return _e;
+		return e;
 	}
 
 }

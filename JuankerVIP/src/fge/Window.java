@@ -29,14 +29,17 @@ public class Window {
 	public static int getH() { return org.lwjgl.opengl.Display.getHeight(); }
 	
 	private void initGL() {
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		// Enable transparency
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, m_W, m_H, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		
-		// Enable transparency
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
 	}
 	
 }

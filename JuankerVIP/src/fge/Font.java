@@ -11,15 +11,17 @@ public class Font {
 		try {
 			java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream(_fontPath));
 			awtFont = awtFont.deriveFont(_size);
-			m_Font = new TrueTypeFont(awtFont, false);
+			//m_Font = new TrueTypeFont(awtFont, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 	}
 	
 	public void Draw(float _x, float _y, String _text, Color _c) {
-		org.newdawn.slick.Color _color = new org.newdawn.slick.Color(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
-		m_Font.drawString(_x, _y, _text, _color);
+		if (m_Font != null) {
+			org.newdawn.slick.Color _color = new org.newdawn.slick.Color(_c.getR(),	_c.getG(), _c.getB(), _c.getA());
+			m_Font.drawString(_x, _y, _text, _color);
+		}
 	}
 
 }

@@ -16,7 +16,13 @@ public final class App {
 	
 	@SuppressWarnings("unused")
 	private static Window window;
-		
+	
+	/***
+	 * 
+	 * @param s
+	 * @param w
+	 * @param h
+	 */
 	public static void run(Service s, int w, int h) {
 		
 		window = new Window(w, h);

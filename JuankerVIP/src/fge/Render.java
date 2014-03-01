@@ -4,6 +4,17 @@ import org.lwjgl.opengl.GL11;
 
 public class Render {
 	
+	private static void initGL() {
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, Window.getW(), Window.getH(), 0, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		// Enable transparency
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
 	public static void DrawText(Font _font, float _x, float _y, String _text, Color _c) {
 		_font.Draw(_x, _y, _text, _c);
 	}
@@ -38,30 +49,57 @@ public class Render {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 	}
 	
-	public static void DrawPoint(float _px, float _py, Color _c) {
+	/***
+	 * Renderiza un punto en la pantalla.
+	 * 
+	 * @param x Coordenada x del punto.
+	 * @param y Coordenada y del punto.
+	 * @param color Color del punto.
+	 */
+	public static void DrawPoint(float x, float y, Color color) {
 		
-		GL11.glColor4f(_c.getRf(), _c.getGf(), _c.getBf(), _c.getAf());
+		initGL();
+		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
 		
 		GL11.glPushMatrix();			
 			GL11.glBegin(GL11.GL_POINTS);
-				GL11.glVertex2f(_px, _py);
+				GL11.glVertex2f(x, y);
 			GL11.glEnd();
 		GL11.glPopMatrix();
 	}
 	
-	public static void DrawLine(float _x1, float _y1, float _x2, float _y2, Color _c) {
-		DrawLine(_x1, _y1, _x2, _y2, _c, 1.0f);
+	/***
+	 * Renderiza una línea en la pantalla.
+	 * 
+	 * @param x1 Coordenada x del extremo inicial de la línea.
+	 * @param y1 Coordenada y del extremo inicial de la línea.
+	 * @param x2 Coordenada x del extremo final de la línea.
+	 * @param y2 Coordenada y del extremo final de la línea.
+	 * @param color Color de la línea.
+	 */
+	public static void DrawLine(float x1, float y1, float x2, float y2, Color color) {
+		DrawLine(x1, y1, x2, y2, color, 1.0f);
 	}
 	
-	public static void DrawLine(float _x1, float _y1, float _x2, float _y2, Color _c, float _width) {
+	/***
+	 * Renderiza una línea en la pantalla.
+	 * 
+	 * @param x1 Coordenada x del extremo inicial de la línea.
+	 * @param y1 Coordenada y del extremo inicial de la línea.
+	 * @param x2 Coordenada x del extremo final de la línea.
+	 * @param y2 Coordenada y del extremo final de la línea.
+	 * @param color Color de la línea.
+	 * @param width Grosor de la línea.
+	 */
+	public static void DrawLine(float x1, float y1, float x2, float y2, Color color, float width) {
 		
-		GL11.glColor4f(_c.getRf(), _c.getGf(), _c.getBf(), _c.getAf());
-		GL11.glLineWidth(_width);
+		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
+		GL11.glLineWidth(width);
 		
 		GL11.glPushMatrix();			
 			GL11.glBegin(GL11.GL_LINES);
-				GL11.glVertex2f(_x1, _y1);
-				GL11.glVertex2f(_x2, _y2);
+				GL11.glVertex2f(x1, y1);
+				GL11.glVertex2f(x2, y2);
 			GL11.glEnd();
 		GL11.glPopMatrix();
 	}
@@ -107,26 +145,39 @@ public class Render {
 		GL11.glPopMatrix();
 	}
 	
-	
-	public static void DrawCircle(float _x, float _y, float _r, Color _c) {
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param r
+	 * @param c
+	 */
+	public static void DrawCircle(float x, float y, float r, Color c) {
 		
-		GL11.glColor4f(_c.getRf(), _c.getGf(), _c.getBf(), _c.getAf());
+		GL11.glColor4f(c.getRf(), c.getGf(), c.getBf(), c.getAf());
 		
 		GL11.glPushMatrix();
-			GL11.glTranslatef(_x, _y, 0);
+			GL11.glTranslatef(x, y, 0);
 			
 			GL11.glBegin(GL11.GL_LINE_LOOP);
 				for (int angle = 0; angle <= 360; angle += 5) {
 					double _a = angle * Math.PI / 180;
-					GL11.glVertex2d(_x + _r * Math.cos(_a), _y + _r * Math.sin(_a));
+					GL11.glVertex2d(x + r * Math.cos(_a), y + r * Math.sin(_a));
 				}
 			GL11.glEnd();
 		GL11.glPopMatrix();
 	}
 
-	public static void DrawFilledCircle(float _x, float _y, float _r, Color _c) {
+	/***
+	 * 
+	 * @param x
+	 * @param y
+	 * @param r
+	 * @param c
+	 */
+	public static void DrawFilledCircle(float x, float y, float r, Color c) {
 		
-		GL11.glColor4f(_c.getRf(), _c.getGf(), _c.getBf(), _c.getAf());
+		GL11.glColor4f(c.getRf(), c.getGf(), c.getBf(), c.getAf());
 		
 		GL11.glPushMatrix();
 			//GL11.glTranslatef(_x, _y, 0);
@@ -134,7 +185,7 @@ public class Render {
 			GL11.glBegin(GL11.GL_TRIANGLE_FAN);
 				for (int angle = 0; angle <= 360; angle += 5) {
 					double _a = angle * Math.PI / 180;
-					GL11.glVertex2d(_x + _r * Math.cos(_a), _y + _r * Math.sin(_a));
+					GL11.glVertex2d(x + r * Math.cos(_a), y + r * Math.sin(_a));
 				}
 			GL11.glEnd();
 		GL11.glPopMatrix();
