@@ -14,6 +14,8 @@ import fge.Texture;
 import fge.Window;
 
 public class Game extends Service implements EventListener {
+	
+	private MenuPausa pausa;
 
 	private Pardal pardal;
 	private Tuberia tuberia;
@@ -47,6 +49,10 @@ public class Game extends Service implements EventListener {
 		texTuboCuerpo = new Texture("PNG", "data/tubo_cuerpo.png");
 		texTuboCuerpoInv = new Texture("PNG", "data/tubo_cuerpoInv3.png");
 		EventMan.addListener(this);
+		
+		pausa = new MenuPausa();
+		ServiceMan.addService(pausa);
+		EventMan.addListener(pausa);
 	}
 
 	@Override
@@ -56,7 +62,7 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onPause() {
-		
+		pausa.start();
 	}
 
 	@Override
