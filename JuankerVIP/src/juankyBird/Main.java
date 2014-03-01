@@ -7,6 +7,7 @@ import fge.ServiceMan;
 public class Main extends Service {
 	public static Main main = new Main();
 	public static Game game = new Game();
+	public static MenuPausa pausa=new MenuPausa();
 	
 	public static void main(String[] args) {
 		App.run(main, 480, 640);
@@ -19,13 +20,13 @@ public class Main extends Service {
 
 	@Override
 	protected void onStop() {
-		game.pause();
+		
 		
 	}
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
+		ServiceMan.runService(pausa);
 		
 	}
 

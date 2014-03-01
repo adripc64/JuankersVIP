@@ -6,8 +6,10 @@ import fge.Event;
 import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
+import fge.Mouse;
 import fge.Render;
 import fge.Service;
+import fge.ServiceMan;
 import fge.Texture;
 import fge.Window;
 
@@ -27,6 +29,7 @@ public class Game extends Service implements EventListener {
 	
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
+
 
 	@Override
 	public void onStart() {
@@ -53,8 +56,7 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -120,7 +122,6 @@ public class Game extends Service implements EventListener {
 			pause();
 		}
 		//colisio amb la segona tuberia superior
-		System.out.println(tuberia2.getYT());
 		if(pardal.getAltura()>=(tuberia2.getTexturaInv().getH()+90-tuberia2.getYT())&&(tuberia2.getX()-tuberia2.getTexturaInv().getW()/2)<=(posPardal)&&posPardal<=(tuberia2.getX()+tuberia2.getTexturaInv().getW()/2+50)){
 			pause();
 		}
@@ -169,8 +170,8 @@ public class Game extends Service implements EventListener {
 		if (e.getType() == EventType.MOUSE_PRESSED
 				|| e.getType() == EventType.KEY_PRESSED) {
 
-			// int mx = Mouse.getX();
-			// int my = Mouse.getY();
+//			int mx = Mouse.getX();
+//			int my = Mouse.getY();
 
 			// Ací es cuan li has de donar el empuje...
 			aceleracion = -350.0f;
