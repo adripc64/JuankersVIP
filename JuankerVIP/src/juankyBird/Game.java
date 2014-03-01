@@ -23,6 +23,7 @@ public class Game extends Service implements EventListener {
 	private float backgroundSpeed = 40.0f;
 	private boolean contador=false;
 	private int buro;
+	private float posPardal;
 	
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
@@ -35,6 +36,7 @@ public class Game extends Service implements EventListener {
 		tuberia2=new Tuberia();
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 		buro=0;
+		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
 			
 		texBackground = new Texture("PNG", "data/paisaje.png"); // a�o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
@@ -46,9 +48,7 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	public void onStop() {
-		if(buro==10){
-			pause();
-		}
+		
 	}
 
 	@Override
@@ -81,6 +81,7 @@ public class Game extends Service implements EventListener {
 		}
 		if (pardal.getAltura() < 0) {
 			pardal.setAltura(0);
+			pause();
 		}
 		
 		// Movimiento de las tuberias
@@ -106,7 +107,11 @@ public class Game extends Service implements EventListener {
 			tuberia2.setYT(tuby2);
 		}
 		//vamos a empezar con las colisiones
-		
+		System.out.println(pardal.getAltura()+" ejeY  "+tuberia.getYT());
+		System.out.println(posPardal+" ejeX "+tuberia.getX());
+		if(pardal.getAltura()<=tuberia.getYT()){//&&(-posPardal)==tuberia.getX()){
+			pause();
+		}
 	}
 
 	@Override
@@ -141,7 +146,7 @@ public class Game extends Service implements EventListener {
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
-		float x = (Window.getW() - w) / 3.0f;
+		float x = posPardal;
 		float y = Window.getH() - h - pardal.getAltura();
 		Render.DrawTex(pardal.getTextura(), x, y, w, h,
 				new Color(255, 255, 255));	
