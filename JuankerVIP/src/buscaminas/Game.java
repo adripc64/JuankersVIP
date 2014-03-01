@@ -51,7 +51,7 @@ public class Game extends Service {
 	
 	@Override
 	public void onDraw() {
-		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
+		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0,
 				new Color(255, 255, 255), 0, 0, 800 / 350.f, 600 / 259.f);
 		board.draw();
 		Render.DrawText(font, 16, 16, "Buscaminas", new Color(255, 255, 0));

@@ -1,8 +1,5 @@
 package fge;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
 import org.lwjgl.Sys;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -41,7 +38,7 @@ public final class App {
 	
 	public static void start() {
 		initGL();
-		lastTime = time = getTime();
+		lastFPS = lastTime = time = getTime();
 	}
 	
 	public static void loop() {
@@ -117,5 +114,9 @@ public final class App {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, Window.getW(), Window.getH(), 0, 1, -1);
+		
+		// Para evitar que la primera vez que se renderiza texto oculte las primitivas renderizadas antes
+		Font font = new Font("data/COMIC.TTF",20);
+		Render.DrawText(font, 0, -20, ".", new Color(0,0,0,0));
 	}
 }

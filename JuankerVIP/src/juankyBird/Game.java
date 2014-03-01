@@ -135,7 +135,7 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	public void onDraw() {
-		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(),
+		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0,
 				new Color(255, 255, 255), backgroundUX, 0.0f, 1.0f, 1.0f);
 
 		// Dibujando tuberia 
@@ -143,23 +143,23 @@ public class Game extends Service implements EventListener {
 		int hT=tuberia.getTextura().getH();
 		float xT=tuberia.getX(); // Constante
 		float yT=tuberia.getYT();
-		Render.DrawTex(tuberia.getTexturaInv(), xT, yT, wT, hT, new Color(255, 255, 255));
-		Render.DrawTex(texTuboCuerpoInv, xT, 0, wT, yT+hT-70, new Color(255, 255, 255));
+		Render.DrawTexture(tuberia.getTexturaInv(), xT, yT, wT, hT, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texTuboCuerpoInv, xT, 0, wT, yT+hT-70, 0, new Color(255, 255, 255));
 			
 		yT+=hT+tuberia.getSeparacion();
-		Render.DrawTex(tuberia.getTextura(), xT, yT, wT, hT, new Color(255, 255, 255));
-		Render.DrawTex(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, new Color(255, 255, 255));
+		Render.DrawTexture(tuberia.getTextura(), xT, yT, wT, hT, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, 0, new Color(255, 255, 255));
 		//tuberia2
 		int wT2=tuberia2.getTextura().getW();
 		int hT2=tuberia2.getTextura().getH();
 		float xT2=tuberia2.getX(); // Constante
 		float yT2=tuberia2.getYT();
-		Render.DrawTex(tuberia2.getTexturaInv(), xT2, yT2, wT2, hT2, new Color(255, 255, 255));
-		Render.DrawTex(texTuboCuerpoInv, xT2, 0, wT2, yT2+hT2-70, new Color(255, 255, 255));
+		Render.DrawTexture(tuberia2.getTexturaInv(), xT2, yT2, wT2, hT2, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texTuboCuerpoInv, xT2, 0, wT2, yT2+hT2-70, 0, new Color(255, 255, 255));
 			
 		yT2+=hT2+tuberia2.getSeparacion();
-		Render.DrawTex(tuberia2.getTextura(), xT2, yT2, wT2, hT2, new Color(255, 255, 255));
-		Render.DrawTex(texTuboCuerpo, xT2, Window.getH(), wT2,yT2-Window.getH()+80, new Color(255, 255, 255));
+		Render.DrawTexture(tuberia2.getTextura(), xT2, yT2, wT2, hT2, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texTuboCuerpo, xT2, Window.getH(), wT2,yT2-Window.getH()+80, 0, new Color(255, 255, 255));
 		
 		
 		// Dibujando pajaro
@@ -167,7 +167,7 @@ public class Game extends Service implements EventListener {
 		int h = pardal.getTextura().getH();
 		float x = posPardal;
 		float y = Window.getH() - h - pardal.getAltura();
-		Render.DrawTex(pardal.getTextura(), x, y, w, h,
+		Render.DrawTexture(pardal.getTextura(), x, y, w, h, 0,
 				new Color(255, 255, 255));	
 	}
 

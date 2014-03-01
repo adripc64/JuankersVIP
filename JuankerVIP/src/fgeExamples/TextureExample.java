@@ -5,7 +5,6 @@ import fge.Color;
 import fge.Render;
 import fge.Service;
 import fge.Texture;
-import fge.Window;
 
 public class TextureExample extends Service {
 
@@ -49,10 +48,8 @@ public class TextureExample extends Service {
 
 	@Override
 	protected void onDraw() {
-		Render.DrawBox(0, 0, Window.getW(), Window.getH(), new Color(255,0,0));
-		Render.DrawTex(tex, 100, 100, tex.getW(), tex.getH(), new Color(255,255,255));
-		Render.DrawTex(tex2, 250, 100, tex2.getW(), tex2.getH(), new Color(255,255,255));
-		Render.DrawBox(0, 0, Window.getW(), Window.getH(), new Color(255,255,0,128));
+		Render.DrawTexture(tex, 100, 100, tex.getW(), tex.getH(), 45, new Color(255,255,255));
+		Render.DrawTexture(tex2, 250, 100, new Color(255,255,255));
 	}
 
 }

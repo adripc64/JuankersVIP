@@ -15,7 +15,7 @@ public class Event {
 	
 	private EventType type;
 	private int value;
-	private MouseButton mouseButton;
+	//private MouseButton mouseButton;
 	
 	public Event(EventType type, int value) {
 		this.type = type;

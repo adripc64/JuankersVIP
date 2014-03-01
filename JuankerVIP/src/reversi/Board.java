@@ -89,18 +89,18 @@ public class Board {
 		
 	public void Draw() {
 		
-		Render.DrawTex(texBackground, m_X - 24, m_Y - 24, 560, 560, new Color(255,255,255));
+		Render.DrawTexture(texBackground, m_X - 24, m_Y - 24, 560, 560, 0, new Color(255,255,255));
 		
 		for (int i = 0; i < boardCells.length; i++) {
 			float x = m_X + (i % m_Cols) * m_CellSize;
 			float y = m_Y + (i / m_Cols) * m_CellSize;
 			//boardCells[i].Draw(_x, _y);
 			if (boardCells[i].getState() == CellState.BLACK)
-				Render.DrawTex(texPieceBlack, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texPieceBlack, x, y, 64, 64, 0, new Color(255,255,255));
 			else if (boardCells[i].getState() == CellState.WHITE)
-				Render.DrawTex(texPieceWhite, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texPieceWhite, x, y, 64, 64, 0, new Color(255,255,255));
 			else if (boardCells[i].getState() == CellState.EMPTY && boardCells[i].getFlipDirections().size() > 0)
-				Render.DrawTex(texValid, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texValid, x, y, 64, 64, 0, new Color(255,255,255));
 		}
 		
 	}

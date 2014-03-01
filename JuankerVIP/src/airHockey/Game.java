@@ -91,21 +91,21 @@ public class Game extends Service implements EventListener {
 	@Override
 	protected void onDraw() {
 		// Dibujando fondo
-		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(), new Color(255, 255, 255));
+		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0, new Color(255, 255, 255));
 		
 		// Dibujando pelota
 		int wB = ball.getTex().getW();
 		int hB = ball.getTex().getH();
 		float xB = (Window.getW() / 2.0f) - (ball.getTex().getW() / 2);
 		float yB = (Window.getH() / 2.0f) - (ball.getTex().getH() / 2);
-		Render.DrawTex(ball.getTex(), xB, yB, wB, hB, new Color(255, 255, 255));
+		Render.DrawTexture(ball.getTex(), xB, yB, wB, hB, 0, new Color(255, 255, 255));
 		
 		// Dibujando mazo 1
 		int wM1 = mazo1.getTex().getW();
 		int hM1 = mazo1.getTex().getH();
 		float xM1 = mazo1.getxMazo();
 		float yM1 = mazo1.getyMazo();
-		Render.DrawTex(mazo1.getTex(), xM1, yM1, wM1, hM1, new Color(255, 255, 255));
+		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, new Color(255, 255, 255));
 	}
 	
 	public boolean doEvent(Event e){

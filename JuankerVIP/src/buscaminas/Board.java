@@ -26,7 +26,7 @@ public class Board {
 			x = i * 64;
 			for (int j = 0; j < yCells; j++) {
 				y = j * 64;
-				Render.DrawTex(celdaNoPulsada, x, y, 64, 64, new Color(255,
+				Render.DrawTexture(celdaNoPulsada, x, y, 64, 64, 0, new Color(255,
 						255, 255));
 			}
 		}
