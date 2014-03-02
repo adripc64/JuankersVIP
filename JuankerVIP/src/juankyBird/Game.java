@@ -26,7 +26,6 @@ public class Game extends Service implements EventListener {
 	private float backgroundUX = 0.0f;
 	private float backgroundSpeed = 40.0f;
 	private boolean contador=false;
-	private int buro;
 	private float posPardal;
 	
 	private Texture texTuboCuerpo;
@@ -40,7 +39,7 @@ public class Game extends Service implements EventListener {
 		tuberia=new Tuberia();
 		tuberia2=new Tuberia();
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
-		buro=0;
+
 		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
 			
 		texBackground = new Texture("data/paisaje.png"); // a�o es molt xapussa sa darreglar
@@ -75,7 +74,7 @@ public class Game extends Service implements EventListener {
 	public void onMove() { // Constante descendente e implementacion de onUp
 		// Movimiento del background
 		backgroundUX += (backgroundSpeed / Window.getW()) * App.getFTime();
-		buro++;
+		
 		// Movimiento del pajaro
 		if(pardal.getAltura() >= Window.getH() - 60){ // Llega arriba de la pantalla el pajaro
 			aceleracion = 250.0f;

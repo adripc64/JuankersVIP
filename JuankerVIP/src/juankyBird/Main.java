@@ -7,6 +7,7 @@ import fge.ServiceMan;
 public class Main extends Service {
 	
 	public static Main main;
+	public static MenuInici inici;
 	public static Game game;
 	
 	public static void main(String[] args) {
@@ -16,8 +17,12 @@ public class Main extends Service {
 	
 	@Override
 	public void onStart() {
-		game = new Game();
+		inici = new MenuInici();
+		ServiceMan.runService(inici);
+		/*
+		game=new Game();
 		ServiceMan.runService(game);
+		*/
 	}
 
 	@Override

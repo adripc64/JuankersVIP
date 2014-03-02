@@ -42,9 +42,9 @@ public class MenuPausa extends Service implements EventListener {
 				game.start();
 			}
 			if(mx>=(Window.getW()+20)/2&&mx<(Window.getW()-100)/2 && my>=(Window.getH()-30)/2 && my<(Window.getH()+30)/2 ){
-				stop();
+				
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
-				game.stop();
+				System.exit(0);
 			}
 
 		}
