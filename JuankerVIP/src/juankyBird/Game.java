@@ -7,6 +7,7 @@ import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 
+import fge.Font;
 import fge.Render;
 import fge.Service;
 import fge.ServiceMan;
@@ -16,7 +17,7 @@ import fge.Window;
 public class Game extends Service implements EventListener {
 	
 	private MenuPausa pausa;
-
+	private Font font;
 	private Pardal pardal;
 	private Tuberia tuberia;
 	private Tuberia tuberia2;
@@ -27,6 +28,7 @@ public class Game extends Service implements EventListener {
 	private float backgroundSpeed = 40.0f;
 	private boolean contador=false;
 	private float posPardal;
+	private int marcador;
 	
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
@@ -38,6 +40,7 @@ public class Game extends Service implements EventListener {
 		pardal = new Pardal();
 		tuberia=new Tuberia();
 		tuberia2=new Tuberia();
+		font = new Font("data/COMIC.ttf", 48.0f);
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 
 		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
@@ -82,8 +85,8 @@ public class Game extends Service implements EventListener {
 		}
 		if (pardal.getAltura() >= 0 && pardal.getAltura() < Window.getH()) {
 			aceleracion += 750.0f * App.getFTime();
-			if (aceleracion > 300)
-				aceleracion = 300.0f;
+			if (aceleracion > 350)
+				aceleracion = 350.0f;
 			pardal.setAltura(pardal.getAltura() - aceleracion * App.getFTime());
 		}
 		if (pardal.getAltura() < 0) {
@@ -130,6 +133,11 @@ public class Game extends Service implements EventListener {
 		if(pardal.getAltura()>=(tuberia2.getTexturaInv().getH()+90-tuberia2.getYT())&&(tuberia2.getX()-tuberia2.getTexturaInv().getW()/2)<=(posPardal)&&posPardal<=(tuberia2.getX()+tuberia2.getTexturaInv().getW()/2+50)){
 			pause();
 		}
+	
+		if(tuberia.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f ){
+			marcador+=1;
+		}
+		
 	}
 
 	@Override
@@ -159,7 +167,9 @@ public class Game extends Service implements EventListener {
 		yT2+=hT2+tuberia2.getSeparacion();
 		Render.DrawTexture(tuberia2.getTextura(), xT2, yT2, wT2, hT2, 0, new Color(255, 255, 255));
 		Render.DrawTexture(texTuboCuerpo, xT2, Window.getH(), wT2,yT2-Window.getH()+80, 0, new Color(255, 255, 255));
-		
+		//dibujando marcador
+		Render.DrawText(font, (Window.getW() / 2)-20, 10, marcador+"", 
+				new Color(255, 255, 255));
 		
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
