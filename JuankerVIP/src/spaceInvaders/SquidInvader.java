@@ -2,17 +2,16 @@ package spaceInvaders;
 
 import fge.Texture;
 
-public class CrabInvader extends Invader {
+public class SquidInvader extends Invader {
 
 	private int score;
 	private Texture invaderTexture1;
 	private Texture invaderTexture2;
 	private boolean animation = true;
 	
-	public CrabInvader() {
-		score = 20;
-		invaderTexture1 = new Texture("data/spaceInvaders/invaderCrab_01.png");
-		invaderTexture1 = new Texture("data/spaceInvaders/invaderCrab_02.png");
+	public SquidInvader() {
+		score = 10;
+		invaderTexture1 = new Texture("data/spaceInvaders/cannon.png");
 	}
 
 	@Override
@@ -29,4 +28,5 @@ public class CrabInvader extends Invader {
 		animation=true;
 		return invaderTexture2;
 	}
+
 }

@@ -8,7 +8,6 @@ public class Cannon implements Drawable {
 	private float coordinateY;
 	private Texture cannonTexture;
 	private int lives;
-	private float shooter;
 
 	public Cannon() {
 		cannonTexture = new Texture("data/spaceInvaders/cannon.png");

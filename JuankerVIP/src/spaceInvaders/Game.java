@@ -1,7 +1,5 @@
 package spaceInvaders;
 
-import java.util.LinkedList;
-
 import fge.Color;
 import fge.Event;
 import fge.EventListener;
@@ -16,11 +14,15 @@ import fge.Window;
 public class Game extends Service implements EventListener {
 
 	private Cannon cannon;
-	private LinkedList<Invader>[] invaders;
+	private Invader[][] invaders;
 	private Bunker bunker;
 	private int score = 0;
 	private final int COLUMNS = 11;
-	private final int ROWS = 1;
+	private final int ROWS = 5;
+	private float invaderSpeedX = 1;
+	private float invaderSpeedY = 5;
+	private boolean invaderLimit = false;
+	private int invadersNumber;
 
 	private Texture textureBackground;
 
@@ -55,21 +57,26 @@ public class Game extends Service implements EventListener {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	private void startInvaders() {
 
-		invaders = (LinkedList<Invader>[]) new Object[COLUMNS];
-		for (int column = 0; column < invaders.length; column++) {
-			invaders[column] = new LinkedList<Invader>();
-			Invader invader;
+		invaders = new Invader[COLUMNS][ROWS];
+		Invader invader;
+		int coordinateX = Window.getW() / (COLUMNS + 4);
+		for (int column = 0; column < COLUMNS; column++) {
 			for (int row = 0; row < ROWS; row++) {
-				invader = new CrabInvader();
-				invader.setX((Window.getW() / (COLUMNS + 4)) * column + 20);
-				invader.setY(50 + row * 100);
-				invaders[column].add(new CrabInvader());
+				if (row == 0) {
+					invader = new OctopusInvader();
+				} else if (row == 1 || row == 2) {
+					invader = new CrabInvader();
+				} else {
+					invader = new SquidInvader();
+				}
+				invader.setX(coordinateX * column + 20);
+				invader.setY(120 + row * 50);
+				invaders[column][row] = invader;
 			}
 		}
-
+		invadersNumber = COLUMNS*ROWS;
 	}
 
 	@Override
@@ -116,28 +123,53 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void physicsInvaders() {
-		int speedX = 1;
-		float speedY = 1;
+		Invader invader;
+		invader = invaders[0][0];
+		if (invader.getX() < 40) {
+			invaderSpeedX = 1;
+			invaderLimit = true;
+		}
+		invader = invaders[COLUMNS - 1][ROWS - 1];
+		if (invader.getX() + invader.getTexture().getW() > Window.getW() - 40) {
+			invaderSpeedX = -1;
+			invaderLimit = true;
+		}
 
-		if (invaders[0].get(0).getX() < 5) {
-			speedX = 1;
-		}
-		if (invaders[10].get(0).getX() > Window.getW() - 5) {
-			speedX = -1;
-		}
-		for (int i = 0; i < invaders.length; i++) {
-			for (Invader invader : invaders[i]) {
-				invader.setX(invader.getX() + speedX);
+		for (int column = 0; column < COLUMNS; column++) {
+			for (int row = 0; row < ROWS; row++) {
+				invader = invaders[column][row];
+				invader.setX(invader.getX() + invaderSpeedX);
+				if (invaderLimit) {
+					if(invader.getY()>Window.getH()) invadersNumber=0; //Eliminar
+					invader.setY(invader.getY() + invaderSpeedY);
+				}
 			}
+		}
+		invaderLimit = false;
+		if(invadersNumber==0){
+			startInvaders();
 		}
 	}
 
 	@Override
 	protected void onDraw() {
 
+		drawGeneral();
+		drawCannon();
+		drawInvaders();
+
+	}
+
+	private void drawGeneral() {
 		Render.DrawTexture(textureBackground, 0, 0, Window.getW(), Window.getH(), 0,
 				new Color(255, 255, 255));
+		Render.DrawText(font, 30, 16, "Score: " + score, new Color(0, 255, 0));
 
+		Render.DrawText(font, Window.getW() - 150, 16,
+				"Lives: " + cannon.getLives(), new Color(0, 255, 0));
+	}
+
+	private void drawCannon() {
 		Texture cannonTexture = cannon.getTexture();
 		float cannonX = cannon.getX();
 		float cannonY = cannon.getY();
@@ -145,12 +177,6 @@ public class Game extends Service implements EventListener {
 		int cannonH = cannon.getTexture().getH();
 		Render.DrawTexture(cannonTexture, cannonX, cannonY, cannonW, cannonH, 0,
 				new Color(255, 255, 255));
-
-		Render.DrawText(font, 30, 16, "Score: " + score, new Color(0, 255, 0));
-
-		Render.DrawText(font, Window.getW() - 150, 16,
-				"Lives: " + cannon.getLives(), new Color(0, 255, 0));
-		drawInvaders();
 	}
 
 	private void drawInvaders() {
@@ -160,15 +186,17 @@ public class Game extends Service implements EventListener {
 		float invaderY;
 		int invaderW;
 		int invaderH;
-		for (int i = 0; i < invaders.length; i++) {
-			for (Invader invader : invaders[i]) {
+		Invader invader;
+		for (int column = 0; column < COLUMNS; column++) {
+			for (int row = 0; row < ROWS; row++) {
+				invader = invaders[column][row];
 				invaderTexture = invader.getTexture();
 				invaderX = invader.getX();
 				invaderY = invader.getY();
 				invaderW = invaderTexture.getW();
 				invaderH = invaderTexture.getH();
 				Render.DrawTexture(invaderTexture, invaderX, invaderY, invaderW, 0,
-						invaderH, new Color(0, 0, 255));
+						invaderH, new Color(255, 255, 255));
 			}
 		}
 
