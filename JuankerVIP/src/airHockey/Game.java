@@ -11,6 +11,7 @@ import fge.Render;
 import fge.Service;
 import fge.Texture;
 import fge.Window;
+import fge.Event.EventType;
 
 public class Game extends Service implements EventListener {
 	private Font font;
@@ -82,6 +83,7 @@ public class Game extends Service implements EventListener {
 		if(ball.getxBall() - ball.getTex().getW() > Window.getW()) {	// Parte DERECHA de la pantalla
 			ball.setxBall(Window.getW() - ball.getTex().getW());
 			acceleracionX = 0.0f;
+			mazo1.setGoles(mazo1.getGoles() + 1);
 		}
 		if(ball.getxBall() < 0)	{										// Parte IZQUIERDA de la pantalla
 			ball.setxBall(0);
@@ -98,7 +100,6 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo1(){
-
 		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT))
 			mazo1.setxMazo(mazo1.getxMazo() - 5.0f);
 		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT))
@@ -141,9 +142,12 @@ public class Game extends Service implements EventListener {
 		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + "0", 
 				new Color(255, 255, 255));
 	}
-	
+
 	public boolean doEvent(Event e){
-		// TODO Auto-generated method stub
+
+		if(Keyboard.isKeyPressed(Keyboard.KEY_Q)) return true;
+			// Window.close();
+		
 		return false;
 	}
 
