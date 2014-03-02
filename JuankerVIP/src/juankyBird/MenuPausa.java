@@ -36,16 +36,16 @@ public class MenuPausa extends Service implements EventListener {
 
 			int mx = Mouse.getX();
 			int my = Mouse.getY();
-			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW()-30) && (my>=(Window.getH()-30)/2 && my<=(Window.getH()+30/2) )){
+			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW())/2 && (my>=(Window.getH()-30)/2 && my<=(Window.getH()+30/2) )){
 				stop();
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
 				game.start();
 			}
-			/*if(mx>=(Window.getW()-20)/2&&mx<(Window.getW()-20)-30 && my>=(Window.getH()-20)/2 && my<(Window.getH()-20)+30 ){
+			if(mx>=(Window.getW()+20)/2&&mx<(Window.getW()-100)/2 && my>=(Window.getH()-30)/2 && my<(Window.getH()+30)/2 ){
 				stop();
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
-				
-			}*/
+				game.stop();
+			}
 
 		}
 		return false;
