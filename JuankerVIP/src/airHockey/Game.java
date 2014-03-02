@@ -5,6 +5,7 @@ import fge.Color;
 import fge.Event;
 import fge.EventListener;
 import fge.EventMan;
+import fge.Font;
 import fge.Keyboard;
 import fge.Render;
 import fge.Service;
@@ -19,6 +20,9 @@ public class Game extends Service implements EventListener {
 //	private Mazo mazo2;
 	private float acceleracionX;
 	private float acceleracionY;
+	private int golesB;
+	private int golesN;
+	private Font font;
 	
 	
 	@Override
@@ -26,6 +30,9 @@ public class Game extends Service implements EventListener {
 		
 		acceleracionX = 0.0f;
 		acceleracionY = 0.0f;
+		golesB = 0;
+		golesN = 0;
+		font = new Font("data/COMIC.ttf", 32.0f);
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
@@ -89,7 +96,7 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 1 con la pelota por la DERECHA
 		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) )
-			acceleracionX = 50.0f;
+			acceleracionX = 250.0f;
 
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
@@ -135,6 +142,9 @@ public class Game extends Service implements EventListener {
 		float xM1 = mazo1.getxMazo();
 		float yM1 = mazo1.getyMazo();
 		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, new Color(255, 255, 255));
+		
+		// Dibujando marcador
+		Render.DrawText(font, (Window.getW() / 2) - 36, 16, golesB + " - " + golesN, new Color(255, 255, 255));
 	}
 	
 	public boolean doEvent(Event e){
