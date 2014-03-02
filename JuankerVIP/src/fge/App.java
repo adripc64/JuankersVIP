@@ -6,6 +6,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 public final class App {
+	
+	private static boolean running;
 		
 	private static long time;
 	private static float ftime;
@@ -18,6 +20,7 @@ public final class App {
 	private static Window window;
 	
 	/***
+	 * Empieza al ejecución de la apliación.
 	 * 
 	 * @param s
 	 * @param w
@@ -28,12 +31,21 @@ public final class App {
 		window = new Window(w, h);
 		ServiceMan.runService(s);
 		
+		running = true;
+		
 		start();
-		while (!Display.isCloseRequested()) {
+		while (running && !Display.isCloseRequested()) {
 			loop();
 		}
 		end();
 		
+	}
+	
+	/***
+	 * Termina la ejecución de la aplicación.
+	 */
+	public static void exit() {
+		running = false;
 	}
 	
 	public static void start() {

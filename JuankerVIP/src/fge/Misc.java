@@ -50,4 +50,26 @@ public class Misc {
 		float dy = y2 - y1;
 		return Math.sqrt(dx * dx + dy * dy);
 	}
+	
+	/***
+	 * Obtiene el producto escalar entre dos vectores.
+	 * 
+	 * @param x1 Coordenada x del primer vector.
+	 * @param y1 Coordenada y del primer vector.
+	 * @param z1 Coordenada z del primer vector.
+	 * @param x2 Coordenada x del segundo vector.
+	 * @param y2 Coordenada y del segundo vector.
+	 * @param z2 Coordenada z del segundo vector.
+	 * @return Devuelve el producto escalar entre ambos vectores.
+	 */
+	public static double dotProduct(float x1, float y1, float z1, float x2, float y2, float z2) {
+		return x1*x2 + y1*y2 + z1*z2;
+	}
+	
+	/***
+	 * Obtiene el producto vectorial entre dos vectores.
+	 */
+	public static void crossProduct() {
+		
+	}
 }
