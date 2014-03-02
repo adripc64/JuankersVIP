@@ -13,26 +13,20 @@ import fge.Texture;
 import fge.Window;
 
 public class Game extends Service implements EventListener {
-	
+	private Font font;
 	private Texture texBackground;
 	private Ball ball;
 	private Mazo mazo1;
-//	private Mazo mazo2;
+	private Mazo mazo2;
 	private float acceleracionX;
 	private float acceleracionY;
-	private int golesB;
-	private int golesN;
-	private Font font;
-	
 	
 	@Override
 	public void onStart() {
 		
 		acceleracionX = 0.0f;
 		acceleracionY = 0.0f;
-		golesB = 0;
-		golesN = 0;
-		font = new Font("data/COMIC.ttf", 32.0f);
+		font = new Font("data/COMIC.ttf", 48.0f);
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
@@ -144,7 +138,8 @@ public class Game extends Service implements EventListener {
 		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, new Color(255, 255, 255));
 		
 		// Dibujando marcador
-		Render.DrawText(font, (Window.getW() / 2) - 36, 16, golesB + " - " + golesN, new Color(255, 255, 255));
+		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + "0", 
+				new Color(255, 255, 255));
 	}
 	
 	public boolean doEvent(Event e){
