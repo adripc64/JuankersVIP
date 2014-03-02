@@ -6,7 +6,7 @@ import fge.Event;
 import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
-import fge.Mouse;
+
 import fge.Render;
 import fge.Service;
 import fge.ServiceMan;
