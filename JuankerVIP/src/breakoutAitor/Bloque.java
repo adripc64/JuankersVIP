@@ -10,7 +10,7 @@ public class Bloque {
 	private Texture textureBlock;
 	
 	public Bloque() {
-		textureBlock = new Texture("PNG", "data/blockBreakOut.png");
+		textureBlock = new Texture("data/blockBreakOut.png");
 	}
 	
 	public float getAltura(){

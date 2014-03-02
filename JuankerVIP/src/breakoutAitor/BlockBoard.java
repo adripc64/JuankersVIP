@@ -11,7 +11,7 @@ public class BlockBoard {
 	int yBlocks;
 	int x;
 	int y;
-	private Texture texturaBloque = new Texture("PNG", "data/blockBreakOut.png");
+	private Texture texturaBloque = new Texture("data/blockBreakOut.png");
 
 	public BlockBoard(int x, int y) {
 		xBlocks = x;
@@ -24,8 +24,7 @@ public class BlockBoard {
 			x = i * 64;
 			for (int j = 0; j < yBlocks; j++) {
 				y = j * 64;
-				Render.DrawTex(texturaBloque, x, y, 64, 64, new Color(255,
-						255, 255));
+				Render.DrawTexture(texturaBloque, x, y, 64, 64, 0, new Color(255,255,255));
 			}
 		}
 

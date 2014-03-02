@@ -24,10 +24,10 @@ public class Intersect {
 	 * 
 	 * @param px Coordenada x del punto.
 	 * @param py Coordenada y del punto.
-	 * @param x1 Coordenada x del rectángulo.
-	 * @param y1 Coordenada y del rectángulo.
-	 * @param x2 Anchura del rectángulo.
-	 * @param y2 Altura del rectángulo.
+	 * @param rx Coordenada x del rectángulo.
+	 * @param ry Coordenada y del rectángulo.
+	 * @param rw Anchura del rectángulo.
+	 * @param rh Altura del rectángulo.
 	 * @return Devuelve true si el punto está en el rectángulo.
 	 */
 	public static boolean PointWithRect(float px, float py, float rx, float ry, float rw, float rh) {
@@ -89,9 +89,22 @@ public class Intersect {
 		return false;
 	}
 	
+	/***
+	 * Comprueba si dos rectángulos se tocan.
+	 * 
+	 * @param x1 Coordenada x del primer rectángulo.
+	 * @param y1 Coordenada y del primer rectángulo.
+	 * @param w1 Anchura del primer rectángulo.
+	 * @param h1 Altura del primer rectángulo.
+	 * @param x2 Coordenada x del segundo rectángulo.
+	 * @param y2 Coordenada y del segundo rectángulo.
+	 * @param w2 Anchura del segundo rectángulo.
+	 * @param h2 Altura del segundo rectángulo.
+	 * @return Devuelve true si los rectángulos se tocan.
+	 */
 	public static boolean RectWithRect(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2) {
-		
-		return false;
+		if (x1 > x2+w2	|| x1+w1 < x2 || y1 > y2+h2 || y1+h1 < y2) return false;
+		return true;
 	}
 	
 	public static boolean RectWithCircle() {
@@ -112,8 +125,21 @@ public class Intersect {
 		return false;
 	}
 	
-	public static boolean CircleWithCircle() {
-		return false;
+	/***
+	 * Comprueba si dos círculos se tocan.
+	 * 
+	 * @param cx1 Coordenada x del centro del círculo 1.
+	 * @param cy1 Coordeanda y del centro del círculo 1.
+	 * @param cr1 Radio del círculo 1.
+	 * @param cx2 Coordenada x del centro del círculo 2.
+	 * @param cy2 Coordenada y del centro del círculo 2.
+	 * @param cr2 Radio del círculo 2.
+	 * @return Devuelve true si los círculos se tocan.
+	 */
+	public static boolean CircleWithCircle(float cx1, float cy1, float cr1, float cx2, float cy2, float cr2) {
+		
+		double distance = Misc.getDistance(cx1, cy1, cx2, cy2);
+		return (distance <= cr1+cr2);
 	}
 	
 	public static boolean CircleWithTriangle() {

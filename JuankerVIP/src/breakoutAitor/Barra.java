@@ -8,7 +8,7 @@ public class Barra {
 	private Texture textureBar;
 	
 	public Barra() {
-		textureBar = new Texture("PNG", "data/barraBreakOut.png");
+		textureBar = new Texture("data/barraBreakOut.png");
 	}
 	
 	public float getAltura(){
