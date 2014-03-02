@@ -76,7 +76,7 @@ public class MenuPausa extends Service implements EventListener {
 
 	@Override
 	protected void onDraw() {
-		Render.DrawTexture(texReini, (Window.getW()-100)/2, (Window.getH()-30)/2, 100, 100, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texReini, (Window.getW()-100)/2, (Window.getH()-30)/2, 55, 55, 0, new Color(255, 255, 255));
 		Render.DrawTexture(texApa, (Window.getW()+50)/2, (Window.getH()-30)/2, 55, 55, 0, new Color(255, 255, 255));
 	}
 }
