@@ -1,5 +1,7 @@
 package fge;
 
+import fge.Mouse.MouseButton;
+
 public class Event {
 	
 	public enum EventType {
@@ -13,6 +15,7 @@ public class Event {
 	
 	private EventType type;
 	private int value;
+	//private MouseButton mouseButton;
 	
 	public Event(EventType type, int value) {
 		this.type = type;
@@ -31,5 +34,14 @@ public class Event {
 	 * @return Devuelve el valor.
 	 */
 	public int getValue() { return value; }
+	
+	/***
+	 * 
+	 * @return
+	 */
+	public MouseButton getMouseButton() {
+		//return MouseButton.values()[];
+		return null;
+	}
 		
 }

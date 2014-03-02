@@ -16,7 +16,7 @@ public class Intersect {
 	 * @return Devuelve true si el punto está en la línea.
 	 */
 	public static boolean PointWithLine(float px, float py, float x1, float y1, float x2, float y2) {
-		return (Misc.AngleBetweenPoints(x1, y1, x2, y2) == Misc.AngleBetweenPoints(x1, y1, px, py));
+		return (Misc.getAngleBetweenPoints(x1, y1, x2, y2) == Misc.getAngleBetweenPoints(x1, y1, px, py));
 	}
 	
 	/***

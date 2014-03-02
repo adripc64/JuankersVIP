@@ -9,7 +9,7 @@ public class Ball {
 	private float yBall;
 	
 	public Ball(){
-		tex = new Texture("PNG", "data/ball64.png");
+		tex = new Texture("data/ball64.png");
 	}
 
 	public Texture getTex() {

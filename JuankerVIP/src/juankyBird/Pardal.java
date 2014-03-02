@@ -8,7 +8,7 @@ public class Pardal {
 	private Texture tex;
 	
 	public Pardal() {
-		tex = new Texture("PNG", "data/bird.png");
+		tex = new Texture("data/bird.png");
 	}
 	
 	public float getAltura(){

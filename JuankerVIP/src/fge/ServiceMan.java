@@ -6,6 +6,20 @@ public final class ServiceMan {
 	
 	private static ArrayList<Service> serviceList = new ArrayList<Service>();
 	
+	/***
+	 * Registra un servicio.
+	 * 
+	 * @param s Servicio a registrar.
+	 */
+	public static void addService(Service s) {
+		serviceList.add(s);
+	}
+	
+	/***
+	 * Registra y empieza un servicio.
+	 * 
+	 * @param s Servicio a registrar.
+	 */
 	public static void runService(Service s) {
 		serviceList.add(s);
 		s.start();

@@ -16,7 +16,13 @@ public final class App {
 	
 	@SuppressWarnings("unused")
 	private static Window window;
-		
+	
+	/***
+	 * 
+	 * @param s
+	 * @param w
+	 * @param h
+	 */
 	public static void run(Service s, int w, int h) {
 		
 		window = new Window(w, h);
@@ -31,7 +37,8 @@ public final class App {
 	}
 	
 	public static void start() {
-		lastTime = time = getTime();
+		initGL();
+		lastFPS = lastTime = time = getTime();
 	}
 	
 	public static void loop() {
@@ -59,6 +66,7 @@ public final class App {
 	}
 	
 	private static void draw() {
+		initGL();
 		// Clear The Screen And The Depth Buffer
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		ServiceMan.draw();
@@ -85,5 +93,30 @@ public final class App {
 			lastFPS += 1000;
 		}
 		fps++;
+	}
+	
+	private static void initGL() {
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		
+		// Enable transparency
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
+		GL11.glClearColor(0, 0, 0, 0);
+		GL11.glClearDepth(1);
+		
+		GL11.glViewport(0, 0, Window.getW(), Window.getH());
+		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, Window.getW(), Window.getH(), 0, 1, -1);
+		
+		// Para evitar que la primera vez que se renderiza texto oculte las primitivas renderizadas antes
+		Font font = new Font("data/COMIC.TTF",20);
+		Render.DrawText(font, 0, -20, ".", new Color(0,0,0,0));
 	}
 }

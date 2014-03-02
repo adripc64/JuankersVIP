@@ -31,9 +31,23 @@ public class Misc {
 	 * @param y2 Coordenada y del punto 2.
 	 * @return Devuelve el ángulo entre ambos puntos.
 	 */
-	public static double AngleBetweenPoints(float x1, float y1, float x2, float y2) {
+	public static double getAngleBetweenPoints(float x1, float y1, float x2, float y2) {
 		double angle = -Math.atan2(y2 - y1, x2 - x1);
 		return (angle >= 0) ? angle : angle + 2 * Math.PI;
 	}
 	
+	/***
+	 * Obtiene la distancia entre dos puntos.
+	 * 
+	 * @param x1 Coordenada x del punto 1.
+	 * @param y1 Coordenada y del punto 1.
+	 * @param x2 Coordenada x del punto 2.
+	 * @param y2 Coordenada y del punto 2.
+	 * @return Devuelve la distancia entre ambos puntos.
+	 */
+	public static double getDistance(float x1, float y1, float x2, float y2) {
+		float dx = x2 - x1;
+		float dy = y2 - y1;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
 }

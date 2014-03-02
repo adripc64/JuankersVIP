@@ -6,9 +6,18 @@ public class Mazo {
 	private Texture tex;
 	private float xMazo;
 	private float yMazo;
+	private int goles = 0;
 	
+	public int getGoles() {
+		return goles;
+	}
+
+	public void setGoles(int goles) {
+		this.goles = goles;
+	}
+
 	public Mazo(){
-		tex = new Texture("PNG", "data/airhockey/mazo_blanco.png");
+		tex = new Texture("data/airhockey/mazo_blanco.png");
 	}
 
 	public Texture getTex() {

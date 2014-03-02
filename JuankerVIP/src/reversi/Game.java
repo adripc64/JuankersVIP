@@ -49,7 +49,7 @@ public class Game extends Service implements EventListener {
 		
 		EventMan.addListener(this);
 		
-		texBackground = new Texture("PNG", "data/grey_wash_wall512.png");
+		texBackground = new Texture("data/grey_wash_wall512.png");
 		
 		playerBlack = new Player("Player 1", PieceColor.BLACK, true);
 		playerWhite = new Player("Player 2", PieceColor.WHITE, false);
@@ -79,9 +79,9 @@ public class Game extends Service implements EventListener {
 	
 	@Override
 	public void onDraw()  {
-		Render.DrawTex(texBackground, 0, 0, Window.getW(), Window.getH(), new Color(255,255,255), 0, 0, 800 / 350.f, 600 / 259.f);
+		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0, new Color(255,255,255), 0, 0, 800 / 350.f, 600 / 259.f);
 		board.Draw();
-		font.Draw(16, 16, "Black: " + board.getBlackPieces() + "  -  White: " + board.getWhitePieces(), new Color(255,0,0));
+		Render.DrawText(font, 16, 16, "Black: " + board.getBlackPieces() + "  -  White: " + board.getWhitePieces(), new Color(255,0,0));
 	}
 	
 	@Override

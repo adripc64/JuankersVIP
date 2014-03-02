@@ -66,10 +66,10 @@ public class Board {
 		m_Rows = _rows;
 		m_CellSize = 64;
 		
-		texBackground = new Texture("PNG", "data/reversi_board512.png");
-		texPieceBlack = new Texture("PNG", "data/piece_black64.png");
-		texPieceWhite = new Texture("PNG", "data/piece_white64.png");
-		texValid = new Texture("PNG", "data/valid64.png");
+		texBackground = new Texture("data/reversi_board512.png");
+		texPieceBlack = new Texture("data/piece_black64.png");
+		texPieceWhite = new Texture("data/piece_white64.png");
+		texValid = new Texture("data/valid64.png");
 		
 		boardCells = new Cell[m_Cols * m_Rows];
 		for (int i = 0; i < boardCells.length; i++) boardCells[i] = new Cell();
@@ -89,18 +89,18 @@ public class Board {
 		
 	public void Draw() {
 		
-		Render.DrawTex(texBackground, m_X - 24, m_Y - 24, 560, 560, new Color(255,255,255));
+		Render.DrawTexture(texBackground, m_X - 24, m_Y - 24, 560, 560, 0, new Color(255,255,255));
 		
 		for (int i = 0; i < boardCells.length; i++) {
 			float x = m_X + (i % m_Cols) * m_CellSize;
 			float y = m_Y + (i / m_Cols) * m_CellSize;
 			//boardCells[i].Draw(_x, _y);
 			if (boardCells[i].getState() == CellState.BLACK)
-				Render.DrawTex(texPieceBlack, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texPieceBlack, x, y, 64, 64, 0, new Color(255,255,255));
 			else if (boardCells[i].getState() == CellState.WHITE)
-				Render.DrawTex(texPieceWhite, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texPieceWhite, x, y, 64, 64, 0, new Color(255,255,255));
 			else if (boardCells[i].getState() == CellState.EMPTY && boardCells[i].getFlipDirections().size() > 0)
-				Render.DrawTex(texValid, x, y, 64, 64, new Color(255,255,255));
+				Render.DrawTexture(texValid, x, y, 64, 64, 0, new Color(255,255,255));
 		}
 		
 	}
