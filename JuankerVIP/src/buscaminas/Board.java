@@ -6,7 +6,7 @@ import fge.Texture;
 
 public class Board {
 
-	private Texture celdaNoPulsada = new Texture("data/piece_white64.png");;
+	private Texture celdaNoPulsada = new Texture("data/piece_white64.png");
 	// private Texture celdaPulsada;
 	// private Texture mina;
 	int boardCells;
