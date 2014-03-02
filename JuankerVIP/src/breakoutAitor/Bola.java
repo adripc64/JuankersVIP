@@ -10,7 +10,7 @@ public class Bola {
 	private Texture textureBola;
 	
 	public Bola() {
-		textureBola = new Texture("PNG", "data/bolaBreakOut.png");
+		textureBola = new Texture("data/bolaBreakOut.png");
 	}
 	
 	public float getAltura(){
