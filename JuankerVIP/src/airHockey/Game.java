@@ -42,6 +42,12 @@ public class Game extends Service implements EventListener {
 		mazo1.setxMazo(Window.getW() / 4.0f - mazo1.getTex().getW() / 2);
 		mazo1.setyMazo(Window.getH() / 2.0f - mazo1.getTex().getH() / 2);
 		
+		// Mazo 2
+		mazo2 = new Mazo();
+		mazo2.setxMazo(Window.getW() / 4.0f + Window.getW() / 2.0f - mazo2.getTex().getW() / 2);
+		mazo2.setyMazo(Window.getH() / 2.0f - mazo2.getTex().getH() / 2);
+		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
+		mazo2.setTex(texturaAux);
 		
 		EventMan.addListener(this);
 	}
@@ -74,21 +80,33 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveBall(){
-		if(ball.getyBall() < 0) {										// Parte de ARRIBA de la pantalla
+		// Parte de ARRIBA de la pantalla
+		if(ball.getyBall() < 0) {										
 			// Debe rebotar...
 		}
-		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) {	// Parte de ABAJO de la pantalla
+		// Parte de ABAJO de la pantalla
+		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) {	
 			// Debe rebotar...
 		}
-		if(ball.getxBall() - ball.getTex().getW() > Window.getW()) {	// Parte DERECHA de la pantalla
+		// Parte DERECHA de la pantalla
+		if(ball.getxBall() - ball.getTex().getW() > Window.getW()) {	
 			ball.setxBall(Window.getW() - ball.getTex().getW());
 			acceleracionX = 0.0f;
-			mazo1.setGoles(mazo1.getGoles() + 1);
+			
+			// Marca gol mazo1 x: Window.getW() y: 206 - 332 --> Tamaño portia: 152
+			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332)
+				mazo1.setGoles(mazo1.getGoles() + 1);
 		}
-		if(ball.getxBall() < 0)	{										// Parte IZQUIERDA de la pantalla
+		// Parte IZQUIERDA de la pantalla
+		if(ball.getxBall() < 0)	{										
 			ball.setxBall(0);
 			acceleracionX = 0.0f;
+			
+			// Marca gol mazo2 x: 0  y: 180 - 332 --> Tamaño porteria: 152
+			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332)
+				mazo2.setGoles(mazo2.getGoles() + 1);
 		}
+		
 		
 		// Choca el mazo 1 con la pelota por la DERECHA
 		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) )
@@ -97,6 +115,7 @@ public class Game extends Service implements EventListener {
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
 		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime());	// Componente Y
+		
 	}
 	
 	private void moveMazo1(){
@@ -138,6 +157,13 @@ public class Game extends Service implements EventListener {
 		float yM1 = mazo1.getyMazo();
 		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, new Color(255, 255, 255));
 		
+		// Dibujando mazo 2
+		int wM2 = mazo2.getTex().getW();
+		int hM2 = mazo2.getTex().getH();
+		float xM2 = mazo2.getxMazo();
+		float yM2 = mazo2.getyMazo();
+		Render.DrawTexture(mazo2.getTex(), xM2, yM2, wM2, hM2, 0, new Color(255, 255, 255));
+		
 		// Dibujando marcador
 		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + "0", 
 				new Color(255, 255, 255));
@@ -145,8 +171,8 @@ public class Game extends Service implements EventListener {
 
 	public boolean doEvent(Event e){
 
-		if(Keyboard.isKeyPressed(Keyboard.KEY_Q)) return true;
-			// Window.close();
+		if(Keyboard.isKeyPressed(Keyboard.KEY_Q))
+			App.end();
 		
 		return false;
 	}
