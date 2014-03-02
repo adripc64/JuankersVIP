@@ -125,8 +125,21 @@ public class Intersect {
 		return false;
 	}
 	
-	public static boolean CircleWithCircle() {
-		return false;
+	/***
+	 * Comprueba si dos círculos se tocan.
+	 * 
+	 * @param cx1 Coordenada x del centro del círculo 1.
+	 * @param cy1 Coordeanda y del centro del círculo 1.
+	 * @param cr1 Radio del círculo 1.
+	 * @param cx2 Coordenada x del centro del círculo 2.
+	 * @param cy2 Coordenada y del centro del círculo 2.
+	 * @param cr2 Radio del círculo 2.
+	 * @return Devuelve true si los círculos se tocan.
+	 */
+	public static boolean CircleWithCircle(float cx1, float cy1, float cr1, float cx2, float cy2, float cr2) {
+		
+		double distance = Misc.getDistance(cx1, cy1, cx2, cy2);
+		return (distance <= cr1+cr2);
 	}
 	
 	public static boolean CircleWithTriangle() {
