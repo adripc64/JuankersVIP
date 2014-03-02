@@ -77,6 +77,9 @@ public class Game extends Service implements EventListener {
 		
 		// Movimiento del mazo 1
 		moveMazo1();
+		
+		// Movimiento del mazo 2
+		moveMazo2();
 	}
 	
 	private void moveBall(){
@@ -89,7 +92,7 @@ public class Game extends Service implements EventListener {
 			// Debe rebotar...
 		}
 		// Parte DERECHA de la pantalla
-		if(ball.getxBall() - ball.getTex().getW() > Window.getW()) {	
+		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
 			ball.setxBall(Window.getW() - ball.getTex().getW());
 			acceleracionX = 0.0f;
 			
@@ -109,8 +112,9 @@ public class Game extends Service implements EventListener {
 		
 		
 		// Choca el mazo 1 con la pelota por la DERECHA
-		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) )
+		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) ) {
 			acceleracionX = 250.0f;
+		}
 
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
@@ -119,13 +123,13 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo1(){
-		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_A))
 			mazo1.setxMazo(mazo1.getxMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_D))
 			mazo1.setxMazo(mazo1.getxMazo() + 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_UP))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_W))
 			mazo1.setyMazo(mazo1.getyMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_DOWN))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_S))
 			mazo1.setyMazo(mazo1.getyMazo() + 5.0f);
 		
 		if(mazo1.getxMazo() < 0)										// Parte izquierda de la pantalla
@@ -134,8 +138,28 @@ public class Game extends Service implements EventListener {
 			mazo1.setxMazo(Window.getW() / 2 - mazo1.getTex().getW());
 		if(mazo1.getyMazo() < 0)										// Parte de ARRIBA de la pantalla
 			mazo1.setyMazo(0);
-		if(mazo1.getyMazo() > Window.getH() - mazo1.getTex().getH())	// Si se sale por la parte de ABAJO de la pantalla
+		if(mazo1.getyMazo() > Window.getH() - mazo1.getTex().getH())	// Parte de ABAJO de la pantalla
 			mazo1.setyMazo(Window.getH() - mazo1.getTex().getH());
+	}
+	
+	private void moveMazo2(){
+		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT))
+			mazo2.setxMazo(mazo2.getxMazo() - 5.0f);
+		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT))
+			mazo2.setxMazo(mazo2.getxMazo() + 5.0f);
+		if(Keyboard.isKeyPressed(Keyboard.KEY_UP))
+			mazo2.setyMazo(mazo2.getyMazo() - 5.0f);
+		if(Keyboard.isKeyPressed(Keyboard.KEY_DOWN))
+			mazo2.setyMazo(mazo2.getyMazo() + 5.0f);
+		
+		if(mazo2.getxMazo() > Window.getW() - mazo2.getTex().getW())	// Parte DERECHA de la pantalla
+			mazo2.setxMazo(Window.getW() - mazo2.getTex().getW());
+		if(mazo2.getxMazo() < Window.getW()/2)							// Si se sale de su CAMPO
+			mazo2.setxMazo(Window.getW() / 2);
+		if(mazo2.getyMazo() < 0)										// Parte de ARRIBA de la pantalla
+			mazo2.setyMazo(0);
+		if(mazo2.getyMazo() > Window.getH() - mazo2.getTex().getH())	// Parte de ABAJO de la pantalla
+			mazo2.setyMazo(Window.getH() - mazo2.getTex().getH());
 	}
 
 	@Override
