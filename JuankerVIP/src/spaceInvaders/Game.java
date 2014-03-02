@@ -1,5 +1,6 @@
 package spaceInvaders;
 
+import fge.App;
 import fge.Color;
 import fge.Event;
 import fge.EventListener;
@@ -19,8 +20,8 @@ public class Game extends Service implements EventListener {
 	private int score = 0;
 	private final int COLUMNS = 11;
 	private final int ROWS = 5;
-	private float invaderSpeedX = 1;
-	private float invaderSpeedY = 5;
+	private float invaderSpeedX = 30;
+	private float invaderSpeedY = 0;
 	private boolean invaderLimit = false;
 	private int invadersNumber;
 
@@ -76,7 +77,7 @@ public class Game extends Service implements EventListener {
 				invaders[column][row] = invader;
 			}
 		}
-		invadersNumber = COLUMNS*ROWS;
+		invadersNumber = COLUMNS * ROWS;
 	}
 
 	@Override
@@ -125,28 +126,30 @@ public class Game extends Service implements EventListener {
 	private void physicsInvaders() {
 		Invader invader;
 		invader = invaders[0][0];
-		if (invader.getX() < 40) {
-			invaderSpeedX = 1;
+		if (invader.getX() < 5) {
+			invaderSpeedX = invaderSpeedX * -1;
 			invaderLimit = true;
 		}
 		invader = invaders[COLUMNS - 1][ROWS - 1];
-		if (invader.getX() + invader.getTexture().getW() > Window.getW() - 40) {
-			invaderSpeedX = -1;
+		if (invader.getX() + invader.getTexture().getW() > Window.getW() - 5) {
+			invaderSpeedX = invaderSpeedX * -1;
 			invaderLimit = true;
 		}
 
 		for (int column = 0; column < COLUMNS; column++) {
 			for (int row = 0; row < ROWS; row++) {
 				invader = invaders[column][row];
-				invader.setX(invader.getX() + invaderSpeedX);
+				invader.setX(invader.getX() + invaderSpeedX * App.getFTime());
 				if (invaderLimit) {
-					if(invader.getY()>Window.getH()) invadersNumber=0; //Eliminar
-					invader.setY(invader.getY() + invaderSpeedY);
+					if (invader.getY() > Window.getH())
+						invadersNumber = 0; // Eliminar
+					invader.setY(invader.getY() + invaderSpeedY
+							* App.getFTime());
 				}
 			}
 		}
 		invaderLimit = false;
-		if(invadersNumber==0){
+		if (invadersNumber == 0) {
 			startInvaders();
 		}
 	}
@@ -161,8 +164,8 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void drawGeneral() {
-		Render.DrawTexture(textureBackground, 0, 0, Window.getW(), Window.getH(), 0,
-				new Color(255, 255, 255));
+		Render.DrawTexture(textureBackground, 0, 0, Window.getW(),
+				Window.getH(), 0, new Color(255, 255, 255));
 		Render.DrawText(font, 30, 16, "Score: " + score, new Color(0, 255, 0));
 
 		Render.DrawText(font, Window.getW() - 150, 16,
@@ -175,8 +178,8 @@ public class Game extends Service implements EventListener {
 		float cannonY = cannon.getY();
 		int cannonW = cannon.getTexture().getW();
 		int cannonH = cannon.getTexture().getH();
-		Render.DrawTexture(cannonTexture, cannonX, cannonY, cannonW, cannonH, 0,
-				new Color(255, 255, 255));
+		Render.DrawTexture(cannonTexture, cannonX, cannonY, cannonW, cannonH,
+				0, new Color(255, 255, 255));
 	}
 
 	private void drawInvaders() {
@@ -195,8 +198,8 @@ public class Game extends Service implements EventListener {
 				invaderY = invader.getY();
 				invaderW = invaderTexture.getW();
 				invaderH = invaderTexture.getH();
-				Render.DrawTexture(invaderTexture, invaderX, invaderY, invaderW, 0,
-						invaderH, new Color(255, 255, 255));
+				Render.DrawTexture(invaderTexture, invaderX, invaderY,
+						invaderW, invaderH, 0, new Color(255, 255, 255));
 			}
 		}
 
