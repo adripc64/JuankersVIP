@@ -30,7 +30,7 @@ public class Tuberia {
 		separacion = 150;
 	}
 	public void DibujarTuberia(){
-		int wT=tex.getW();
+		int wT=tex.getW()-35;
 		int hT=tex.getH();
 		
 		Render.DrawTexture(texInv, x, yT, wT, hT, 0, new Color(255, 255, 255));
