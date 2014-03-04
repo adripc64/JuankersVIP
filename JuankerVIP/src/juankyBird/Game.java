@@ -63,20 +63,15 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	public void onStop() {
-		
 	}
-
 	@Override
 	protected void onPause() {
 		pausa.start();
 	}
-
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
-
 	}
- 
+	
 	@Override
 	public void onMove() { // Constante descendente e implementacion de onUp
 		// Movimiento del background
@@ -102,32 +97,7 @@ public class Game extends Service implements EventListener {
 		tuberia.MoureTuberia();
 		tuberia2.MoureTuberia();
 		tuberia3.MoureTuberia();
-		
-		
-
-//				if(tuberia.getX() > 0-tuberia.getTextura().getW()){
-//					float tubx = tuberia.getX() - tubSpeed * App.getFTime();
-//					tuberia.setX(tubx);
-//				} else {
-//					tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
-//					float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
-//					tuberia.setYT(tuby);
-//				}
-		/*
-		//tuberia 2
-		
-		if((tuberia.getX()<=(Window.getW()/2+tuberia.getTextura().getW()/2)) && contador==false){
-			contador=true;
-		}
-		if(tuberia2.getX() > 0-tuberia2.getTextura().getW()&&contador==true){
-			float tubx2 = tuberia2.getX() - tubSpeed * App.getFTime();
-			tuberia2.setX(tubx2);
-		} else {
-			tuberia2.setX(Window.getH()+tuberia2.getTextura().getW()+50);
-			float tuby2 = (float) (Math.random() * (Window.getH()-tuberia2.getSeparacion())-tuberia.getSeparacion()-100);
-			tuberia2.setYT(tuby2);
-		}
-		*/
+	
 		//vamos a empezar con las colisiones
 		//colisio amb la primera tuberia inferior
 		if(pardal.getAltura()<=(tuberia.getTextura().getH()-40-tuberia.getYT())&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
@@ -177,35 +147,9 @@ public class Game extends Service implements EventListener {
 		if(tuberia2.getX()<=(Window.getW()/2)+tuberia2.getTextura().getW()/2&&contador==true){
 			contador2=true;
 		}
-		if(contador==true){
-			tuberia2.DibujarTuberia();
-			
-			
-		}
+		if(contador==true)tuberia2.DibujarTuberia();
 		if(contador2==true)tuberia3.DibujarTuberia();
 	
-		/*if(tuberia2.getX()<=(Window.getW()/2)+tuberia2.getTextura().getW()/2&&contador==true){
-			contador2=true;
-		}
-		if(contador2==true&&tuberia.getX()>0){
-			tuberia3.DibujarTuberia();
-		}
-		*/
-		//tuberia2
-	/*	int wT2=tuberia2.getTextura().getW();
-		int hT2=tuberia2.getTextura().getH();
-		float xT2=tuberia2.getX(); // Constante
-		float yT2=tuberia2.getYT();
-		Render.DrawTexture(tuberia2.getTexturaInv(), xT2, yT2, wT2, hT2, 0, new Color(255, 255, 255));
-		Render.DrawTexture(texTuboCuerpoInv, xT2, 0, wT2, yT2+hT2-70, 0, new Color(255, 255, 255));
-			
-		yT2+=hT2+tuberia2.getSeparacion();
-		Render.DrawTexture(tuberia2.getTextura(), xT2, yT2, wT2, hT2, 0, new Color(255, 255, 255));
-		Render.DrawTexture(texTuboCuerpo, xT2, Window.getH(), wT2,yT2-Window.getH()+80, 0, new Color(255, 255, 255));
-		//dibujando marcador
-		Render.DrawText(font, (Window.getW() / 2)-20, 10, marcador+"", 
-				new Color(255, 255, 255));
-		*/
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
@@ -213,7 +157,6 @@ public class Game extends Service implements EventListener {
 		float y = Window.getH() - h - pardal.getAltura();
 		Render.DrawTexture(pardal.getTextura(), x, y, w, h, 0,
 				new Color(255, 255, 255));
-				
 	}
 
 	@Override
@@ -221,12 +164,7 @@ public class Game extends Service implements EventListener {
 		if (e.getType() == EventType.MOUSE_PRESSED
 				|| e.getType() == EventType.KEY_PRESSED) {
 
-//			int mx = Mouse.getX();
-//			int my = Mouse.getY();
-
-			// Ací es cuan li has de donar el empuje...
 			aceleracion = -350.0f;
-
 		}
 		return false;
 	}

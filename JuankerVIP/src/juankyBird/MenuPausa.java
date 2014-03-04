@@ -1,5 +1,6 @@
 package juankyBird;
 
+import fge.App;
 import fge.Color;
 import fge.Event;
 import fge.EventListener;
@@ -37,14 +38,13 @@ public class MenuPausa extends Service implements EventListener {
 			int mx = Mouse.getX();
 			int my = Mouse.getY();
 			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW())/2 && (my>=(Window.getH()-30)/2 && my<=(Window.getH()+30/2) )){
-				stop();
+				System.out.println("reinicia");
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
 				game.start();
 			}
-			if(mx>=(Window.getW()+20)/2&&mx<(Window.getW()-100)/2 && my>=(Window.getH()-30)/2 && my<(Window.getH()+30)/2 ){
-				
+			if(mx>=(Window.getW()+50)/2&&mx<=(Window.getW()+165)/2 && my>=(Window.getH())/2-25 && my<(Window.getH())/2+35 ){
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
-				System.exit(0);
+				App.exit();
 			}
 
 		}
@@ -77,6 +77,6 @@ public class MenuPausa extends Service implements EventListener {
 	@Override
 	protected void onDraw() {
 		Render.DrawTexture(texReini, (Window.getW()-100)/2, (Window.getH()-30)/2, 55, 55, 0, new Color(255, 255, 255));
-		Render.DrawTexture(texApa, (Window.getW()+50)/2, (Window.getH()-30)/2, 55, 55, 0, new Color(255, 255, 255));
+		Render.DrawTexture(texApa, (Window.getW()+50)/2, (Window.getH()-35)/2, 60, 60, 0, new Color(255, 255, 255));
 	}
 }

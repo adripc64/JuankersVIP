@@ -19,7 +19,6 @@ public class Tuberia {
 	private float yT2_2;
 	private int separacion;
 	private float tubSpeed = 200.0f;
-	private boolean contador=false;
 	
 	public Tuberia(){
 		tex=new Texture("data/tubo.png");
