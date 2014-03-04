@@ -12,11 +12,14 @@ public class Tuberia {
 	private Texture texTuboCuerpoInv;
 	private Texture texTuboCuerpo;
 	private float x;
+	private float x_2;
 	private float yT;
+	private float yT_2;
 	private float yT2;
+	private float yT2_2;
 	private int separacion;
 	private float tubSpeed = 200.0f;
-	private boolean contador;
+	private boolean contador=false;
 	
 	public Tuberia(){
 		tex=new Texture("data/tubo.png");
@@ -47,20 +50,7 @@ public class Tuberia {
 			x=Window.getH()+tex.getW()+50;
 			float tuby = (float) (Math.random() * (Window.getH()-separacion)-separacion-100);
 			yT=tuby;
-		}
-		/*if(x<=(Window.getW()/2+tex.getW()/2)){
-			DibujarTuberia();
-		}
-		if(tuberia2.getX() > 0-tuberia2.getTextura().getW()&&contador==true){
-			float tubx2 = tuberia2.getX() - tubSpeed * App.getFTime();
-			tuberia2.setX(tubx2);
-		} else {
-			tuberia2.setX(Window.getH()+tuberia2.getTextura().getW()+50);
-			float tuby2 = (float) (Math.random() * (Window.getH()-tuberia2.getSeparacion())-tuberia.getSeparacion()-100);
-			tuberia2.setYT(tuby2);
-		}
-*/
-		
+		}		
 	}
 	
 	public Texture getTextura(){

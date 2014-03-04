@@ -21,12 +21,14 @@ public class Game extends Service implements EventListener {
 	private Pardal pardal;
 	private Tuberia tuberia;
 	private Tuberia tuberia2;
+	private Tuberia tuberia3;
 	private float aceleracion;
 	private float tubSpeed = 200.0f;
 	private Texture texBackground;
 	private float backgroundUX = 0.0f;
 	private float backgroundSpeed = 40.0f;
 	private boolean contador=false;
+	private boolean contador2=false;
 	private float posPardal;
 	private int marcador;
 	
@@ -40,6 +42,7 @@ public class Game extends Service implements EventListener {
 		pardal = new Pardal();
 		tuberia=new Tuberia();
 		tuberia2=new Tuberia();
+		tuberia3=new Tuberia();
 		font = new Font("data/COMIC.ttf", 48.0f);
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 
@@ -96,6 +99,11 @@ public class Game extends Service implements EventListener {
 		
 		// Movimiento de las tuberias
 		tuberia.MoureTuberia();
+		tuberia2.MoureTuberia();
+		tuberia3.MoureTuberia();
+		
+		
+
 //				if(tuberia.getX() > 0-tuberia.getTextura().getW()){
 //					float tubx = tuberia.getX() - tubSpeed * App.getFTime();
 //					tuberia.setX(tubx);
@@ -118,7 +126,7 @@ public class Game extends Service implements EventListener {
 			float tuby2 = (float) (Math.random() * (Window.getH()-tuberia2.getSeparacion())-tuberia.getSeparacion()-100);
 			tuberia2.setYT(tuby2);
 		}
-		*/
+		
 		//vamos a empezar con las colisiones
 		//colisio amb la primera tuberia inferior
 		if(pardal.getAltura()<=(tuberia.getTextura().getH()-40-tuberia.getYT())&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
@@ -140,7 +148,7 @@ public class Game extends Service implements EventListener {
 		if(tuberia.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f ){
 			marcador+=1;
 		}
-		
+		*/
 	}
 
 	@Override
@@ -150,6 +158,20 @@ public class Game extends Service implements EventListener {
 
 		// Dibujando tuberia
 		tuberia.DibujarTuberia();
+		if(tuberia.getX()<=(Window.getW()/2)+tuberia.getTextura().getW()/2){
+			contador=true;
+		}
+		if(contador==true){
+			tuberia2.DibujarTuberia();
+		}
+		tuberia3.DibujarTuberia();
+		/*if(tuberia2.getX()<=(Window.getW()/2)+tuberia2.getTextura().getW()/2&&contador==true){
+			contador2=true;
+		}
+		if(contador2==true&&tuberia.getX()>0){
+			tuberia3.DibujarTuberia();
+		}
+		*/
 		//tuberia2
 	/*	int wT2=tuberia2.getTextura().getW();
 		int hT2=tuberia2.getTextura().getH();
