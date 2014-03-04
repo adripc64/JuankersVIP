@@ -95,14 +95,16 @@ public class Game extends Service implements EventListener {
 		}
 		
 		// Movimiento de las tuberias
-		if(tuberia.getX() > 0-tuberia.getTextura().getW()){
-			float tubx = tuberia.getX() - tubSpeed * App.getFTime();
-			tuberia.setX(tubx);
-		} else {
-			tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
-			float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
-			tuberia.setYT(tuby);
-		}
+		tuberia.MoureTuberia();
+//				if(tuberia.getX() > 0-tuberia.getTextura().getW()){
+//					float tubx = tuberia.getX() - tubSpeed * App.getFTime();
+//					tuberia.setX(tubx);
+//				} else {
+//					tuberia.setX(Window.getH()+tuberia.getTextura().getW()+50);
+//					float tuby = (float) (Math.random() * (Window.getH()-tuberia.getSeparacion())-tuberia.getSeparacion()-100);
+//					tuberia.setYT(tuby);
+//				}
+		/*
 		//tuberia 2
 		
 		if((tuberia.getX()<=(Window.getW()/2+tuberia.getTextura().getW()/2)) && contador==false){
@@ -116,6 +118,7 @@ public class Game extends Service implements EventListener {
 			float tuby2 = (float) (Math.random() * (Window.getH()-tuberia2.getSeparacion())-tuberia.getSeparacion()-100);
 			tuberia2.setYT(tuby2);
 		}
+		*/
 		//vamos a empezar con las colisiones
 		//colisio amb la primera tuberia inferior
 		if(pardal.getAltura()<=(tuberia.getTextura().getH()-40-tuberia.getYT())&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
@@ -145,19 +148,10 @@ public class Game extends Service implements EventListener {
 		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0,
 				new Color(255, 255, 255), backgroundUX, 0.0f, 1.0f, 1.0f);
 
-		// Dibujando tuberia 
-		int wT=tuberia.getTextura().getW();
-		int hT=tuberia.getTextura().getH();
-		float xT=tuberia.getX(); // Constante
-		float yT=tuberia.getYT();
-		Render.DrawTexture(tuberia.getTexturaInv(), xT, yT, wT, hT, 0, new Color(255, 255, 255));
-		Render.DrawTexture(texTuboCuerpoInv, xT, 0, wT, yT+hT-70, 0, new Color(255, 255, 255));
-			
-		yT+=hT+tuberia.getSeparacion();
-		Render.DrawTexture(tuberia.getTextura(), xT, yT, wT, hT, 0, new Color(255, 255, 255));
-		Render.DrawTexture(texTuboCuerpo, xT, Window.getH(), wT,yT-Window.getH()+80, 0, new Color(255, 255, 255));
+		// Dibujando tuberia
+		tuberia.DibujarTuberia();
 		//tuberia2
-		int wT2=tuberia2.getTextura().getW();
+	/*	int wT2=tuberia2.getTextura().getW();
 		int hT2=tuberia2.getTextura().getH();
 		float xT2=tuberia2.getX(); // Constante
 		float yT2=tuberia2.getYT();
@@ -170,14 +164,15 @@ public class Game extends Service implements EventListener {
 		//dibujando marcador
 		Render.DrawText(font, (Window.getW() / 2)-20, 10, marcador+"", 
 				new Color(255, 255, 255));
-		
+		*/
 		// Dibujando pajaro
 		int w = pardal.getTextura().getW();
 		int h = pardal.getTextura().getH();
 		float x = posPardal;
 		float y = Window.getH() - h - pardal.getAltura();
 		Render.DrawTexture(pardal.getTextura(), x, y, w, h, 0,
-				new Color(255, 255, 255));	
+				new Color(255, 255, 255));
+				
 	}
 
 	@Override
