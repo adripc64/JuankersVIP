@@ -37,8 +37,9 @@ public class MenuPausa extends Service implements EventListener {
 
 			int mx = Mouse.getX();
 			int my = Mouse.getY();
-			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW())/2 && (my>=(Window.getH()-30)/2 && my<=(Window.getH()+30/2) )){
+			if(mx>=(Window.getW()-100)/2 && mx<=(Window.getW())/2 && (my>=(Window.getH()-30)/2 && my<=(Window.getH()/2+30) )){
 				System.out.println("reinicia");
+				stop();
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
 				game.start();
 			}
