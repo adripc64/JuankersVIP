@@ -85,35 +85,43 @@ public class Game extends Service implements EventListener {
 	private void moveBall(){
 		// Parte de ARRIBA de la pantalla
 		if(ball.getyBall() < 0) {										
-			// Debe rebotar...
+			acceleracionY = acceleracionY * (-1);
 		}
 		// Parte de ABAJO de la pantalla
 		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) {	
-			// Debe rebotar...
+			acceleracionY = acceleracionY * (-1);
 		}
 		// Parte DERECHA de la pantalla
 		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
 			ball.setxBall(Window.getW() - ball.getTex().getW());
-			acceleracionX = 0.0f;
 			
-			// Marca gol mazo1 x: Window.getW() y: 206 - 332 --> Tamaño portia: 152
-			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332)
+			// Marca gol mazo1 x: Window.getW() y: 180 - 332 --> Tamaño porteria: 152
+			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo1.setGoles(mazo1.getGoles() + 1);
+				acceleracionX = 0.0f;
+				acceleracionY = 0.0f;
+			}
+			else //Rebota contra la pared
+				acceleracionX = acceleracionX * (-1);
 		}
 		// Parte IZQUIERDA de la pantalla
 		if(ball.getxBall() < 0)	{										
 			ball.setxBall(0);
-			acceleracionX = 0.0f;
 			
 			// Marca gol mazo2 x: 0  y: 180 - 332 --> Tamaño porteria: 152
-			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332)
+			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo2.setGoles(mazo2.getGoles() + 1);
+				acceleracionX = 0.0f;
+				acceleracionY = 0.0f;
+			} else
+				acceleracionX = acceleracionX * (-1);
 		}
 		
 		
 		// Choca el mazo 1 con la pelota por la DERECHA
 		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) ) {
-			acceleracionX = 250.0f;
+			acceleracionX = 300.0f;
+			acceleracionY = 300.0f;
 		}
 
 		// Moviendo la pelota
