@@ -29,7 +29,7 @@ public final class App {
 	public static void run(Service s, int w, int h) {
 		
 		window = new Window(w, h);
-		ServiceMan.runService(s);
+		ServiceMan.runService("main", s);
 		
 		running = true;
 		
