@@ -31,7 +31,7 @@ public class Game extends Service implements EventListener {
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
-		
+
 		// Pelota
 		ball = new Ball();
 		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
