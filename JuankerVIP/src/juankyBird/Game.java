@@ -52,7 +52,7 @@ public class Game extends Service implements EventListener {
 		tuberia2.setX(0);
 		tuberia3.setX((Window.getW()+tuberia.getTextura().getW())/2);
 
-		posPardal=(Window.getW() - pardal.getW()) / 3.0f;
+		pardal.setX((Window.getW() - pardal.getW()) / 3.0f);
 			
 		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro

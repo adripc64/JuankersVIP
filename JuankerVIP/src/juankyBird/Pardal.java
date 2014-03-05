@@ -33,6 +33,9 @@ public class Pardal {
 	public float getH() {
 		return sprite.getH();
 	}
+	public void setX(float x){
+		sprite.setX(x);
+	}
 	
 	public float getAltura(){
 		return altura;
