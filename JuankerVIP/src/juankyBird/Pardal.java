@@ -11,6 +11,7 @@ import fge.Window;
 public class Pardal {
 
 	private float altura;
+	private float x;
 	private Sprite sprite;
 	
 	public Pardal() {
@@ -35,6 +36,9 @@ public class Pardal {
 	}
 	public void setX(float x){
 		sprite.setX(x);
+	}
+	public float getX(){
+		return x;
 	}
 	
 	public float getAltura(){

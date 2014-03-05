@@ -56,6 +56,7 @@ public class Game extends Service implements EventListener {
 			
 		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
+		posPardal=pardal.getX();
 		
 		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
 		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
