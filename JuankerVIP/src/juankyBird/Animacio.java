@@ -3,49 +3,16 @@ package juankyBird;
 import fge.Event;
 import fge.EventListener;
 import fge.Service;
+import fge.Sprite;
 
-public class Animacio extends Service implements EventListener{
-
-	@Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		
+public class Animacio{
+	private Sprite sprPardal;
+	
+	public Animacio(){
+		sprPardal=new Sprite();
 	}
-
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
+	public void Moure(){
 		
-	}
-
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void onMove() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void onDraw() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean doEvent(Event e) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

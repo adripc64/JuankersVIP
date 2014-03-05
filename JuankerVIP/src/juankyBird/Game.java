@@ -1,5 +1,8 @@
 package juankyBird;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import fge.App;
 import fge.Color;
 import fge.Event;
@@ -11,6 +14,8 @@ import fge.Font;
 import fge.Render;
 import fge.Service;
 import fge.ServiceMan;
+import fge.Sprite;
+import fge.SpriteAnimation;
 import fge.Texture;
 import fge.Window;
 
@@ -30,6 +35,8 @@ public class Game extends Service implements EventListener {
 	private boolean contador2=false;
 	private float posPardal;
 	private int marcador;
+	
+	private Sprite sprPardal;
 	
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
@@ -56,8 +63,13 @@ public class Game extends Service implements EventListener {
 		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
 		EventMan.addListener(this);
 		
+		List<Texture> frames = new LinkedList<Texture>();
+		for (int i = 0; i <= 23; i++) frames.add(new Texture(String.format("data/pardalBaixanTope", i)));
+		sprPardal.addAnimation(new SpriteAnimation("quiet", 24, frames));
+		
 		pausa = new MenuPausa();
 		ServiceMan.addService(pausa);
+		//ServiceMan.addService(pardalAnim);
 		EventMan.addListener(pausa);
 	}
 
