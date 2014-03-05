@@ -24,30 +24,19 @@ public class Game extends Service implements EventListener {
 	
 	@Override
 	public void onStart() {
-		
-		acceleracionX = 0.0f;
-		acceleracionY = 0.0f;
 		font = new Font("data/COMIC.ttf", 48.0f);
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
 
-		// Pelota
 		ball = new Ball();
-		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
-		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2));
-		
-		// Mazo 1
 		mazo1 = new Mazo();
-		mazo1.setxMazo(Window.getW() / 4.0f - mazo1.getTex().getW() / 2);
-		mazo1.setyMazo(Window.getH() / 2.0f - mazo1.getTex().getH() / 2);
-		
-		// Mazo 2
 		mazo2 = new Mazo();
-		mazo2.setxMazo(Window.getW() / 4.0f + Window.getW() / 2.0f - mazo2.getTex().getW() / 2);
-		mazo2.setyMazo(Window.getH() / 2.0f - mazo2.getTex().getH() / 2);
 		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
 		mazo2.setTex(texturaAux);
+		
+		// Ponemos los objetos en su posicion inicial
+		posicionInicialObjetos();
 		
 		EventMan.addListener(this);
 	}
@@ -98,8 +87,7 @@ public class Game extends Service implements EventListener {
 			// Marca gol mazo1 x: Window.getW() y: 180 - 332 --> Tamaño porteria: 152
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo1.setGoles(mazo1.getGoles() + 1);
-				acceleracionX = 0.0f;
-				acceleracionY = 0.0f;
+				posicionInicialObjetos();
 			}
 			else //Rebota contra la pared
 				acceleracionX = acceleracionX * (-1);
@@ -111,8 +99,7 @@ public class Game extends Service implements EventListener {
 			// Marca gol mazo2 x: 0  y: 180 - 332 --> Tamaño porteria: 152
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo2.setGoles(mazo2.getGoles() + 1);
-				acceleracionX = 0.0f;
-				acceleracionY = 0.0f;
+				posicionInicialObjetos();
 			} else
 				acceleracionX = acceleracionX * (-1);
 		}
@@ -197,7 +184,7 @@ public class Game extends Service implements EventListener {
 		Render.DrawTexture(mazo2.getTex(), xM2, yM2, wM2, hM2, 0, new Color(255, 255, 255));
 		
 		// Dibujando marcador
-		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + "0", 
+		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + mazo2.getGoles(), 
 				new Color(255, 255, 255));
 	}
 
@@ -209,4 +196,20 @@ public class Game extends Service implements EventListener {
 		return false;
 	}
 
+	private void posicionInicialObjetos(){
+		acceleracionX = 0.0f;
+		acceleracionY = 0.0f;
+		
+		// Pelota
+		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
+		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2));
+				
+		// Mazo 1
+		mazo1.setxMazo(Window.getW() / 4.0f - mazo1.getTex().getW() / 2);
+		mazo1.setyMazo(Window.getH() / 2.0f - mazo1.getTex().getH() / 2);
+				
+		// Mazo 2
+		mazo2.setxMazo(Window.getW() / 4.0f + Window.getW() / 2.0f - mazo2.getTex().getW() / 2);
+		mazo2.setyMazo(Window.getH() / 2.0f - mazo2.getTex().getH() / 2);
+	}
 }
