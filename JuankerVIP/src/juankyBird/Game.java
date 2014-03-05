@@ -35,9 +35,7 @@ public class Game extends Service implements EventListener {
 	private boolean contador2=false;
 	private float posPardal;
 	private int marcador;
-	
-	private Sprite sprPardal;
-	
+		
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
 
@@ -54,7 +52,7 @@ public class Game extends Service implements EventListener {
 		tuberia2.setX(0);
 		tuberia3.setX((Window.getW()+tuberia.getTextura().getW())/2);
 
-		posPardal=(Window.getW() - pardal.getTextura().getW()) / 3.0f;
+		posPardal=(Window.getW() - pardal.getW()) / 3.0f;
 			
 		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
@@ -62,10 +60,6 @@ public class Game extends Service implements EventListener {
 		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
 		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
 		EventMan.addListener(this);
-		
-		List<Texture> frames = new LinkedList<Texture>();
-		for (int i = 0; i <= 23; i++) frames.add(new Texture(String.format("data/pardalBaixanTope", i)));
-		sprPardal.addAnimation(new SpriteAnimation("quiet", 24, frames));
 		
 		pausa = new MenuPausa();
 		ServiceMan.addService(pausa);
@@ -128,7 +122,7 @@ public class Game extends Service implements EventListener {
 			pause();
 		}
 	
-		if(tuberia.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f ){
+		if(tuberia.getX()<=(Window.getW() - pardal.getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getW()) / 3.0f ){
 			marcador+=1;
 		}
 		//colisio amb la tercera tuberia inferior
@@ -141,9 +135,12 @@ public class Game extends Service implements EventListener {
 			pause();
 		}
 	
-		if(tuberia.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getTextura().getW()) / 3.0f ){
+		if(tuberia.getX()<=(Window.getW() - pardal.getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getW()) / 3.0f ){
 			marcador+=1;
 		}
+		
+		// Moc el pardal
+		pardal.move();
 	}
 
 	@Override
@@ -162,13 +159,8 @@ public class Game extends Service implements EventListener {
 		if(contador==true)tuberia2.DibujarTuberia();
 		if(contador2==true)tuberia3.DibujarTuberia();
 	
-		// Dibujando pajaro
-		int w = pardal.getTextura().getW();
-		int h = pardal.getTextura().getH();
-		float x = posPardal;
-		float y = Window.getH() - h - pardal.getAltura();
-		Render.DrawTexture(pardal.getTextura(), x, y, w, h, 0,
-				new Color(255, 255, 255));
+		// Dibuixe el pardal
+		pardal.draw();
 	}
 
 	@Override
