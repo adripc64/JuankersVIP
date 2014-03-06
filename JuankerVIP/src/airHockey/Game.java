@@ -29,6 +29,7 @@ public class Game extends Service implements EventListener {
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
 
+		// Inicializando variables
 		ball = new Ball();
 		mazo1 = new Mazo();
 		mazo2 = new Mazo();
@@ -73,35 +74,32 @@ public class Game extends Service implements EventListener {
 	
 	private void moveBall(){
 		// Parte de ARRIBA de la pantalla
-		if(ball.getyBall() < 0) {										
-			acceleracionY = acceleracionY * (-1);
-		}
+		if(ball.getyBall() < 0)										
+			acceleracionY = acceleracionY * (-1);		// Rebota
+
 		// Parte de ABAJO de la pantalla
-		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) {	
-			acceleracionY = acceleracionY * (-1);
-		}
+		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) 
+			acceleracionY = acceleracionY * (-1);		// Rebota
+		
 		// Parte DERECHA de la pantalla
 		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
-			ball.setxBall(Window.getW() - ball.getTex().getW());
-			
-			// Marca gol mazo1 x: Window.getW() y: 180 - 332 --> Tamaño porteria: 152
+			// Marca gol mazo1 SII x: Window.getW() y: 180 - 332 --> Tamaño porteria: 152
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo1.setGoles(mazo1.getGoles() + 1);
 				posicionInicialObjetos();
 			}
-			else //Rebota contra la pared
-				acceleracionX = acceleracionX * (-1);
+			else
+				acceleracionX = acceleracionX * (-1);	// Rebota
 		}
+		
 		// Parte IZQUIERDA de la pantalla
 		if(ball.getxBall() < 0)	{										
-			ball.setxBall(0);
-			
-			// Marca gol mazo2 x: 0  y: 180 - 332 --> Tamaño porteria: 152
+			// Marca gol mazo2 SII x: 0  y: 180 - 332 --> Tamaño porteria: 152
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo2.setGoles(mazo2.getGoles() + 1);
 				posicionInicialObjetos();
 			} else
-				acceleracionX = acceleracionX * (-1);
+				acceleracionX = acceleracionX * (-1);	// Rebota
 		}
 		
 		
@@ -111,6 +109,7 @@ public class Game extends Service implements EventListener {
 			acceleracionY = 300.0f;
 		}
 
+		
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
 		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime());	// Componente Y
@@ -190,6 +189,7 @@ public class Game extends Service implements EventListener {
 
 	public boolean doEvent(Event e){
 
+		// Salir del juego
 		if(Keyboard.isKeyPressed(Keyboard.KEY_Q))
 			App.end();
 		
@@ -202,7 +202,7 @@ public class Game extends Service implements EventListener {
 		
 		// Pelota
 		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
-		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2));
+		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2)+80);
 				
 		// Mazo 1
 		mazo1.setxMazo(Window.getW() / 4.0f - mazo1.getTex().getW() / 2);
