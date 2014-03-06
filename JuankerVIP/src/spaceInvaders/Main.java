@@ -15,7 +15,7 @@ public class Main extends Service {
 
 	@Override
 	public void onStart() {
-		ServiceMan.runService(game);
+		//ServiceMan.runService(game);
 	}
 
 	@Override
