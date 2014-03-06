@@ -15,7 +15,7 @@ public class Mazo {
 	public void setGoles(int goles) {
 		this.goles = goles;
 	}
-
+ 
 	public Mazo(){
 		tex = new Texture("data/airhockey/mazo_blanco.png");
 	}

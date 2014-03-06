@@ -22,8 +22,7 @@ public class Game extends Service implements EventListener {
 	private float acceleracionX;
 	private float acceleracionY;
 	
-	@Override
-	public void onStart() {
+	public Game(){
 		font = new Font("data/COMIC.ttf", 48.0f);
 		
 		// Fondo de pantalla
@@ -33,13 +32,17 @@ public class Game extends Service implements EventListener {
 		ball = new Ball();
 		mazo1 = new Mazo();
 		mazo2 = new Mazo();
+		// Cambar color del mazo 2
 		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
 		mazo2.setTex(texturaAux);
 		
+		EventMan.addListener(this);
+	}
+	
+	@Override
+	public void onStart() {		
 		// Ponemos los objetos en su posicion inicial
 		posicionInicialObjetos();
-		
-		EventMan.addListener(this);
 	}
 
 	@Override
@@ -189,9 +192,16 @@ public class Game extends Service implements EventListener {
 
 	public boolean doEvent(Event e){
 
-		// Salir del juego
-		if(Keyboard.isKeyPressed(Keyboard.KEY_Q))
-			App.end();
+		switch(e.getType()) {
+		
+		case KEY_PRESSED:
+			if (e.getValue() == Keyboard.KEY_Q) 
+				App.exit(); 
+			break;
+		
+		default:
+			break;
+		}
 		
 		return false;
 	}

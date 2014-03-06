@@ -5,18 +5,15 @@ import fge.Service;
 import fge.ServiceMan;
 
 public class Main extends Service{
-
-	public static Main main = new Main();
-	public static Game game = new Game();
 	
 	public static void main(String[] args) {
-		App.run(main, 1024, 512);
+		App.run(new Main(), 1024, 512);
 	}
 	
 	@Override
 	public void onStart() {
 		String juego = "juego";
-		ServiceMan.runService(juego, game);
+		ServiceMan.runService(juego, new Game());
 	}
 
 	@Override
