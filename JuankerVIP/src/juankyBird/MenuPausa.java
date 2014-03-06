@@ -16,18 +16,16 @@ import fge.Event.EventType;
 public class MenuPausa extends Service implements EventListener {
 	private Texture texReini;
 	private Texture texApa;
-	private Game game;
 	
 	public MenuPausa() {
 		texReini = new Texture("data/reiniciar.png");
 		texApa= new Texture("data/apagar.png");
+		EventMan.addListener(this);
 	}
 	
 	@Override
 	public void onStart() {
-		game = new Game();
-		ServiceMan.addService(game);
-		EventMan.addListener(game);
+
 	}
 
 	@Override
@@ -41,6 +39,7 @@ public class MenuPausa extends Service implements EventListener {
 				System.out.println("reinicia");
 				stop();
 				// Aquí lo que vullges que pase quan fas click al boto... reiniciar el joc per exemple?
+				Service game = ServiceMan.getService("menu_pausa");
 				game.start();
 			}
 			if(mx>=(Window.getW()+50)/2&&mx<=(Window.getW()+165)/2 && my>=(Window.getH())/2-25 && my<(Window.getH())/2+35 ){
@@ -72,7 +71,7 @@ public class MenuPausa extends Service implements EventListener {
 
 	@Override
 	protected void onMove() {
-		
+
 	}
 
 	@Override

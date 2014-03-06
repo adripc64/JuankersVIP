@@ -21,7 +21,6 @@ import fge.Window;
 
 public class Game extends Service implements EventListener {
 	
-	private MenuPausa pausa;
 	private Font font;
 	private Pardal pardal;
 	private Tuberia tuberia;
@@ -39,33 +38,28 @@ public class Game extends Service implements EventListener {
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
 
-
-	@Override
-	public void onStart() {
-		aceleracion = 0.0f;
+	public Game() {
+		EventMan.addListener(this);
+		
 		pardal = new Pardal();
 		tuberia=new Tuberia();
 		tuberia2=new Tuberia();
 		tuberia3=new Tuberia();
 		font = new Font("data/COMIC.ttf", 48.0f);
+		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
+		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
+		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
+	}
+	
+	@Override
+	public void onStart() {
+		aceleracion = 0.0f;
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 		tuberia2.setX(0);
 		tuberia3.setX((Window.getW()+tuberia.getTextura().getW())/2);
-
-		pardal.setX((Window.getW() - pardal.getW()) / 3.0f);
-			
-		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
+		pardal.setX((Window.getW() - pardal.getW()) / 3.0f);		
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
 		posPardal=pardal.getX();
-		
-		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
-		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
-		EventMan.addListener(this);
-		
-		pausa = new MenuPausa();
-		ServiceMan.addService(pausa);
-		//ServiceMan.addService(pardalAnim);
-		EventMan.addListener(pausa);
 	}
 
 	@Override
@@ -73,6 +67,7 @@ public class Game extends Service implements EventListener {
 	}
 	@Override
 	protected void onPause() {
+		Service pausa = ServiceMan.getService("menu_pausa");
 		pausa.start();
 	}
 	@Override
