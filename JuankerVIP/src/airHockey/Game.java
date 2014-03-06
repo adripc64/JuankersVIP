@@ -1,11 +1,22 @@
 package airHockey;
 
+/***
+ * Nota mental:
+ * 1. Aplicar un rozamiento cuando choca contra las paredes la pelota
+ * 2. Dejar que la velocidad de la bola vaya aumentando hasta un tope fijado, 
+ * 		el cual podría ser por ejemplo 500, de los cuales esos 1000 se van repartiendo 
+ * 		entre las constantes x e y.
+ * 3. Tomar en cuenta en las colisiones cuando colisiona con el mazo la pelota de forma
+ * 		inversa a a la que quiere ir.
+ */
+
 import fge.App;
 import fge.Color;
 import fge.Event;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
+import fge.Intersect;
 import fge.Keyboard;
 import fge.Render;
 import fge.Service;
@@ -105,10 +116,14 @@ public class Game extends Service implements EventListener {
 				acceleracionX = acceleracionX * (-1);	// Rebota
 		}
 		
+		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
+		// http://stackoverflow.com/questions/1736734/circle-circle-collision
 		
-		// Choca el mazo 1 con la pelota por la DERECHA
-		if( mazo1.getxMazo() == (ball.getxBall() - (ball.getTex().getW() / 2)) ) {
-			acceleracionX = 300.0f;
+		// Choca el mazo 1 con la pelota 
+		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), 
+				mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), 
+				ball.getTex().getH() / 2)) {
+			acceleracionX = 500.0f;
 			acceleracionY = 300.0f;
 		}
 
@@ -116,7 +131,7 @@ public class Game extends Service implements EventListener {
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
 		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime());	// Componente Y
-		
+
 	}
 	
 	private void moveMazo1(){
@@ -212,7 +227,7 @@ public class Game extends Service implements EventListener {
 		
 		// Pelota
 		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
-		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2)+80);
+		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2));
 				
 		// Mazo 1
 		mazo1.setxMazo(Window.getW() / 4.0f - mazo1.getTex().getW() / 2);
