@@ -3,6 +3,8 @@ package juankyBird;
 import java.util.LinkedList;
 import java.util.List;
 
+import fge.Color;
+import fge.Render;
 import fge.Sprite;
 import fge.SpriteAnimation;
 import fge.Texture;
@@ -11,7 +13,6 @@ import fge.Window;
 public class Pardal {
 
 	private float altura;
-	private float x;
 	private Sprite sprite;
 	
 	public Pardal() {
@@ -37,8 +38,13 @@ public class Pardal {
 	public void setX(float x){
 		sprite.setX(x);
 	}
+	
+	public float getY() {
+		return sprite.getY();
+	}
+	
 	public float getX(){
-		return x;
+		return sprite.getX();
 	}
 	
 	public float getAltura(){
@@ -56,5 +62,6 @@ public class Pardal {
 	
 	public void draw() {
 		sprite.draw();
+		Render.DrawRectangle(sprite.getX(), sprite.getY(), getW(), getH(), 0, new Color(255,0,0));
 	}
 }

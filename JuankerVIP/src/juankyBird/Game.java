@@ -21,7 +21,6 @@ import fge.Window;
 
 public class Game extends Service implements EventListener {
 	
-	private MenuPausa pausa;
 	private Font font;
 	private Pardal pardal;
 	private Tuberia tuberia;
@@ -39,33 +38,32 @@ public class Game extends Service implements EventListener {
 	private Texture texTuboCuerpo;
 	private Texture texTuboCuerpoInv;
 
-
-	@Override
-	public void onStart() {
-		aceleracion = 0.0f;
+	public Game() {
+		EventMan.addListener(this);
+		
 		pardal = new Pardal();
 		tuberia=new Tuberia();
 		tuberia2=new Tuberia();
 		tuberia3=new Tuberia();
 		font = new Font("data/COMIC.ttf", 48.0f);
+		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
+		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
+		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
+	}
+	
+	@Override
+	public void onStart() {
+		tuberia=new Tuberia();
+		tuberia2=new Tuberia();
+		tuberia3=new Tuberia();
+		aceleracion = 0.0f;
 		tuberia.setX(Window.getW()+tuberia.getTextura().getW());
 		tuberia2.setX(0);
 		tuberia3.setX((Window.getW()+tuberia.getTextura().getW())/2);
-
-		pardal.setX((Window.getW() - pardal.getW()) / 3.0f);
-			
-		texBackground = new Texture("data/tumblr_mbhiex4zoj1r1x7rso1_1280.jpg"); // a�o es molt xapussa sa darreglar
+		pardal.setX((Window.getW() - pardal.getW()) / 3.0f);		
 		pardal.setAltura(Window.getH() / 2.0f); // Aparece en medio de la pantalla el p�jaro
 		posPardal=pardal.getX();
-		
-		texTuboCuerpo = new Texture("data/tubo_cuerpo.png");
-		texTuboCuerpoInv = new Texture("data/tubo_cuerpoInv3.png");
-		EventMan.addListener(this);
-		
-		pausa = new MenuPausa();
-		ServiceMan.addService(pausa);
-		//ServiceMan.addService(pardalAnim);
-		EventMan.addListener(pausa);
+		System.out.println("tornem a jugars");
 	}
 
 	@Override
@@ -73,6 +71,7 @@ public class Game extends Service implements EventListener {
 	}
 	@Override
 	protected void onPause() {
+		Service pausa = ServiceMan.getService("menu_pausa");
 		pausa.start();
 	}
 	@Override
@@ -83,7 +82,7 @@ public class Game extends Service implements EventListener {
 	public void onMove() { // Constante descendente e implementacion de onUp
 		// Movimiento del background
 		backgroundUX += (backgroundSpeed / Window.getW()) * App.getFTime();
-		
+		posPardal=pardal.getX();
 		// Movimiento del pajaro
 		if(pardal.getAltura() >= Window.getH() - 60){ // Llega arriba de la pantalla el pajaro
 			aceleracion = 250.0f;
@@ -104,14 +103,27 @@ public class Game extends Service implements EventListener {
 		tuberia.MoureTuberia();
 		tuberia2.MoureTuberia();
 		tuberia3.MoureTuberia();
-	
+		
+		if (tuberia.chocaElPardalet(pardal.getX(), pardal.getAltura(), pardal.getW(), pardal.getY())) {
+			pause();
+		}
+		if (tuberia2.chocaElPardalet(pardal.getX(), pardal.getAltura(), pardal.getW(), pardal.getY())) {
+			pause();
+		}
+		if (tuberia3.chocaElPardalet(pardal.getX(), pardal.getAltura(), pardal.getW(), pardal.getY())) {
+			pause();
+		}
+		
+	/*
 		//vamos a empezar con las colisiones
 		//colisio amb la primera tuberia inferior
 		if(pardal.getAltura()<=(tuberia.getTextura().getH()-40-tuberia.getYT())&&(tuberia.getX()-tuberia.getTextura().getW()/2+10)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTextura().getW()/2)){
+			System.out.println("culpa tuberia 1 inf");
 			pause();
 		}
 		//colisio amb la primera tuberia superior
 		if(pardal.getAltura()>=(tuberia.getTexturaInv().getH()+90-tuberia.getYT())&&(tuberia.getX()-tuberia.getTexturaInv().getW()/2)<=(posPardal)&&posPardal<=(tuberia.getX()+tuberia.getTexturaInv().getW()/2+20)){
+			System.out.println("culpa tuberia 1 sup");
 			pause();
 		}
 		//colisio amb la segona tuberia inferior
@@ -139,7 +151,7 @@ public class Game extends Service implements EventListener {
 		if(tuberia.getX()<=(Window.getW() - pardal.getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getW()) / 3.0f || tuberia2.getX()<=(Window.getW() - pardal.getW()) / 3.0f ){
 			marcador+=1;
 		}
-		
+		*/
 		// Moc el pardal
 		pardal.move();
 	}
