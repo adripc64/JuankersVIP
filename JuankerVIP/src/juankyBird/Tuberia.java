@@ -64,9 +64,9 @@ public class Tuberia {
 	
 	public boolean chocaElPardalet(float px, float py, float pw, float ph) {
 		
-		if(Intersect.RectWithRect(px, py, pw, ph, x, yEspacio, texTubeTop.getW(),0 )){
+		if(Intersect.RectWithRect(px, py, pw, ph, x, 0, texTubeTop.getW(),0 )){
 			System.out.println("part de dalt");
-			System.out.println(py+"  "+yEspacio);
+			System.out.println("altura pardal "+py+"  altura tuberia "+yEspacio);
 			return true;
 		}
 		/*
