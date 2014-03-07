@@ -53,7 +53,7 @@ public class Pardal {
 	
 	public void setAltura(float altura){
 		this.altura = altura;
-		sprite.setY(Window.getH() - sprite.getH() - altura);
+		sprite.setY( altura-sprite.getH() );
 	}
 	
 	public void move() {
