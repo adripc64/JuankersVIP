@@ -8,6 +8,9 @@ package airHockey;
  * 		entre las constantes x e y.
  * 3. Tomar en cuenta en las colisiones cuando colisiona con el mazo la pelota de forma
  * 		inversa a a la que quiere ir.
+ * 4. Cuando em azo esta PARADO debe chocar la pelota como en la pared.
+ * 5. Si el mazo no está presionado debe de poner sus velocidades a cero.
+ * 6. Aplicar rozamiento a la bola, pero en funcion de un 1% en cada Ftime, por ejemplo.
  */
 
 import fge.App;
@@ -120,29 +123,35 @@ public class Game extends Service implements EventListener {
 		// http://stackoverflow.com/questions/1736734/circle-circle-collision
 		
 		// Choca el mazo 1 con la pelota 
-		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), 
-				mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), 
-				ball.getTex().getH() / 2)) {
+		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
 			acceleracionX = 500.0f;
 			acceleracionY = 300.0f;
 		}
 
 		
 		// Moviendo la pelota
-		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime());	// Componente X
-		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime());	// Componente Y
+		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime() );	// Componente X
+		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime() );	// Componente Y
 
 	}
 	
 	private void moveMazo1(){
-		if(Keyboard.isKeyPressed(Keyboard.KEY_A))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_A)) {
 			mazo1.setxMazo(mazo1.getxMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_D))
+			mazo1.setvX(-1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_D)) {
 			mazo1.setxMazo(mazo1.getxMazo() + 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_W))
+			mazo1.setvX(1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_W)) {
 			mazo1.setyMazo(mazo1.getyMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_S))
+			mazo1.setvY(-1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_S)) {
 			mazo1.setyMazo(mazo1.getyMazo() + 5.0f);
+			mazo1.setvY(1.0f);
+		}
 		
 		if(mazo1.getxMazo() < 0)										// Parte izquierda de la pantalla
 			mazo1.setxMazo(0);
@@ -155,14 +164,22 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo2(){
-		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT))
+		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT)) {
 			mazo2.setxMazo(mazo2.getxMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT))
+			mazo1.setvX(-1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT)) {
 			mazo2.setxMazo(mazo2.getxMazo() + 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_UP))
+			mazo1.setvX(1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_UP)) {
 			mazo2.setyMazo(mazo2.getyMazo() - 5.0f);
-		if(Keyboard.isKeyPressed(Keyboard.KEY_DOWN))
+			mazo1.setvY(-1.0f);
+		}
+		if(Keyboard.isKeyPressed(Keyboard.KEY_DOWN)) {
 			mazo2.setyMazo(mazo2.getyMazo() + 5.0f);
+			mazo1.setvY(1.0f);
+		}
 		
 		if(mazo2.getxMazo() > Window.getW() - mazo2.getTex().getW())	// Parte DERECHA de la pantalla
 			mazo2.setxMazo(Window.getW() - mazo2.getTex().getW());

@@ -45,4 +45,20 @@ public class Mazo {
 	public void setyMazo(float yMazo) {
 		this.yMazo = yMazo;
 	}
+
+	public float getvX() {
+		return vX;
+	}
+
+	public void setvX(float vX) {
+		this.vX = vX;
+	}
+
+	public float getvY() {
+		return vY;
+	}
+
+	public void setvY(float vY) {
+		this.vY = vY;
+	}
 }
