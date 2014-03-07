@@ -46,7 +46,7 @@ public class Game extends Service implements EventListener {
 		ball = new Ball();
 		mazo1 = new Mazo();
 		mazo2 = new Mazo();
-		// Cambar color del mazo 2
+		// Cambiar color del mazo 2
 		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
 		mazo2.setTex(texturaAux);
 		
@@ -121,13 +121,16 @@ public class Game extends Service implements EventListener {
 		
 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
 		// http://stackoverflow.com/questions/1736734/circle-circle-collision
+		// sen A = b / (r1 + r2)
+		// sen A = 0.5 --> A = 30º
+		// x = 0.5y
 		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
-			acceleracionX = 500.0f;
-			acceleracionY = 300.0f;
+			acceleracionX = 300.0f * mazo1.getvX();
+			acceleracionY = 75.0f * mazo1.getvY();
 		}
-
+		
 		
 		// Moviendo la pelota
 		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime() );	// Componente X
