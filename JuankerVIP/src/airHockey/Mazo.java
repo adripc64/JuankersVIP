@@ -4,28 +4,12 @@ import fge.Texture;
 
 public class Mazo {
 	private Texture tex;
-	private float xMazo;		// Posicion x del mazo
-	private float yMazo;		// Posicion y del mazo
-	private int goles = 0;		// Numero de goles
-	private float vX = 0;		// Volicidad x del mazo
-	private float vY = 0;		// Velocidad y del mazo
+	private float xMazo;	// Posicion X del mazo
+	private float yMazo;	// Posicion Y del mazo
+	private int goles = 0;
+	private float vX;		// Velocidad X del mazo
+	private float vY;		// Velocidad Y del mazo
 	
-	public float getvX() {
-		return vX;
-	}
-
-	public void setvX(float vX) {
-		this.vX = vX;
-	}
-
-	public float getvY() {
-		return vY;
-	}
-
-	public void setvY(float vY) {
-		this.vY = vY;
-	}
-
 	public int getGoles() {
 		return goles;
 	}
