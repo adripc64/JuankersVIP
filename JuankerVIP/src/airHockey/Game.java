@@ -108,6 +108,7 @@ public class Game extends Service implements EventListener {
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo1.setGoles(mazo1.getGoles() + 1);
 				posicionInicialObjetos();
+				cambiarImagenGolMazo1();
 			}
 			else
 				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
@@ -119,6 +120,7 @@ public class Game extends Service implements EventListener {
 			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
 				mazo2.setGoles(mazo2.getGoles() + 1);
 				posicionInicialObjetos();
+				cambiarImagenGolMazo2();
 			} else
 				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
 		}
@@ -156,7 +158,7 @@ public class Game extends Service implements EventListener {
 		ball.setyBall(ball.getyBall() + acceleracionYBall * App.getFTime() );	// Componente Y
 
 	}
-	
+
 	private void moveMazo1(){
 		
 		// Moviendo el mazo 1
@@ -324,5 +326,67 @@ public class Game extends Service implements EventListener {
 		// Mazo 2
 		mazo2.setxMazo(Window.getW() / 4.0f + Window.getW() / 2.0f - mazo2.getTex().getW() / 2);
 		mazo2.setyMazo(Window.getH() / 2.0f - mazo2.getTex().getH() / 2);
+	}
+	
+	private void cambiarImagenGolMazo1() {
+		Texture textura;
+		
+		if(mazo1.getGoles() == 1) {
+			textura = new Texture("data/airhockey/mazo_blanco_1.png");
+			mazo1.setTex(textura);
+			return;
+		} 
+		
+		if(mazo1.getGoles() == 2) {
+			textura = new Texture("data/airhockey/mazo_blanco_2.png");
+			mazo1.setTex(textura);
+			return;
+		}
+			
+		if(mazo1.getGoles() == 3) {
+			textura = new Texture("data/airhockey/mazo_blanco_3.png");
+			mazo1.setTex(textura);
+			return;
+		} 
+		
+		if(mazo1.getGoles() == 4) {
+			textura = new Texture("data/airhockey/mazo_blanco_4.png");
+			mazo1.setTex(textura);
+			return;
+		} else {
+			// Has ganado la partida!! :D
+		}
+		
+	}
+	
+	private void cambiarImagenGolMazo2() {
+		Texture textura;
+		
+		if(mazo2.getGoles() == 1) {
+			textura = new Texture("data/airhockey/mazo_negro_1.png");
+			mazo2.setTex(textura);
+			return;
+		} 
+		
+		if(mazo2.getGoles() == 2) {
+			textura = new Texture("data/airhockey/mazo_negro_2.png");
+			mazo2.setTex(textura);
+			return;
+		}
+			
+		if(mazo2.getGoles() == 3) {
+			textura = new Texture("data/airhockey/mazo_negro_3.png");
+			mazo2.setTex(textura);
+			return;
+		} 
+		
+		if(mazo2.getGoles() == 4) {
+			textura = new Texture("data/airhockey/mazo_negro_4.png");
+			mazo2.setTex(textura);
+			return;
+		} else {
+			// Has ganado la partida!! :D
+		}
+		
 	}
 }
