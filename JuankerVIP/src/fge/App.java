@@ -78,7 +78,6 @@ public final class App {
 	}
 	
 	private static void draw() {
-		initGL();
 		// Clear The Screen And The Depth Buffer
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		ServiceMan.draw();
