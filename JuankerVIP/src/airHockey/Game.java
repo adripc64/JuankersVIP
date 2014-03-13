@@ -31,13 +31,18 @@ public class Game extends Service implements EventListener {
 	private Font font;
 	private Texture texBackground;
 	private Ball ball;
+	private float acceleracionXBall;
+	private float acceleracionYBall;
+	private int direccionXBall;
+	private int direccionYBall;
+	
 	private Mazo mazo1;
 	private Mazo mazo2;
-	private float acceleracionX;
-	private float acceleracionY;
+	private int velocidadMazo;	// Constante
 	
 	public Game(){
 		font = new Font("data/COMIC.ttf", 48.0f);
+		velocidadMazo = 200;
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
@@ -91,11 +96,11 @@ public class Game extends Service implements EventListener {
 	private void moveBall(){
 		// Parte de ARRIBA de la pantalla
 		if(ball.getyBall() < 0)										
-			acceleracionY = acceleracionY * (-1);		// Rebota
+			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
 
 		// Parte de ABAJO de la pantalla
 		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) 
-			acceleracionY = acceleracionY * (-1);		// Rebota
+			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
 		
 		// Parte DERECHA de la pantalla
 		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
@@ -105,7 +110,7 @@ public class Game extends Service implements EventListener {
 				posicionInicialObjetos();
 			}
 			else
-				acceleracionX = acceleracionX * (-1);	// Rebota
+				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
 		}
 		
 		// Parte IZQUIERDA de la pantalla
@@ -115,7 +120,7 @@ public class Game extends Service implements EventListener {
 				mazo2.setGoles(mazo2.getGoles() + 1);
 				posicionInicialObjetos();
 			} else
-				acceleracionX = acceleracionX * (-1);	// Rebota
+				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
 		}
 		
 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
@@ -126,38 +131,40 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
+			
 			float angulo = Math.abs(mazo1.getyMazo() - mazo2.getyMazo()) / ( mazo1.getTex().getW() + mazo2.getTex().getW() );
 			System.out.println(angulo);
 			
-			acceleracionX = 200.0f * mazo1.getvX();
-			acceleracionY = 200.0f * (-1) * angulo * mazo1.getvY();
+			// Direccion de la pelota
+			if(mazo1.getxMazo() < ball.getxBall()) 
+				direccionXBall = 1;
+			else
+				direccionXBall = -1;
+			if(mazo1.getyMazo() < ball.getyBall())
+				direccionYBall = 1;
+			else
+				direccionYBall = -1;
+			
+			
+			acceleracionXBall = 200.0f * direccionXBall;
+			acceleracionYBall = 200.0f * angulo * 2 * direccionYBall;
 		}
 		
 		
 		// Moviendo la pelota
-		ball.setxBall(ball.getxBall() + acceleracionX * App.getFTime() );	// Componente X
-		ball.setyBall(ball.getyBall() + acceleracionY * App.getFTime() );	// Componente Y
+		ball.setxBall(ball.getxBall() + acceleracionXBall * App.getFTime() );	// Componente X
+		ball.setyBall(ball.getyBall() + acceleracionYBall * App.getFTime() );	// Componente Y
 
 	}
 	
 	private void moveMazo1(){
-		if(Keyboard.isKeyPressed(Keyboard.KEY_A)) {
-			mazo1.setxMazo(mazo1.getxMazo() - 5.0f);
-			mazo1.setvX(-1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_D)) {
-			mazo1.setxMazo(mazo1.getxMazo() + 5.0f);
-			mazo1.setvX(1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_W)) {
-			mazo1.setyMazo(mazo1.getyMazo() - 5.0f);
-			mazo1.setvY(-1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_S)) {
-			mazo1.setyMazo(mazo1.getyMazo() + 5.0f);
-			mazo1.setvY(1.0f);
-		}
 		
+		// Moviendo el mazo 1
+		mazo1.setxMazo(mazo1.getxMazo() + mazo1.getvX() * App.getFTime());	// Componente X
+		mazo1.setyMazo(mazo1.getyMazo() + mazo1.getvY() * App.getFTime());	// Componente Y
+		
+		
+		// Colisiones de pantalla
 		if(mazo1.getxMazo() < 0)										// Parte izquierda de la pantalla
 			mazo1.setxMazo(0);
 		if(mazo1.getxMazo() + mazo1.getTex().getW() > Window.getW()/2)	// Si se sale de su CAMPO
@@ -169,23 +176,13 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo2(){
-		if(Keyboard.isKeyPressed(Keyboard.KEY_LEFT)) {
-			mazo2.setxMazo(mazo2.getxMazo() - 5.0f);
-			mazo1.setvX(-1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_RIGHT)) {
-			mazo2.setxMazo(mazo2.getxMazo() + 5.0f);
-			mazo1.setvX(1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_UP)) {
-			mazo2.setyMazo(mazo2.getyMazo() - 5.0f);
-			mazo1.setvY(-1.0f);
-		}
-		if(Keyboard.isKeyPressed(Keyboard.KEY_DOWN)) {
-			mazo2.setyMazo(mazo2.getyMazo() + 5.0f);
-			mazo1.setvY(1.0f);
-		}
 		
+		// Moviendo el mazo 1
+		mazo2.setxMazo(mazo2.getxMazo() + mazo2.getvX() * App.getFTime());	// Componente X
+		mazo2.setyMazo(mazo2.getyMazo() + mazo2.getvY() * App.getFTime());	// Componente Y
+				
+				
+		// Colisiones de pantalla
 		if(mazo2.getxMazo() > Window.getW() - mazo2.getTex().getW())	// Parte DERECHA de la pantalla
 			mazo2.setxMazo(Window.getW() - mazo2.getTex().getW());
 		if(mazo2.getxMazo() < Window.getW()/2)							// Si se sale de su CAMPO
@@ -232,8 +229,77 @@ public class Game extends Service implements EventListener {
 		switch(e.getType()) {
 		
 		case KEY_PRESSED:
-			if (e.getValue() == Keyboard.KEY_Q) 
+			if (e.getValue() == Keyboard.KEY_Q) 	// Finalizar juego
 				App.exit(); 
+			
+			if (e.getValue() == Keyboard.KEY_A) {
+				mazo1.setvX(-velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_W) {
+				mazo1.setvY(-velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_D) {
+				mazo1.setvX(velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_S) {
+				mazo1.setvY(velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_LEFT) {
+				mazo2.setvX(-velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_RIGHT) {
+				mazo2.setvX(velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_UP) {
+				mazo2.setvY(-velocidadMazo);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_DOWN) {
+				mazo2.setvY(velocidadMazo);
+			}
+			
+			break;
+		
+		
+		case KEY_RELEASED:
+			if (e.getValue() == Keyboard.KEY_A) {
+				mazo1.setvX(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_W) {
+				mazo1.setvY(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_D) {
+				mazo1.setvX(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_S) {
+				mazo1.setvY(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_LEFT) {
+				mazo2.setvX(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_RIGHT) {
+				mazo2.setvX(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_UP) {
+				mazo2.setvY(0);
+			}
+			
+			if (e.getValue() == Keyboard.KEY_DOWN) {
+				mazo2.setvY(0);
+			}
+				
 			break;
 		
 		default:
@@ -244,8 +310,8 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void posicionInicialObjetos(){
-		acceleracionX = 0.0f;
-		acceleracionY = 0.0f;
+		acceleracionXBall = 0.0f;
+		acceleracionYBall = 0.0f;
 		
 		// Pelota
 		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
