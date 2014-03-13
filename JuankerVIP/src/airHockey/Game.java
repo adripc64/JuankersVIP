@@ -7,8 +7,8 @@ package airHockey;
  * 		el cual podría ser por ejemplo 500, de los cuales esos 1000 se van repartiendo 
  * 		entre las constantes x e y.
  * 3. Tomar en cuenta en las colisiones cuando colisiona con el mazo la pelota de forma
- * 		inversa a a la que quiere ir.
- * 4. Cuando em azo esta PARADO debe chocar la pelota como en la pared.
+ * 		inversa a la que quiere ir.
+ * 4. Cuando el mazo esta PARADO debe chocar la pelota como en la pared.
  * 5. Si el mazo no está presionado debe de poner sus velocidades a cero.
  * 6. Aplicar rozamiento a la bola, pero en funcion de un 1% en cada Ftime, por ejemplo.
  */
@@ -46,7 +46,6 @@ public class Game extends Service implements EventListener {
 		ball = new Ball();
 		mazo1 = new Mazo();
 		mazo2 = new Mazo();
-		// Cambiar color del mazo 2
 		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
 		mazo2.setTex(texturaAux);
 		
@@ -127,8 +126,11 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
-			acceleracionX = 300.0f * mazo1.getvX();
-			acceleracionY = 75.0f * mazo1.getvY();
+			float angulo = Math.abs(mazo1.getyMazo() - mazo2.getyMazo()) / ( mazo1.getTex().getW() + mazo2.getTex().getW() );
+			System.out.println(angulo);
+			
+			acceleracionX = 200.0f * mazo1.getvX();
+			acceleracionY = 200.0f * (-1) * angulo * mazo1.getvY();
 		}
 		
 		
