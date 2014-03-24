@@ -8,6 +8,9 @@ public class Ball {
 	private float xBall;
 	private float yBall;
 	
+	private float velocidad;
+	private float rozamiento;
+	
 	public Ball(){
 		tex = new Texture("data/ball64.png");
 	}
@@ -34,6 +37,22 @@ public class Ball {
 
 	public void setyBall(float yBall) {
 		this.yBall = yBall;
+	}
+
+	public float getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(float velocidad) {
+		this.velocidad = velocidad;
+	}
+
+	public float getRozamiento() {
+		return rozamiento;
+	}
+
+	public void setRozamiento(float rozamiento) {
+		this.rozamiento = rozamiento;
 	}
 	
 	

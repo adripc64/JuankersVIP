@@ -34,7 +34,6 @@ public class Game extends Service implements EventListener {
 	private Ball ball;
 	private float acceleracionXBall;
 	private float acceleracionYBall;
-	private float velocidadBall;
 	
 	private Mazo mazo1;
 	private Mazo mazo2;
@@ -44,11 +43,14 @@ public class Game extends Service implements EventListener {
 		font = new Font("data/COMIC.ttf", 48.0f);
 		velocidadMazo = 350;
 		
+		
 		// Fondo de pantalla
-		texBackground = new Texture("data/airhockey/campo.png");
+		texBackground = new Texture("data/airhockey/campo2.0.png");
 
 		// Inicializando variables
 		ball = new Ball();
+		ball.setRozamiento(30.0f);
+		
 		mazo1 = new Mazo();
 		mazo2 = new Mazo();
 		Texture texturaAux = new Texture("data/airhockey/mazo_negro.png");
@@ -95,12 +97,17 @@ public class Game extends Service implements EventListener {
 	
 	private void moveBall(){
 		// Parte de ARRIBA de la pantalla
-		if(ball.getyBall() < 0)										
+		if( ball.getyBall() < 0 )	{
+			ball.setyBall(0);
 			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
+			
+		}
 
 		// Parte de ABAJO de la pantalla
-		if(ball.getyBall() > Window.getH() - ball.getTex().getH()) 
+		if( ball.getyBall() > Window.getH() - ball.getTex().getH() ) {
+			ball.setyBall( Window.getH() - ball.getTex().getH() );
 			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
+		}
 		
 		// Parte DERECHA de la pantalla
 		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
@@ -132,27 +139,37 @@ public class Game extends Service implements EventListener {
 		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, 
 				ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
 			
-			velocidadBall += 50;
+			ball.setVelocidad( ball.getVelocidad() + 100 );
 			
 			// Formula: senB = b / (R1 + R2)
-			float angulo = ( ball.getyBall() - mazo1.getyMazo() ) / ( mazo1.getTex().getW() / 2 + ball.getTex().getW() / 2 );
-			System.out.println("Angulo: " + angulo);			
+			float anguloColision = ( ball.getyBall() - mazo1.getyMazo() ) / ( mazo1.getTex().getW() / 2 + ball.getTex().getW() / 2 );
 			
 			// Direccion de la pelota X
 			if( mazo1.getxMazo() < ball.getxBall() ) 
-				acceleracionXBall = velocidadBall * (1 - Math.abs(angulo));
+				acceleracionXBall = (1 - Math.abs(anguloColision));
 			else
-				acceleracionXBall = velocidadBall * (1 - Math.abs(angulo)) * (-1);
+				acceleracionXBall = (1 - Math.abs(anguloColision)) * (-1);
 			
-			// Direccion de la pelota Y, especificada en la formula al hacer la resta
-			acceleracionYBall = velocidadBall * angulo;
+			// Direccion de la pelota Y, especificada la direccion en la formula al hacer la resta
+			acceleracionYBall = anguloColision;
 
-		}
+		}		
+		
 		
 		
 		// Moviendo la pelota
-		ball.setxBall(ball.getxBall() + acceleracionXBall * App.getFTime() );	// Componente X
-		ball.setyBall(ball.getyBall() + acceleracionYBall * App.getFTime() );	// Componente Y
+		if(ball.getVelocidad() > 1000)	// Tope por arriba de la velocidad
+			ball.setVelocidad(1000);
+		
+		if(ball.getVelocidad() < 0)		// Tope por abajo de la velocidad
+			ball.setVelocidad(0);
+		
+		if(ball.getVelocidad() > 0 ) {	// Rozamiento de la pelota
+			ball.setVelocidad( ball.getVelocidad() - ball.getRozamiento() * App.getFTime() );
+		}	
+		
+		ball.setxBall( ball.getxBall() + acceleracionXBall * ball.getVelocidad() * App.getFTime() );	// Componente X
+		ball.setyBall( ball.getyBall() + acceleracionYBall * ball.getVelocidad() * App.getFTime() );	// Componente Y
 
 	}
 
