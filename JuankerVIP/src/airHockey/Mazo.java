@@ -6,11 +6,12 @@ public class Mazo {
 	private Texture tex;
 	private float xMazo;	// Posicion X del mazo
 	private float yMazo;	// Posicion Y del mazo
-	private int goles = 0;
+	private int goles;		// Goles del mazo
 	private float vX;		// Velocidad X del mazo
 	private float vY;		// Velocidad Y del mazo
 	
 	public Mazo(){
+		goles = 0;
 		tex = new Texture("data/airhockey/mazo_blanco.png");
 	}
 	

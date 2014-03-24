@@ -30,11 +30,11 @@ import fge.Event.EventType;
 public class Game extends Service implements EventListener {
 	private Font font;
 	private Texture texBackground;
+	
 	private Ball ball;
 	private float acceleracionXBall;
 	private float acceleracionYBall;
-	private int direccionXBall;
-	private int direccionYBall;
+	private float velocidadBall;
 	
 	private Mazo mazo1;
 	private Mazo mazo2;
@@ -42,7 +42,7 @@ public class Game extends Service implements EventListener {
 	
 	public Game(){
 		font = new Font("data/COMIC.ttf", 48.0f);
-		velocidadMazo = 200;
+		velocidadMazo = 350;
 		
 		// Fondo de pantalla
 		texBackground = new Texture("data/airhockey/campo.png");
@@ -127,29 +127,26 @@ public class Game extends Service implements EventListener {
 		
 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
 		// http://stackoverflow.com/questions/1736734/circle-circle-collision
-		// sen A = b / (r1 + r2)
-		// sen A = 0.5 --> A = 30º
-		// x = 0.5y
 		
 		// Choca el mazo 1 con la pelota 
-		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
+		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, 
+				ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
 			
-			float angulo = Math.abs(mazo1.getyMazo() - mazo2.getyMazo()) / ( mazo1.getTex().getW() + mazo2.getTex().getW() );
-			System.out.println(angulo);
+			velocidadBall += 50;
 			
-			// Direccion de la pelota
-			if(mazo1.getxMazo() < ball.getxBall()) 
-				direccionXBall = 1;
+			// Formula: senB = b / (R1 + R2)
+			float angulo = ( ball.getyBall() - mazo1.getyMazo() ) / ( mazo1.getTex().getW() / 2 + ball.getTex().getW() / 2 );
+			System.out.println("Angulo: " + angulo);			
+			
+			// Direccion de la pelota X
+			if( mazo1.getxMazo() < ball.getxBall() ) 
+				acceleracionXBall = velocidadBall * (1 - Math.abs(angulo));
 			else
-				direccionXBall = -1;
-			if(mazo1.getyMazo() < ball.getyBall())
-				direccionYBall = 1;
-			else
-				direccionYBall = -1;
+				acceleracionXBall = velocidadBall * (1 - Math.abs(angulo)) * (-1);
 			
-			
-			acceleracionXBall = 200.0f * direccionXBall;
-			acceleracionYBall = 200.0f * angulo * 2 * direccionYBall;
+			// Direccion de la pelota Y, especificada en la formula al hacer la resta
+			acceleracionYBall = velocidadBall * angulo;
+
 		}
 		
 		
@@ -316,7 +313,7 @@ public class Game extends Service implements EventListener {
 		acceleracionYBall = 0.0f;
 		
 		// Pelota
-		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
+		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2)- (ball.getTex().getW() / 2));
 		ball.setyBall((Window.getH() / 2.0f) - (ball.getTex().getH() / 2));
 				
 		// Mazo 1
