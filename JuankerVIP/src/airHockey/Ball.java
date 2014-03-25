@@ -11,8 +11,9 @@ public class Ball {
 	private float velocidad;
 	private float rozamiento;
 	
-	public Ball(){
+	public Ball(float rozamiento){
 		tex = new Texture("data/ball64.png");
+		this.rozamiento = rozamiento;
 	}
 
 	public Texture getTex() {

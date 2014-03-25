@@ -10,9 +10,9 @@ public class Mazo {
 	private float vX;		// Velocidad X del mazo
 	private float vY;		// Velocidad Y del mazo
 	
-	public Mazo(){
+	public Mazo(Texture textura){
 		goles = 0;
-		tex = new Texture("data/airhockey/mazo_blanco.png");
+		this.tex = textura;
 	}
 	
 	public int getGoles() {
