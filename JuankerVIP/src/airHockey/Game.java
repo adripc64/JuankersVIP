@@ -2,7 +2,10 @@ package airHockey;
 
 /***
  * Nota mental:
- * 1. Aplicar un rozamiento cuando choca contra las paredes la pelota
+ * 1. Aplicar un rozamiento cuando choca contra las paredes la pelota...
+ * 2. Menu principal.
+ * 3. Menu cuando ganas la partida.
+ * 4. Revisar cuando los dos mazos chocan con la pelota a la vez.
  */
 
 import fge.App;
@@ -23,8 +26,8 @@ public class Game extends Service implements EventListener {
 	private Texture texBackground;
 	
 	private Ball ball;
-	private float acceleracionXBall;
-	private float acceleracionYBall;
+	private float componenteXBall;
+	private float componenteYBall;
 	
 	private Mazo mazo1;
 	private Mazo mazo2;
@@ -91,13 +94,13 @@ public class Game extends Service implements EventListener {
 		// Parte de ARRIBA de la pantalla
 		if( ball.getyBall() < 0 )	{
 			ball.setyBall(0);
-			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
+			componenteYBall = componenteYBall * (-1);		// Rebota
 		}
 
 		// Parte de ABAJO de la pantalla
 		if( ball.getyBall() > Window.getH() - ball.getTex().getH() ) {
 			ball.setyBall( Window.getH() - ball.getTex().getH() );
-			acceleracionYBall = acceleracionYBall * (-1);		// Rebota
+			componenteYBall = componenteYBall * (-1);		// Rebota
 		}
 		
 		// Parte DERECHA de la pantalla
@@ -112,7 +115,7 @@ public class Game extends Service implements EventListener {
 			}
 			else
 				ball.setxBall(Window.getW() - ball.getTex().getW());
-				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
+				componenteXBall = componenteXBall * (-1);	// Rebota
 		}
 		
 		// Parte IZQUIERDA de la pantalla
@@ -126,7 +129,7 @@ public class Game extends Service implements EventListener {
 				cambiarImagenGolMazo2();
 			} else
 				ball.setxBall(0);
-				acceleracionXBall = acceleracionXBall * (-1);	// Rebota
+				componenteXBall = componenteXBall * (-1);	// Rebota
 		}
 		
 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
@@ -142,12 +145,12 @@ public class Game extends Service implements EventListener {
 			
 			// Direccion de la pelota X
 			if( mazo1.getxMazo() < ball.getxBall() ) 
-				acceleracionXBall = (1 - Math.abs(anguloColision));
+				componenteXBall = (1 - Math.abs(anguloColision));
 			else
-				acceleracionXBall = (1 - Math.abs(anguloColision)) * (-1);
+				componenteXBall = (1 - Math.abs(anguloColision)) * (-1);
 			
 			// Direccion de la pelota Y, especificada la direccion en la formula al hacer la resta de Y1 e Y2
-			acceleracionYBall = anguloColision;
+			componenteYBall = anguloColision;
 		}
 		
 		
@@ -161,12 +164,12 @@ public class Game extends Service implements EventListener {
 			
 			// Direccion de la pelota X
 			if( mazo2.getxMazo() < ball.getxBall() ) 
-				acceleracionXBall = (1 - Math.abs(anguloColision2));
+				componenteXBall = (1 - Math.abs(anguloColision2));
 			else
-				acceleracionXBall = (1 - Math.abs(anguloColision2)) * (-1);
+				componenteXBall = (1 - Math.abs(anguloColision2)) * (-1);
 			
 			// Direccion de la pelota Y, especificada la direccion en la formula al hacer la resta de Y1 e Y2
-			acceleracionYBall = anguloColision2;
+			componenteYBall = anguloColision2;
 		}		
 		
 		// Topes para la velocidad de la pelota
@@ -180,8 +183,8 @@ public class Game extends Service implements EventListener {
 			ball.setVelocidad( ball.getVelocidad() - ball.getRozamiento() * App.getFTime() );		
 		
 		// Moviendo la pelota
-		ball.setxBall( ball.getxBall() + acceleracionXBall * ball.getVelocidad() * App.getFTime() );	// Componente X
-		ball.setyBall( ball.getyBall() + acceleracionYBall * ball.getVelocidad() * App.getFTime() );	// Componente Y
+		ball.setxBall( ball.getxBall() + componenteXBall * ball.getVelocidad() * App.getFTime() );	// Componente X
+		ball.setyBall( ball.getyBall() + componenteYBall * ball.getVelocidad() * App.getFTime() );	// Componente Y
 	}
 
 	private void moveMazo1(){	
@@ -336,8 +339,8 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void posicionInicialObjetos(){
-		acceleracionXBall = 0.0f;
-		acceleracionYBall = 0.0f;
+		componenteXBall = 0.0f;
+		componenteYBall = 0.0f;
 		
 		// Pelota
 		ball.setxBall((Window.getW() / 2.0f) - (ball.getTex().getW() / 2));
@@ -386,7 +389,7 @@ public class Game extends Service implements EventListener {
 	
 	private void cambiarImagenGolMazo2() {
 		Texture textura;
-		ball.setxBall(Window.getW() / 8 + Window.getW() / 4); // Pelota en el campo del mazo 1
+		ball.setxBall( (Window.getW()/8) + (Window.getW()/4) - ball.getTex().getW() ); // Pelota en el campo del mazo 1
 		
 		if(mazo2.getGoles() == 1) {
 			textura = new Texture("data/airhockey/mazo_negro_1.png");
