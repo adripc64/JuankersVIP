@@ -102,8 +102,10 @@ public class Game extends Service implements EventListener {
 		
 		// Parte DERECHA de la pantalla
 		if(ball.getxBall() > Window.getW() - ball.getTex().getW()) {	
-			// Marca gol mazo1 SII x: Window.getW() y: 180 - 332 --> Tamaño porteria: 152
-			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
+			// Marca gol mazo1 SII x: Window.getW() y: desde (180 - alturaPelota / 2) 
+			// hasta (332 + alturaPelota / 2) --> Tamaño porteria: 152 + alturaPelota
+			if(ball.getyBall() > (180 - ball.getTex().getH() / 2 )
+					&& (ball.getyBall() + ball.getTex().getH() / 2 ) < 332) {
 				mazo1.setGoles(mazo1.getGoles() + 1);
 				posicionInicialObjetos();
 				cambiarImagenGolMazo1();
@@ -115,8 +117,10 @@ public class Game extends Service implements EventListener {
 		
 		// Parte IZQUIERDA de la pantalla
 		if(ball.getxBall() < 0)	{										
-			// Marca gol mazo2 SII x: 0  y: 180 - 332 --> Tamaño porteria: 152
-			if(ball.getyBall() > 180 && ball.getyBall() + ball.getTex().getH() < 332) {
+			// Marca gol mazo2 SII x: 0 y: desde (180 - alturaPelota / 2) 
+			// hasta (332 + alturaPelota / 2) --> Tamaño porteria: 152 + alturaPelota
+			if(ball.getyBall() > (180 - ball.getTex().getH() / 2 )
+					&& (ball.getyBall() + ball.getTex().getH() / 2 ) < 332) {
 				mazo2.setGoles(mazo2.getGoles() + 1);
 				posicionInicialObjetos();
 				cambiarImagenGolMazo2();
