@@ -6,6 +6,10 @@ package airHockey;
  * 2. Menu principal.
  * 3. Menu cuando ganas la partida.
  * 4. Revisar cuando los dos mazos chocan con la pelota a la vez.
+ * 5. Parpadear el texto.
+ * 6. Colisiones 
+ * 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
+		// http://stackoverflow.com/questions/1736734/circle-circle-collision
  */
 
 import fge.App;
@@ -109,9 +113,10 @@ public class Game extends Service implements EventListener {
 			// hasta (332 + alturaPelota / 2) --> Tamaño porteria: 152 + alturaPelota
 			if(ball.getyBall() > (180 - ball.getTex().getH() / 2 )
 					&& (ball.getyBall() + ball.getTex().getH() / 2 ) < 332) {
-				mazo1.setGoles(mazo1.getGoles() + 1);
-				posicionInicialObjetos();
-				cambiarImagenGolMazo1();
+				mazo1.sonidoGol();						// Lanzar sonido de gol
+				mazo1.setGoles(mazo1.getGoles() + 1);	// Incrementar los goles
+				posicionInicialObjetos();				// Volver a posicion inicial
+				cambiarImagenGolMazo1();				// Efecto de cambiar imagen del mazo
 			}
 			else
 				ball.setxBall(Window.getW() - ball.getTex().getW());
@@ -124,25 +129,21 @@ public class Game extends Service implements EventListener {
 			// hasta (332 + alturaPelota / 2) --> Tamaño porteria: 152 + alturaPelota
 			if(ball.getyBall() > (180 - ball.getTex().getH() / 2 )
 					&& (ball.getyBall() + ball.getTex().getH() / 2 ) < 332) {
-				mazo2.setGoles(mazo2.getGoles() + 1);
-				posicionInicialObjetos();
-				cambiarImagenGolMazo2();
+				mazo2.sonidoGol();						// Lanzar sonido de gol
+				mazo2.setGoles(mazo2.getGoles() + 1);	// Incrementar los goles
+				posicionInicialObjetos();				// Volver a posicion inicial
+				cambiarImagenGolMazo2();				// Efecto de cambiar imagen del mazo
 			} else
 				ball.setxBall(0);
 				componenteXBall = componenteXBall * (-1);	// Rebota
 		}
 		
-		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
-		// http://stackoverflow.com/questions/1736734/circle-circle-collision
-		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getxMazo(), mazo1.getyMazo(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
 			ball.setVelocidad( ball.getVelocidad() + 100 );
-			
 			// Formula: senB = b / (R1 + R2)
 			float anguloColision = ( ball.getyBall() - mazo1.getyMazo() ) / ( mazo1.getTex().getW() / 2 + ball.getTex().getW() / 2 );
 		
-			
 			// Direccion de la pelota X
 			if( mazo1.getxMazo() < ball.getxBall() ) 
 				componenteXBall = (1 - Math.abs(anguloColision));
@@ -156,11 +157,9 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 2 con la pelota 
 		if(Intersect.CircleWithCircle(mazo2.getxMazo(), mazo2.getyMazo(), mazo2.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
-			ball.setVelocidad( ball.getVelocidad() + 100 );
-			
+			ball.setVelocidad( ball.getVelocidad() + 100 );	
 			// Formula: senB = b / (R1 + R2)
 			float anguloColision2 = (ball.getyBall() - mazo2.getyMazo() ) / ( mazo2.getTex().getW() / 2 + ball.getTex().getW() / 2);
-			
 			
 			// Direccion de la pelota X
 			if( mazo2.getxMazo() < ball.getxBall() ) 
@@ -175,10 +174,8 @@ public class Game extends Service implements EventListener {
 		// Topes para la velocidad de la pelota
 		if(ball.getVelocidad() > 1000)	// Tope por arriba de la velocidad
 			ball.setVelocidad(1000);
-		
 		if(ball.getVelocidad() < 0)		// Tope por abajo de la velocidad
 			ball.setVelocidad(0);
-		
 		if(ball.getVelocidad() > 0 )	// Rozamiento de la pelota
 			ball.setVelocidad( ball.getVelocidad() - ball.getRozamiento() * App.getFTime() );		
 		
@@ -221,32 +218,46 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onDraw() {
+		Color color = new Color(255, 255, 255);
+		
 		// Dibujando fondo
-		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0, new Color(255, 255, 255));
+		Render.DrawTexture(texBackground, 0, 0, Window.getW(), Window.getH(), 0, color);
 		
 		// Dibujando pelota
 		int wB = ball.getTex().getW();
 		int hB = ball.getTex().getH();
 		float xB = ball.getxBall();
 		float yB = ball.getyBall();
-		Render.DrawTexture(ball.getTex(), xB, yB, wB, hB, 0, new Color(255, 255, 255));
+		Render.DrawTexture(ball.getTex(), xB, yB, wB, hB, 0, color);
 		
 		// Dibujando mazo 1
 		int wM1 = mazo1.getTex().getW();
 		int hM1 = mazo1.getTex().getH();
 		float xM1 = mazo1.getxMazo();
 		float yM1 = mazo1.getyMazo();
-		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, new Color(255, 255, 255));
+		Render.DrawTexture(mazo1.getTex(), xM1, yM1, wM1, hM1, 0, color);
 		
 		// Dibujando mazo 2
 		int wM2 = mazo2.getTex().getW();
 		int hM2 = mazo2.getTex().getH();
 		float xM2 = mazo2.getxMazo();
 		float yM2 = mazo2.getyMazo();
-		Render.DrawTexture(mazo2.getTex(), xM2, yM2, wM2, hM2, 0, new Color(255, 255, 255));
+		Render.DrawTexture(mazo2.getTex(), xM2, yM2, wM2, hM2, 0, color);
 		
 		// Dibujando marcador
-		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + mazo2.getGoles(), new Color(255, 255, 255));
+		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + mazo2.getGoles(), color);
+		
+		
+		
+		// Dibujando cuando marca un gol
+		Color colorGol = new Color(0,0,0);
+		if(mazo1.getSonidoGol().isPlaying()) {
+			Render.DrawText(font, 0, (Window.getH() / 2) - (font.getFontSize() / 2), "¡¡GOL!!", colorGol);
+		} else {
+			if(mazo2.getSonidoGol().isPlaying()) {
+				Render.DrawText(font, Window.getW() / 2, (Window.getH() / 2) - (font.getFontSize() / 2), "¡¡GOL!!", colorGol);
+			}
+		}
 	}
 
 	public boolean doEvent(Event e){

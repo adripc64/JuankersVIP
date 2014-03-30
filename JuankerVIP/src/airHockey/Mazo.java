@@ -1,5 +1,6 @@
 package airHockey;
 
+import fge.Sound;
 import fge.Texture;
 
 public class Mazo {
@@ -9,10 +10,17 @@ public class Mazo {
 	private int goles;		// Goles del mazo
 	private float vX;		// Velocidad X del mazo
 	private float vY;		// Velocidad Y del mazo
+	private Sound sonidoGol;
 	
 	public Mazo(Texture textura){
-		goles = 0;
 		this.tex = textura;
+		
+		goles = 0;
+		sonidoGol = new Sound("data/airhockey/sounds/gol.ogg");
+	}
+	
+	public void sonidoGol() {		
+		sonidoGol.play(false);
 	}
 	
 	public int getGoles() {
@@ -61,5 +69,13 @@ public class Mazo {
 
 	public void setvY(float vY) {
 		this.vY = vY;
+	}
+
+	public Sound getSonidoGol() {
+		return sonidoGol;
+	}
+
+	public void setSonidoGol(Sound sonidoGol) {
+		this.sonidoGol = sonidoGol;
 	}
 }
