@@ -1,5 +1,7 @@
 package airHockey;
 
+import fge.Color;
+import fge.Render;
 import fge.Texture;
 
 public class Ball {
@@ -11,9 +13,23 @@ public class Ball {
 	private float velocidad;
 	private float rozamiento;
 	
+	public Ball() {
+		this.rozamiento = 0;
+		tex = new Texture("data/airHockey/ball48.png");
+	}
+	
 	public Ball(float rozamiento){
-		tex = new Texture("data/ball64.png");
 		this.rozamiento = rozamiento;
+		
+		// Default
+		tex = new Texture("data/airHockey/ball48.png");
+	}
+	
+	public boolean isMoving() {
+		if(velocidad > 0) 
+			return true;
+		else 
+			return false;
 	}
 
 	public Texture getTex() {
@@ -56,5 +72,14 @@ public class Ball {
 		this.rozamiento = rozamiento;
 	}
 	
-	
+	public void draw() {
+		// Dibujando pelota
+		Color color = new Color(255,255,255);
+		int wB = tex.getW();
+		int hB = tex.getH();
+		float xB = xBall;
+		float yB = yBall;
+		Render.DrawTexture(tex, xB, yB, wB, hB, 0, color);
+	}
+
 }
