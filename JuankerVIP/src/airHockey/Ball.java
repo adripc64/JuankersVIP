@@ -15,14 +15,14 @@ public class Ball {
 	
 	public Ball() {
 		this.rozamiento = 0;
-		tex = new Texture("data/airHockey/ball48.png");
+		tex = new Texture("data/airHockey/ball48-36.png");
 	}
 	
 	public Ball(float rozamiento){
 		this.rozamiento = rozamiento;
 		
 		// Default
-		tex = new Texture("data/airHockey/ball48.png");
+		tex = new Texture("data/airHockey/ball48-36.png");
 	}
 	
 	public boolean isMoving() {
@@ -72,13 +72,18 @@ public class Ball {
 		this.rozamiento = rozamiento;
 	}
 	
+	// Solo vale si el circulo se ajusta a la imagen
+	public float getRadius() {
+		return tex.getW() / 2.0f;
+	}
+	
 	public void draw() {
 		// Dibujando pelota
 		Color color = new Color(255,255,255);
 		int wB = tex.getW();
 		int hB = tex.getH();
-		float xB = xBall;
-		float yB = yBall;
+		float xB = xBall-wB/2;
+		float yB = yBall-hB/2;
 		Render.DrawTexture(tex, xB, yB, wB, hB, 0, color);
 	}
 

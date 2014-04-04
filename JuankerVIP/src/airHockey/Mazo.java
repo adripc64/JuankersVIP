@@ -6,6 +6,7 @@ import fge.Texture;
 
 public class Mazo {
 	private Texture tex;
+	private Texture texArray[];
 	private float xMazo;	// Posicion X del mazo
 	private float yMazo;	// Posicion Y del mazo
 	private float vX;		// Velocidad X del mazo
@@ -15,13 +16,15 @@ public class Mazo {
 	
 	public Mazo() {
 		color = new Color(255,255,255);
-		this.tex = new Texture("data/airhockey/mazo_blanco.png");
+		texArray = new Texture[5];
+		for (int i = 0; i < 5; i++)
+			texArray[i] = new Texture(String.format("data/airhockey/mazo_blanco_%d.png", i));
+		tex = texArray[0];
 	}
 	
 	public Mazo(Color color) {
+		this();
 		this.color = color;
-		// Default
-		this.tex = new Texture("data/airhockey/mazo_blanco.png");
 	}
 	
 	public int getGoles() {
@@ -72,43 +75,22 @@ public class Mazo {
 		this.vY = vY;
 	}
 	
+	// Solo vale si el circulo se ajusta a la imagen
+	public float getRadius() {
+		return tex.getW() / 2.0f;
+	}
+	
 	public void draw() {
 		// Dibujando el mazo
-		int wM1 = tex.getW();
-		int hM1 = tex.getH();
-		float xM1 = xMazo;
-		float yM1 = yMazo;
-		Render.DrawTexture(tex, xM1, yM1, wM1, hM1, 0, color);
+		int wM = tex.getW();
+		int hM = tex.getH();
+		float xM = xMazo-wM/2;
+		float yM = yMazo-hM/2;
+		Render.DrawTexture(tex, xM, yM, wM, hM, 0, color);
 	}
 	
 	public void cambiarImagenGol(int goles) {
-		Texture textura;
-		
-		switch (goles) {
-		case 1:
-			textura = new Texture("data/airhockey/mazo_blanco_1.png");
-			this.tex = textura;
-			break;
-		
-		case 2:
-			textura = new Texture("data/airhockey/mazo_blanco_2.png");
-			this.tex = textura;
-			break;
-
-		case 3:
-			textura = new Texture("data/airhockey/mazo_blanco_3.png");
-			this.tex = textura;
-			break;
-			
-		case 4:
-			textura = new Texture("data/airhockey/mazo_blanco_4.png");
-			this.tex = textura;
-			break;
-			
-		default:
-			// Has ganado
-			break;
-		}
-		
+		if (goles < 0 || goles > texArray.length) goles = 0;
+		tex = texArray[goles];
 	}
 }
