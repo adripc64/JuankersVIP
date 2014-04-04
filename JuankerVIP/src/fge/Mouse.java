@@ -32,4 +32,14 @@ public class Mouse {
 	 */
 	public static int getDY() { return -org.lwjgl.input.Mouse.getDY(); }
 	
+	/***
+	 * Comprueba si un boton está presionado.
+	 * 
+	 * @param button El boton que se quiere consultar.
+	 * @return True si está presionado, False si no lo está.
+	 */
+	public static boolean isButtonPressed(MouseButton button) {
+		return org.lwjgl.input.Mouse.isButtonDown(button.ordinal());
+	}
+	
 }

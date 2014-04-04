@@ -144,6 +144,14 @@ public class Keyboard {
 	public static final int KEY_POWER           = 0xDE;
 	public static final int KEY_SLEEP           = 0xDF;
 
-	public static boolean isKeyPressed(int _key) { return org.lwjgl.input.Keyboard.isKeyDown(_key); }
+	/***
+	 * Comprueba si una tecla está presionada.
+	 * 
+	 * @param button La tecla que se quiere consultar.
+	 * @return True si está presionada, False si no lo está.
+	 */
+	public static boolean isKeyPressed(int key) {
+		return org.lwjgl.input.Keyboard.isKeyDown(key);
+	}
 	
 }
