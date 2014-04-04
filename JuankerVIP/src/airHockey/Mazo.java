@@ -90,7 +90,7 @@ public class Mazo {
 	}
 	
 	public void cambiarImagenGol(int goles) {
-		if (goles < 0 || goles > texArray.length) goles = 0;
+		if (goles < 0 || goles >= texArray.length) goles = 0;
 		tex = texArray[goles];
 	}
 }

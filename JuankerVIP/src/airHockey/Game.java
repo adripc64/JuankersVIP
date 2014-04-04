@@ -183,7 +183,7 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void moveMazo1(){
-//		
+	
 //		mazo1.setxMazo(Mouse.getX());
 //		mazo1.setyMazo(Mouse.getY());
 		
@@ -342,7 +342,7 @@ public class Game extends Service implements EventListener {
 		timeGol1 = App.getTime();				// Momento en el que se marca el gol
 		mazo1.setGoles(mazo1.getGoles() + 1);	// Incrementar los goles
 		
-		ball.setxBall((Window.getW()/8) + (Window.getW()/2)); // Pelota en el campo del mazo 2
+		ball.setxBall( Window.getW() * 0.125f  + Window.getW() * 0.5f ); // Pelota en el campo del mazo 2
 		mazo1.cambiarImagenGol(mazo1.getGoles());
 	}
 	
@@ -351,7 +351,7 @@ public class Game extends Service implements EventListener {
 		timeGol2 = App.getTime();				// Momento en el que se marca el gol
 		mazo2.setGoles(mazo2.getGoles() + 1);	// Incrementar los goles
 		
-		ball.setxBall((Window.getW()/8) + (Window.getW()/4) - ball.getTex().getW()); // Pelota en el campo del mazo 1
+		ball.setxBall( Window.getW() * 0.125f + Window.getW() * 0.25f ); // Pelota en el campo del mazo 1
 		mazo2.cambiarImagenGol(mazo2.getGoles());
 	}
 }
