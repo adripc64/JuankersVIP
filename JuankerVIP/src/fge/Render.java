@@ -55,16 +55,47 @@ public class Render {
 	 * @param h Altura del rectángulo.
 	 * @param angle Ángulo de rotación con pivote en la esquina superior izquierda.
 	 * @param color Color del rectángulo.
+	 * 
+	 * @deprecated No usar!! Será eliminada más adelante.
 	 */
 	public static void DrawRectangle(float x, float y, float w, float h, float angle, Color color) {
+		DrawRectangle(x, y, w, h, color, angle, 0.0f, 0.0f);
+	}
+	
+	/***
+	 * Renderiza un rectángulo.
+	 * 
+	 * @param x	Coordenada x de la esquina superior izquierda.
+	 * @param y Coordenada y de la esquina superior izquierda.
+	 * @param w Anchura del rectángulo.
+	 * @param h Altura del rectángulo.
+	 * @param color Color del rectángulo.
+	 */
+	public static void DrawRectangle(float x, float y, float w, float h, Color color) {
+		DrawRectangle(x, y, w, h, color, 0.0f, 0.0f, 0.0f);
+	}
+	
+	/***
+	 * Renderiza un rectángulo.
+	 * 
+	 * @param x	Coordenada x de la esquina superior izquierda.
+	 * @param y Coordenada y de la esquina superior izquierda.
+	 * @param w Anchura del rectángulo.
+	 * @param h Altura del rectángulo.
+	 * @param color Color del rectángulo.
+	 * @param angle Ángulo de rotación.
+	 * @param px Coordenada x normalizada (0.0f-1.0f) para el pivote de rotación.
+	 * @param py Coordenada y normalizada (0.0f-1.0f) para el pivote de rotación.
+	 */
+	public static void DrawRectangle(float x, float y, float w, float h, Color color, float angle, float px, float py) {
 		
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
 		
 		GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, 0);
+			GL11.glTranslatef(x+w*px, y+h*py, 0);
 			GL11.glRotatef(-angle, 0f, 0f, 1f);
-			GL11.glTranslatef(-x, -y, 0);
+			GL11.glTranslatef(-x-w*px, -y-h*py, 0);
 		
 			GL11.glBegin(GL11.GL_LINE_LOOP);
 				GL11.glVertex2f(x, y);
@@ -84,16 +115,47 @@ public class Render {
 	 * @param h Altura del rectángulo.
 	 * @param angle Ángulo de rotación con pivote en la esquina superior izquierda.
 	 * @param color Color del rectángulo.
+	 * 
+	 * @deprecated No usar!! Será eliminada más adelante.
 	 */
 	public static void DrawFilledRectangle(float x, float y, float w, float h, float angle, Color color) {
-		
+		DrawFilledRectangle(x, y, w, h, color, angle, 0.0f, 0.0f);
+	}
+	
+	/***
+	 * Renderiza un rectángulo con relleno.
+	 * 
+	 * @param x	Coordenada x de la esquina superior izquierda.
+	 * @param y Coordenada y de la esquina superior izquierda.
+	 * @param w Anchura del rectángulo.
+	 * @param h Altura del rectángulo.
+	 * @param color Color del rectángulo.
+	 */
+	public static void DrawFilledRectangle(float x, float y, float w, float h, Color color) {
+		DrawFilledRectangle(x, y, w, h, color, 0.0f, 0.0f, 0.0f);
+	}	
+	
+	/***
+	 * Renderiza un rectángulo con relleno.
+	 * 
+	 * @param x	Coordenada x de la esquina superior izquierda.
+	 * @param y Coordenada y de la esquina superior izquierda.
+	 * @param w Anchura del rectángulo.
+	 * @param h Altura del rectángulo.
+	 * @param color Color del rectángulo.
+	 * @param angle Ángulo de rotación.
+	 * @param px Coordenada x normalizada (0.0f-1.0f) para el pivote de rotación.
+	 * @param py Coordenada y normalizada (0.0f-1.0f) para el pivote de rotación.
+	 */
+	public static void DrawFilledRectangle(float x, float y, float w, float h, Color color, float angle, float px, float py) {
+	
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
 		
 		GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, 0);
+			GL11.glTranslatef(x+w*px, y+h*py, 0);
 			GL11.glRotatef(-angle, 0f, 0f, 1f);
-			GL11.glTranslatef(-x, -y, 0);
+			GL11.glTranslatef(-x-w*px, -y-h*py, 0);
 			
 			GL11.glBegin(GL11.GL_QUADS);
 				GL11.glVertex2f(x, y);
@@ -176,9 +238,28 @@ public class Render {
 	 * @param h Altura.
 	 * @param angle Ángulo de rotación con pivote en la esquina superior izquierda.
 	 * @param color Color a aplicar.
+	 * 
+	 * @deprecated No usar!! Será eliminada más adelante.
 	 */
 	public static void DrawTexture(Texture tex, float x, float y, float w, float h, float angle, Color color) {
-		DrawTexture(tex, x, y, w, h, angle, color, 0.0f, 0.0f, 1.0f, 1.0f);
+		DrawTexture(tex, x, y, w, h, color, angle, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	}
+	
+	/***
+	 * Renderiza una textura.
+	 * 
+	 * @param tex Textura a renderizar.
+	 * @param x Coordenada x.
+	 * @param y Coordenada y.
+	 * @param w Anchura.
+	 * @param h Altura.
+	 * @param color Color a aplicar.
+	 * @param angle Ángulo de rotación.
+	 * @param px Coordenada x normalizada (0.0f-1.0f) para el pivote de rotación.
+	 * @param py Coordenada y normalizada (0.0f-1.0f) para el pivote de rotación.
+	 */
+	public static void DrawTexture(Texture tex, float x, float y, float w, float h, Color color, float angle, float px, float py) {
+		DrawTexture(tex, x, y, w, h, color, angle, px, py, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 	
 	/***
@@ -195,8 +276,31 @@ public class Render {
 	 * @param uy
 	 * @param uw
 	 * @param uh
+	 * 
+	 * @deprecated No usar!! Será eliminada más adelante.
 	 */
 	public static void DrawTexture(Texture tex, float x, float y, float w, float h, float angle, Color color, float ux, float uy, float uw, float uh) {
+		DrawTexture(tex, x, y, w, h, color, angle, 0.0f, 0.0f, ux, uy, uw, uh);
+	}
+	
+	/***
+	 * Renderiza una textura.
+	 * 
+	 * @param tex Textura a renderizar.
+	 * @param x Coordenada x.
+	 * @param y Coordenada y.
+	 * @param w Anchura.
+	 * @param h Altura.
+	 * @param color Color a aplicar.
+	 * @param angle Ángulo de rotación.
+	 * @param px Coordenada x normalizada (0.0f-1.0f) para el pivote de rotación.
+	 * @param py Coordenada y normalizada (0.0f-1.0f) para el pivote de rotación.
+	 * @param ux
+	 * @param uy
+	 * @param uw
+	 * @param uh
+	 */
+	public static void DrawTexture(Texture tex, float x, float y, float w, float h, Color color, float angle, float px, float py, float ux, float uy, float uw, float uh) {
 		
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glColor4f(color.getRf(), color.getGf(), color.getBf(), color.getAf());
@@ -205,9 +309,9 @@ public class Render {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, tex.getTextureId());
 		 
 		GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, 0);
+			GL11.glTranslatef(x+w*px, y+h*py, 0);
 			GL11.glRotatef(-angle, 0f, 0f, 1f);
-			GL11.glTranslatef(-x, -y, 0);
+			GL11.glTranslatef(-x-w*px, -y-h*py, 0);
 			
 			GL11.glBegin(GL11.GL_QUADS);
 				GL11.glTexCoord2f(ux,uy);
