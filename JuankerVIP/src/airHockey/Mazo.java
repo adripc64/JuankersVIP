@@ -7,8 +7,8 @@ import fge.Texture;
 public class Mazo {
 	private Texture tex;
 	private Texture texArray[];
-	private float xMazo;	// Posicion X del mazo
-	private float yMazo;	// Posicion Y del mazo
+	private float x;		// Posicion X del mazo
+	private float y;		// Posicion Y del mazo
 	private float vX;		// Velocidad X del mazo
 	private float vY;		// Velocidad Y del mazo
 	private int goles;		// Goles del mazo
@@ -27,6 +27,35 @@ public class Mazo {
 		this.color = color;
 	}
 	
+	public void draw() {
+		// Dibujando el mazo
+		float xM = x - (tex.getW()/2);
+		float yM = y - (tex.getH()/2);
+		Render.DrawTexture(tex, xM, yM, color);
+	}
+	
+	public void cambiarImagenGol(int goles) {
+		if (goles < 0 || goles >= texArray.length) goles = 4;
+		tex = texArray[goles];
+	}
+	
+	public void limitesPantalla(float left, float right, float up, float down) {
+		// Colisiones de pantalla
+		if(getx() < left + getRadius())		// Left
+			x = left + getRadius();
+		if(getx() > right - getRadius())	// Right
+			x = right - getRadius();
+		if(gety() < getRadius())			// Up
+			y = up + getRadius();
+		if(gety() > down - getRadius())		// Down
+			y = down - getRadius();
+	}
+	
+	// Solo vale si el circulo se ajusta a la imagen
+	public float getRadius() {
+		return tex.getW() / 2.0f;
+	}
+	
 	public int getGoles() {
 		return goles;
 	}
@@ -43,20 +72,20 @@ public class Mazo {
 		this.tex = tex;
 	}
 
-	public float getxMazo() {
-		return xMazo;
+	public float getx() {
+		return x;
 	}
 
-	public void setxMazo(float xMazo) {
-		this.xMazo = xMazo;
+	public void setx(float xMazo) {
+		this.x = xMazo;
 	}
 
-	public float getyMazo() {
-		return yMazo;
+	public float gety() {
+		return y;
 	}
 
-	public void setyMazo(float yMazo) {
-		this.yMazo = yMazo;
+	public void sety(float yMazo) {
+		this.y = yMazo;
 	}
 
 	public float getvX() {
@@ -74,23 +103,5 @@ public class Mazo {
 	public void setvY(float vY) {
 		this.vY = vY;
 	}
-	
-	// Solo vale si el circulo se ajusta a la imagen
-	public float getRadius() {
-		return tex.getW() / 2.0f;
-	}
-	
-	public void draw() {
-		// Dibujando el mazo
-		int wM = tex.getW();
-		int hM = tex.getH();
-		float xM = xMazo-wM/2;
-		float yM = yMazo-hM/2;
-		Render.DrawTexture(tex, xM, yM, wM, hM, 0, color);
-	}
-	
-	public void cambiarImagenGol(int goles) {
-		if (goles < 0 || goles >= texArray.length) goles = 0;
-		tex = texArray[goles];
-	}
+
 }
