@@ -13,14 +13,21 @@ package airHockey;
  * 7. 
  */
 
+import java.awt.event.MouseEvent;
+
+import org.newdawn.slick.command.MouseButtonControl;
+
 import fge.App;
 import fge.Color;
 import fge.Event;
+import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
 import fge.Intersect;
 import fge.Keyboard;
+import fge.Mouse;
+import fge.Mouse.MouseButton;
 import fge.Render;
 import fge.Service;
 import fge.Sound;
@@ -44,6 +51,8 @@ public class Game extends Service implements EventListener {
 	private long timeGol1 = 0;
 	private long timeGol2 = 0;
 	
+	private boolean ratonApretado;
+	
 	public Game(){
 		font = new Font("data/COMIC.ttf", 48.0f);
 		
@@ -59,6 +68,7 @@ public class Game extends Service implements EventListener {
 		
 		velocidadMazo = 350;		// Constante
 		sonidoGol = new Sound("data/airhockey/sounds/gol.ogg");
+		ratonApretado = false;
 		
 		EventMan.addListener(this);
 	}
@@ -182,16 +192,17 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void moveMazo1(){
-	
-//		mazo1.setxMazo(Mouse.getX());
-//		mazo1.setyMazo(Mouse.getY());
+		// Moviendo el mazo 1
+		if(ratonApretado) {
+			mazo1.setx(Mouse.getX());
+			mazo1.sety(Mouse.getY());
+		}
+		
+		mazo1.setx(mazo1.getx() + mazo1.getvX() * App.getFTime());	// Componente X
+		mazo1.sety(mazo1.gety() + mazo1.getvY() * App.getFTime());	// Componente Y	
 		
 		// Colisiones de pantalla
 		mazo1.limitesPantalla(0, Window.getW()/2, 0, Window.getH());
-		
-		// Moviendo el mazo 1
-		mazo1.setx(mazo1.getx() + mazo1.getvX() * App.getFTime());	// Componente X
-		mazo1.sety(mazo1.gety() + mazo1.getvY() * App.getFTime());	// Componente Y	
 	}
 	
 	private void moveMazo2(){
@@ -285,6 +296,16 @@ public class Game extends Service implements EventListener {
 				mazo2.setvY(0);	
 			if (e.getValue() == Keyboard.KEY_DOWN)
 				mazo2.setvY(0);	
+			break;
+			
+		case MOUSE_PRESSED:
+			
+			ratonApretado = true;
+			break;
+			
+		case MOUSE_RELEASED:
+			
+			ratonApretado = false;
 			break;
 		
 		default:
