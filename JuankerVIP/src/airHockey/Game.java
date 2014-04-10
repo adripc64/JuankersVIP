@@ -13,21 +13,15 @@ package airHockey;
  * 7. 
  */
 
-import java.awt.event.MouseEvent;
-
-import org.newdawn.slick.command.MouseButtonControl;
-
 import fge.App;
 import fge.Color;
 import fge.Event;
-import fge.Event.EventType;
 import fge.EventListener;
 import fge.EventMan;
 import fge.Font;
 import fge.Intersect;
 import fge.Keyboard;
 import fge.Mouse;
-import fge.Mouse.MouseButton;
 import fge.Render;
 import fge.Service;
 import fge.Sound;
@@ -97,7 +91,7 @@ public class Game extends Service implements EventListener {
 	}
 
 	@Override
-	protected void onMove() {
+	protected void onMove() {		
 		// Movimiento de la pelota
 		moveBall();
 		
@@ -106,6 +100,11 @@ public class Game extends Service implements EventListener {
 		
 		// Movimiento del mazo 2
 		moveMazo2();
+	
+		if(mazo1.gety() == mazo2.gety()) {
+			mazo2.sety(mazo2.gety() + 0.01f);
+			mazo1.sety(mazo1.gety() - 0.01f);
+		}
 	}
 	
 	private void moveBall(){
@@ -148,7 +147,11 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getx(), mazo1.gety(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
-			ball.setVelocidad( ball.getVelocidad() + 100 );
+			if(ratonApretado)
+				ball.setVelocidad(Mouse.getDX() * 50 + Mouse.getDY() * 50);
+			else
+				ball.setVelocidad( ball.getVelocidad() + 100 );
+			
 			// Formula: senB = b / (R1 + R2)
 			float anguloColision = ( ball.getyBall() - mazo1.gety() ) / ( mazo1.getTex().getW() / 2.0f + ball.getTex().getW() / 2.0f );
 		
