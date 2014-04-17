@@ -101,6 +101,7 @@ public class Game extends Service implements EventListener {
 		// Movimiento del mazo 2
 		moveMazo2();
 	
+		// Que los mazos no se puedan alinear nunca
 		if(mazo1.gety() == mazo2.gety()) {
 			mazo2.sety(mazo2.gety() + 0.01f);
 			mazo1.sety(mazo1.gety() - 0.01f);
@@ -147,8 +148,9 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 1 con la pelota 
 		if(Intersect.CircleWithCircle(mazo1.getx(), mazo1.gety(), mazo1.getTex().getH() / 2, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2)) {
+			// Incrementar velocidad de la pelota
 			if(ratonApretado)
-				ball.setVelocidad(Mouse.getDX() * 50 + Mouse.getDY() * 50);
+				ball.setVelocidad(ball.getVelocidad() + Mouse.getDX() * 50 + Mouse.getDY() * 50);
 			else
 				ball.setVelocidad( ball.getVelocidad() + 100 );
 			
@@ -167,7 +169,9 @@ public class Game extends Service implements EventListener {
 		
 		// Choca el mazo 2 con la pelota 
 		if(Intersect.CircleWithCircle(mazo2.getx(), mazo2.gety(), mazo2.getTex().getH() / 2.0f, ball.getxBall(), ball.getyBall(), ball.getTex().getH() / 2.0f)) {
+			// Incrementar velocidad de la pelota
 			ball.setVelocidad( ball.getVelocidad() + 100 );	
+			
 			// Formula: senB = b / (R1 + R2)
 			float anguloColision2 = (ball.getyBall() - mazo2.gety() ) / ( mazo2.getTex().getW() / 2 + ball.getTex().getW() / 2);
 			
@@ -182,8 +186,8 @@ public class Game extends Service implements EventListener {
 		}		
 		
 		// Topes para la velocidad de la pelota
-		if(ball.getVelocidad() > 1000)	// Tope por arriba de la velocidad
-			ball.setVelocidad(1000);
+		if(ball.getVelocidad() > 1500)	// Tope por arriba de la velocidad
+			ball.setVelocidad(1500);
 		if(ball.getVelocidad() < 0)		// Tope por abajo de la velocidad
 			ball.setVelocidad(0);
 		if(ball.isMoving())	// Rozamiento de la pelota
