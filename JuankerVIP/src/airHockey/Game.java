@@ -54,7 +54,7 @@ public class Game extends Service implements EventListener {
 		texBackground = new Texture("data/airhockey/campo2.0.png");
 
 		// Inicializando pelota
-		ball = new Ball(100.0f);	// Rozamiento que se le aplica a la pelota
+		ball = new Ball(100.0f);
 		
 		// Inicializando mazos
 		mazo1 = new Mazo(new Color(255, 255, 255));
@@ -91,7 +91,7 @@ public class Game extends Service implements EventListener {
 	}
 
 	@Override
-	protected void onMove() {		
+	protected void onMove() {
 		// Movimiento de la pelota
 		moveBall();
 		
@@ -325,6 +325,8 @@ public class Game extends Service implements EventListener {
 	private void posicionInicialObjetos(){
 		componenteXBall = 0.0f;
 		componenteYBall = 0.0f;
+		
+		ratonApretado = false;
 		
 		// Pelota
 		ball.setxBall((Window.getW() * 0.5f));
