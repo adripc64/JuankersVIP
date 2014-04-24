@@ -1,16 +1,16 @@
-package airHockey;
+package airHockey4;
 
 /***
  * Nota mental:
- * 1. 
- * 2. Menu principal.
- * 3. Menu cuando ganas la partida.
- * 4. Revisar cuando los dos mazos chocan con la pelota a la vez.
- * 5. Parpadear el texto.
- * 6. Colisiones 
+ * - Colisiones 
  * 		// http://www.fis.puc.cl/~rbenguri/ESTATICADINAMICA/cap4.pdf
 		// http://stackoverflow.com/questions/1736734/circle-circle-collision
- * 7. 
+ * - Los eventos de las teclas no van bien, se mezclan y si apreto por ejemplo a la izquierda y
+ * 	 a la derecha debería de quedarse quieto y no es así.
+ * 
+ * - FORMA DE JUEGO: A los 5 goles los jugadores (mazos) se van eliminando, al que no le metan 
+ *   los 5 goles gana la partida. Una vez un contrincante está eliminado se elimina el objeto 
+ *   (portería) y así este ya no puede contabilizar más goles.
  */
 
 import fge.App;
@@ -32,14 +32,19 @@ public class Game extends Service implements EventListener {
 	private Font font;
 	private Texture texBackground;
 	
+	// Pelota
 	private Ball ball;
 	private float componenteXBall;
 	private float componenteYBall;
 	
+	// Mazos
 	private Mazo mazo1;
 	private Mazo mazo2;
+	private Mazo mazo3;
+	private Mazo mazo4;
 	private int velocidadMazo;
 	
+	// Cuando se marca un gol
 	private Sound sonidoGol;
 	private int durationGol = 5000;
 	private long timeGol1 = 0;
@@ -59,8 +64,10 @@ public class Game extends Service implements EventListener {
 		// Inicializando mazos
 		mazo1 = new Mazo(new Color(255, 255, 255));
 		mazo2 = new Mazo(new Color(255, 255, 0));
-		
+		mazo3 = new Mazo(new Color(255, 0, 0));
+		mazo4 = new Mazo(new Color(255, 0, 255));
 		velocidadMazo = 350;		// Constante
+		
 		sonidoGol = new Sound("data/airhockey/sounds/gol.ogg");
 		ratonApretado = false;
 		
@@ -92,23 +99,26 @@ public class Game extends Service implements EventListener {
 
 	@Override
 	protected void onMove() {
-		// Movimiento de la pelota
-		moveBall();
 		
-		// Movimiento del mazo 1
-		moveMazo1();
-		
-		// Movimiento del mazo 2
-		moveMazo2();
+		moveBall();		// Movimiento de la pelota
+		moveMazo1();	// Movimiento del mazo 1
+		moveMazo2();	// Movimiento del mazo 2
+		moveMazo3();	// Movimiento del mazo 3
+		moveMazo4();	// Movimiento del mazo 4
 	
 		// Que los mazos no se puedan alinear nunca
 		if(mazo1.gety() == mazo2.gety()) {
 			mazo2.sety(mazo2.gety() + 0.01f);
 			mazo1.sety(mazo1.gety() - 0.01f);
 		}
+		
+		if(mazo3.getx() == mazo4.getx()) {
+			mazo4.setx(mazo4.getx() + 0.01f);
+			mazo3.setx(mazo3.getx() - 0.01f);
+		}
 	}
 	
-	private void moveBall() {
+	private void moveBall() {		
 		// Parte de ARRIBA de la pantalla
 		if( ball.getyBall() < ball.getRadius() )	{
 			ball.setyBall(ball.getRadius());
@@ -150,7 +160,13 @@ public class Game extends Service implements EventListener {
 			chocaMazo1Pelota();
 		
 		if(Intersect.CircleWithCircle(mazo2.getx(), mazo2.gety(), mazo2.getTex().getH() * 0.5f, ball.getxBall(), ball.getyBall(), ball.getTex().getH() * 0.5f))
-			chocaMazo2Pelota();
+			chocaMazoPelota(mazo2);
+		
+		if(Intersect.CircleWithCircle(mazo3.getx(), mazo3.gety(), mazo3.getTex().getH() * 0.5f, ball.getxBall(), ball.getyBall(), ball.getTex().getH() * 0.5f))
+			chocaMazoPelota(mazo3);
+		
+		if(Intersect.CircleWithCircle(mazo4.getx(), mazo4.gety(), mazo4.getTex().getH() * 0.5f, ball.getxBall(), ball.getyBall(), ball.getTex().getH() * 0.5f))
+			chocaMazoPelota(mazo4);
 		
 		// Topes para la velocidad de la pelota
 		if(ball.getVelocidad() > 1500)	// Tope por arriba de la velocidad
@@ -166,14 +182,15 @@ public class Game extends Service implements EventListener {
 	}
 
 	private void chocaMazo1Pelota() {
+		float anguloColision;
 		// Incrementar velocidad de la pelota
 		if(ratonApretado)
-			ball.setVelocidad(ball.getVelocidad() + Mouse.getDX() * 50 + Mouse.getDY() * 50);
+			ball.setVelocidad( ball.getVelocidad() + Mouse.getDX() * 50 + Mouse.getDY() * 50 );
 		else
 			ball.setVelocidad( ball.getVelocidad() + 100 );
-		
+
 		// Formula colision: senB = b / (R1 + R2)
-		float anguloColision = ( ball.getyBall() - mazo1.gety() ) / ( mazo1.getTex().getW() / 2.0f + ball.getTex().getW() / 2.0f );
+		anguloColision = ( ball.getyBall() - mazo1.gety() ) / ( mazo1.getTex().getW() / 2.0f + ball.getTex().getW() / 2.0f );
 
 		// Direccion de la pelota X
 		if( mazo1.getx() < ball.getxBall() ) 
@@ -184,15 +201,16 @@ public class Game extends Service implements EventListener {
 		// Direccion de la pelota Y, especificada la direccion en la formula al hacer la resta de Y1 e Y2
 		componenteYBall = anguloColision;
 	}
-	
-	private void chocaMazo2Pelota() {
+
+	private void chocaMazoPelota(Mazo mazo) {
+		float anguloColision;
 		ball.setVelocidad( ball.getVelocidad() + 100 );		// Incrementar velocidad de la pelota
 		
 		// Formula colision: senB = b / (R1 + R2)
-		float anguloColision = (ball.getyBall() - mazo2.gety() ) / ( mazo2.getTex().getW() / 2 + ball.getTex().getW() / 2);
+		anguloColision = (ball.getyBall() - mazo.gety() ) / ( mazo.getTex().getW() / 2 + ball.getTex().getW() / 2);
 		
 		// Direccion de la pelota X
-		if( mazo2.getx() < ball.getxBall() ) 
+		if( mazo.getx() < ball.getxBall() ) 
 			componenteXBall = (1 - Math.abs(anguloColision));
 		else
 			componenteXBall = (1 - Math.abs(anguloColision)) * (-1);
@@ -200,13 +218,13 @@ public class Game extends Service implements EventListener {
 		// Direccion de la pelota Y, especificada la direccion en la formula al hacer la resta de Y1 e Y2
 		componenteYBall = anguloColision;
 	}
-	
+
 	private void moveMazo1() {
 		// Moviendo el mazo 1
-		if(ratonApretado) {
-			mazo1.setx(Mouse.getX());
-			mazo1.sety(Mouse.getY());
-		}
+//		if(ratonApretado) {
+//			mazo1.setx(Mouse.getX());
+//			mazo1.sety(Mouse.getY());
+//		}
 		
 		mazo1.setx(mazo1.getx() + mazo1.getvX() * App.getFTime());	// Componente X
 		mazo1.sety(mazo1.gety() + mazo1.getvY() * App.getFTime());	// Componente Y	
@@ -216,12 +234,30 @@ public class Game extends Service implements EventListener {
 	}
 	
 	private void moveMazo2() {
-		// Colisiones de pantalla
-		mazo2.limitesPantalla(Window.getW()/2, Window.getW(), 0, Window.getH());
-		
 		// Moviendo el mazo 2
 		mazo2.setx(mazo2.getx() + mazo2.getvX() * App.getFTime());	// Componente X
 		mazo2.sety(mazo2.gety() + mazo2.getvY() * App.getFTime());	// Componente Y
+		
+		// Colisiones de pantalla
+		mazo2.limitesPantalla(Window.getW()/2, Window.getW(), 0, Window.getH());
+	}
+	
+	private void moveMazo3() {
+		// Moviendo el mazo 2
+		mazo3.setx(mazo3.getx() + mazo3.getvX() * App.getFTime());	// Componente X
+		mazo3.sety(mazo3.gety() + mazo3.getvY() * App.getFTime());	// Componente Y
+		
+		// Colisiones de pantalla
+		mazo3.limitesPantalla(0, Window.getW(), 0, Window.getH()/2);
+	}
+	
+	private void moveMazo4() {
+		// Moviendo el mazo 2
+		mazo4.setx(mazo4.getx() + mazo4.getvX() * App.getFTime());	// Componente X
+		mazo4.sety(mazo4.gety() + mazo4.getvY() * App.getFTime());	// Componente Y
+		
+		// Colisiones de pantalla
+		mazo4.limitesPantalla(0, Window.getW(), Window.getH()/2, Window.getH());
 	}
 
 	@Override
@@ -237,6 +273,8 @@ public class Game extends Service implements EventListener {
 		// Dibujando los mazos
 		mazo1.draw();		
 		mazo2.draw();
+		mazo3.draw();
+		mazo4.draw();
 		
 		// Dibujando marcador
 		Render.DrawText(font, (Window.getW() / 2) - 52, 10, mazo1.getGoles() + " - " + mazo2.getGoles(), color);
@@ -283,6 +321,26 @@ public class Game extends Service implements EventListener {
 				mazo2.setvY(-velocidadMazo);
 			if (e.getValue() == Keyboard.KEY_DOWN)
 				mazo2.setvY(velocidadMazo);
+			
+			// Movimiento Mazo 3
+			if (e.getValue() == Keyboard.KEY_I)
+				mazo3.setvX(-velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_P)
+				mazo3.setvX(velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_9)
+				mazo3.setvY(-velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_O)
+				mazo3.setvY(velocidadMazo);
+			
+			// Movimiento Mazo 4
+			if (e.getValue() == Keyboard.KEY_V)
+				mazo4.setvX(-velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_N)
+				mazo4.setvX(velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_G)
+				mazo4.setvY(-velocidadMazo);
+			if (e.getValue() == Keyboard.KEY_B)
+				mazo4.setvY(velocidadMazo);
 			break;
 			
 		case KEY_RELEASED:
@@ -305,16 +363,34 @@ public class Game extends Service implements EventListener {
 			if (e.getValue() == Keyboard.KEY_UP)
 				mazo2.setvY(0);	
 			if (e.getValue() == Keyboard.KEY_DOWN)
-				mazo2.setvY(0);	
+				mazo2.setvY(0);
+			
+			// Movimiento Mazo 3
+			if (e.getValue() == Keyboard.KEY_I)
+				mazo3.setvX(0);
+			if (e.getValue() == Keyboard.KEY_P)
+				mazo3.setvX(0);
+			if (e.getValue() == Keyboard.KEY_9)
+				mazo3.setvY(0);
+			if (e.getValue() == Keyboard.KEY_O)
+				mazo3.setvY(0);
+			
+			// Movimiento Mazo 4
+			if (e.getValue() == Keyboard.KEY_V)
+				mazo4.setvX(0);
+			if (e.getValue() == Keyboard.KEY_N)
+				mazo4.setvX(0);
+			if (e.getValue() == Keyboard.KEY_G)
+				mazo4.setvY(0);
+			if (e.getValue() == Keyboard.KEY_B)
+				mazo4.setvY(0);
 			break;
 			
 		case MOUSE_PRESSED:
-			
 			ratonApretado = true;
 			break;
 			
-		case MOUSE_RELEASED:
-			
+		case MOUSE_RELEASED:	
 			ratonApretado = false;
 			break;
 		
@@ -340,6 +416,12 @@ public class Game extends Service implements EventListener {
 		// Mazo 2
 		mazo2.setx(Window.getW() * 0.75f);
 		mazo2.sety(Window.getH() * 0.5f);
+		// Mazo 3
+		mazo3.setx(Window.getW() * 0.5f);
+		mazo3.sety(Window.getH() * 0.25f);
+		// Mazo 4
+		mazo4.setx(Window.getW() * 0.5f);
+		mazo4.sety(Window.getH() * 0.75f);
 	}
 	
 	private void golMazo1() {

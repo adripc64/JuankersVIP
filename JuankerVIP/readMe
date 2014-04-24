@@ -2,4 +2,6 @@ FGE
 1. [OK] Punto de pivote de la rotación para texturas y rectángulos...
 2. [OK] Mouse polling
 3. [  ] Efectos de estela de pelota (blur)
-4. 
+4. [  ] Los eventos de las teclas no van bien, se mezclan y si apreto por ejemplo a la 
+		izquierda y a la derecha debería de quedarse quieto y no es así. Tal vez es 
+		que yo no lo haga bien al capturar los eventos, pero quiero que lo comprobemos.
