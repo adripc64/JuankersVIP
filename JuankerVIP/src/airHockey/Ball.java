@@ -12,8 +12,10 @@ public class Ball {
 	
 	private float velocidad;
 	private float rozamiento;
+	private Color color;
 	
 	public Ball() {
+		color = new Color(255,255,255);
 		tex = new Texture("data/airHockey/ball48-36.png");
 	}
 	
@@ -36,7 +38,6 @@ public class Ball {
 	
 	public void draw() {
 		// Dibujando pelota
-		Color color = new Color(255,255,255);
 		int wB = tex.getW();
 		int hB = tex.getH();
 		float xB = xBall - wB/2;
@@ -82,6 +83,14 @@ public class Ball {
 
 	public void setRozamiento(float rozamiento) {
 		this.rozamiento = rozamiento;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 }
