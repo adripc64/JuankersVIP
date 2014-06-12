@@ -99,11 +99,15 @@ public class Game extends Service implements EventListener {
 		
 		if (tuberia.chocaElPardalet(pardal.getX(), pardal.getAltura()-pardal.getH(), pardal.getW(), pardal.getH())) {
 			System.out.print("Tubo1");
+			if(pardal.getX()+pardal.getW()<tuberia.getX()){
 			pause();
+			}
 		}
-		if (tuberia2.chocaElPardalet(pardal.getX(), pardal.getAltura(), pardal.getW(), pardal.getH())) {
+		if (tuberia2.chocaElPardalet(pardal.getX(), pardal.getAltura()-pardal.getH(), pardal.getW(), pardal.getH())) {
 			System.out.print("Tubo2");
-			pause();
+			if(pardal.getX()+pardal.getW()<tuberia.getX()){
+				pause();
+				}
 		}
 		
 	}
