@@ -97,7 +97,7 @@ public class Game extends Service implements EventListener {
 			tuberia2.randomEspacio();
 		}
 		
-		if (tuberia.chocaElPardalet(pardal.getX(), pardal.getAltura(), pardal.getW(), pardal.getH())) {
+		if (tuberia.chocaElPardalet(pardal.getX(), pardal.getAltura()-pardal.getH(), pardal.getW(), pardal.getH())) {
 			System.out.print("Tubo1");
 			pause();
 		}
