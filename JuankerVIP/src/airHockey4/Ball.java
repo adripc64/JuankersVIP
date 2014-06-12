@@ -1,4 +1,4 @@
-package airHockey;
+package airHockey4;
 
 import fge.Color;
 import fge.Render;
@@ -38,6 +38,7 @@ public class Ball {
 	
 	public void draw() {
 		// Dibujando pelota
+		color = new Color(255,255,255);
 		int wB = tex.getW();
 		int hB = tex.getH();
 		float xB = xBall - wB/2;
