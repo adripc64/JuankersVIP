@@ -27,19 +27,21 @@ public class Tuberia {
 	public void DibujarTuberia(){
 		// Tuberia de arriba
 		float y = 0;
-		
-		Render.DrawRectangle(x, 0, texTubeTop.getW(),yEspacio+10, 0, new Color(255,0,0));
+		Render.DrawRectangle(x, yEspacio, texTubeTop.getW(),-texTubeTop.getH(), 0, new Color(255,0,0));
 		
 		Render.DrawTexture(texTubeTopBody, x, y, texTubeTopBody.getW(), yEspacio-texTubeTop.getH(), 0, new Color(255,255,255));
 		y += yEspacio-texTubeTop.getH();
 		Render.DrawTexture(texTubeTop, x, y, new Color(255,255,255));
-		Render.DrawRectangle(x, 0, texTubeTop.getW(), yEspacio, 0, new Color(255,0,0));
-		// Tuberia de abajo
+		
+	// Tuberia de abajo
 		y += texTubeTop.getH()+hEspacio;
-		Render.DrawTexture(texTubeBottom, x, y, new Color(255,255,255));
+	//	Render.DrawTexture(texTubeBottom, x, y, new Color(255,255,255));
 		y += texTubeBottom.getH();
-		Render.DrawTexture(texTubeBottomBody, x, y, texTubeBottomBody.getW(), Window.getH()-y, 0, new Color(255,255,255));
-		Render.DrawRectangle(x, y-texTubeBottom.getH(), texTubeTop.getW(), Window.getH(), 0, new Color(255,0,0));
+	//	Render.DrawTexture(texTubeBottomBody, x, y, texTubeBottomBody.getW(), Window.getH()-y, 0, new Color(255,255,255));
+	//	Render.DrawRectangle(x, y-texTubeBottom.getH(), texTubeTop.getW(), Window.getH(), 0, new Color(255,0,0));
+		
+		Render.DrawRectangle(x, yEspacio, getW(), hEspacio, 0, new Color(255,255,0));
+		
 	}
 	
 	public float getX(){
@@ -63,21 +65,43 @@ public class Tuberia {
 	}
 	
 	public boolean chocaElPardalet(float px, float py, float pw, float ph) {
+		//System.out.println(py+"  "+yEspacio);
 		
-		if(Intersect.RectWithRect(px, py, pw, ph, x, 0, texTubeTop.getW(),0 )){
-			System.out.println("part de dalt");
-			System.out.println("altura pardal "+py+"  altura tuberia "+yEspacio);
-			return true;
+		if(px>x+getW()){
+		System.out.println("estem a lesquerra");
 		}
-		/*
-		if(Intersect.RectWithRect(px, py, pw, ph, x, yEspacio+hEspacio, getW(), Window.getH())){
-			System.out.println("Part de baix");
-			return true;
-		}*/
-		return false;
-		//return Intersect.RectWithRect(px, py, pw, ph, x, 0, getW(), yEspacio)/*part de dalt*/ || 
-			//	Intersect.RectWithRect(px, py, pw, ph, x, yEspacio+hEspacio, getW(), Window.getH());//part de baix
+		if(px+pw<x) System.out.println("estem a la dreta");
+		if(px+pw>x) System.out.println("Dreta: "+px+" "+pw+", "+x);
+		if(py>yEspacio+yEspacio+hEspacio)System.out.println("entem a sota");
+		if(py>yEspacio+yEspacio+hEspacio)System.out.println(" baix: "+ py+", "+yEspacio+" " +hEspacio);
+		if(py+ph<yEspacio)System.out.println("estem a sobre");
+		return RectWithRect(x, yEspacio, getW(), hEspacio,px, py, pw, ph);
 		
 	}
-
+	public boolean RectWithRect(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2) {
+		//intent d'un altre comprovador d'interseccio
+//		if(x1+w1>x2){
+//			if(y1+h1<y2 && y1>y2+h2) return false;
+//			System.out.println("1");
+//		}else{
+//			if(y2+h2<y1){
+//				System.out.println(2);
+//				if(x1+w1<x2 && x1>x2+h2) return false;
+//			}else{
+//				if(y1+h1>y2){
+//					System.out.println(3);
+//					if(x1+w1<x2 && x1>x2+h2) return false;
+//				}else{
+//					if(x1<x2+w2){
+//						System.out.println(4);
+//						if(y1+h1<y2 && y1>y2+h2) return false;
+//					}
+//				}
+//			}
+//		}
+	
+	if (x1 > x2+w2 || x1+w1 < x2 || y1 > y2+h2 || y1+h1 < y2) return false;
+		return true;
+	}
+		
 }
