@@ -7,8 +7,8 @@ import fge.Render;
 import fge.Service;
 
 public class Main extends Service {
-	int x = 100;
-	int y = 100;
+	float x = 100;
+	float y = 100;
 	int w = 50;
 	int h = 50;
 	Color color = new Color(0, 255, 0);
