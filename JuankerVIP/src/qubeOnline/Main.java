@@ -42,6 +42,7 @@ public class Main extends Service {
 
 	@Override
 	protected void onResume() {
+		
 		// TODO Auto-generated method stub
 		
 	}
