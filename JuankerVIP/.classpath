@@ -11,5 +11,10 @@
 	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
 	<classpathentry kind="lib" path="libs/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="libs/kryonet/kryonet-2.21-all.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/JuankerVIP/libs/kryonet/javadoc.zip!/javadoc"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
