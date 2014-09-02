@@ -15,11 +15,11 @@ public class Main extends Service implements EventListener{
 	Color azul = new Color(0, 0, 255);
 	Color blanco = new Color(255,255,255);
 	float radioPelota = 15;
-	float velocidadRaqueta = 30;
+	float velocidadRaqueta = 15;
 	float velocidadPelota = 5;
 	float pelotaX = player1X + grosorRaqueta + radioPelota;
 	float pelotaY = WINDOW_HEIGHT/2;
-	float anguloDireccion = (float) 60;
+	float anguloDireccion = 60;
 	
 	
 	
@@ -70,8 +70,16 @@ public class Main extends Service implements EventListener{
 		//PELOTA
 		pelotaX += Math.cos(Misc.DegToRad(anguloDireccion)) * velocidadPelota;
 		pelotaY -= Math.sin(Misc.DegToRad(anguloDireccion)) * velocidadPelota;
-		if (pelotaY < 0 + radioPelota) anguloDireccion = 360 - anguloDireccion; 
-		if (pelotaY > WINDOW_HEIGHT - radioPelota) anguloDireccion = 360 - anguloDireccion;
+		if (pelotaY <= 0 + radioPelota) anguloDireccion = 360 - anguloDireccion; 
+		if (pelotaY >= WINDOW_HEIGHT - radioPelota) anguloDireccion = 360 - anguloDireccion;
+		
+		if (pelotaX <= 0 + grosorRaqueta && pelotaY >= player1Y && pelotaY <= player1Y + alturaRaqueta){
+			anguloDireccion = 90 + anguloDireccion;
+		}
+		
+		if (pelotaX >= WINDOW_WIDTH - grosorRaqueta && pelotaY >= player2Y && pelotaY <= player2Y + alturaRaqueta){
+			anguloDireccion = 90 + anguloDireccion;
+		}
 		
 	}
 
