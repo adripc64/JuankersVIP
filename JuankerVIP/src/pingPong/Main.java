@@ -20,6 +20,8 @@ public class Main extends Service implements EventListener{
 	float pelotaX = player1X + grosorRaqueta + radioPelota;
 	float pelotaY = WINDOW_HEIGHT/2;
 	float anguloDireccion = 60;
+	private Font font;
+	private Color fontColor;
 	
 	
 	
@@ -32,6 +34,8 @@ public class Main extends Service implements EventListener{
 	@Override
 	protected void onStart() {
 		EventMan.addListener(this);
+		font = new Font("data/COMIC.TTF", 18);
+		fontColor = new Color(255,255,0);
 	}
 
 	@Override
