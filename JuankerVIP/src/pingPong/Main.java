@@ -14,7 +14,7 @@ public class Main extends Service implements EventListener{
 	Color rojo = new Color(255, 0, 0);
 	Color azul = new Color(0, 0, 255);
 	Color blanco = new Color(255,255,255);
-	float radioPelota = 15;
+	float radioPelota = 12.5f;
 	float velocidadRaqueta = 15;
 	float velocidadPelota = 500;
 	float pelotaX = player1X + grosorRaqueta + radioPelota;
@@ -106,7 +106,7 @@ public class Main extends Service implements EventListener{
 	protected void onDraw() {
 		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
 		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
-		Render.DrawTexture(bola, pelotaX, pelotaY, blanco);
+		Render.DrawTexture(bola, pelotaX-radioPelota, pelotaY-radioPelota, blanco);
 //		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
 		
 	}
