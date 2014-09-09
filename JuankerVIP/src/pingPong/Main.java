@@ -22,6 +22,7 @@ public class Main extends Service implements EventListener{
 	float anguloDireccion = 60;
 	private Font font;
 	private Color fontColor;
+	private Texture bola;
 	
 	
 	
@@ -36,6 +37,7 @@ public class Main extends Service implements EventListener{
 		EventMan.addListener(this);
 		font = new Font("data/COMIC.TTF", 18);
 		fontColor = new Color(255,255,0);
+		bola = new Texture("data/ping pong/Bola.png");
 	}
 
 	@Override
@@ -104,7 +106,9 @@ public class Main extends Service implements EventListener{
 	protected void onDraw() {
 		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
 		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
-		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
+		Render.DrawTexture(bola, pelotaX, pelotaY, blanco);
+//		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
+		
 	}
 
 	@Override
