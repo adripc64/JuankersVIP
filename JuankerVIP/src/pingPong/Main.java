@@ -23,6 +23,8 @@ public class Main extends Service implements EventListener{
 	private Font font;
 	private Color fontColor;
 	private Texture bola;
+	private Texture player1;
+	private Texture player2;
 	
 	
 	
@@ -38,6 +40,8 @@ public class Main extends Service implements EventListener{
 		font = new Font("data/COMIC.TTF", 18);
 		fontColor = new Color(255,255,0);
 		bola = new Texture("data/ping pong/Bola.png");
+		player1 = new Texture("data/ping pong/Raqueta1.png");
+		player2 = new Texture("data/ping pong/Raqueta2.png");
 	}
 
 	@Override
@@ -104,8 +108,10 @@ public class Main extends Service implements EventListener{
 
 	@Override
 	protected void onDraw() {
-		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
-		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
+		Render.DrawTexture(player1, player1X, player1Y, blanco);
+//		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
+		Render.DrawTexture(player2, player2X, player2Y, blanco);
+//		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
 		Render.DrawTexture(bola, pelotaX-radioPelota, pelotaY-radioPelota, blanco);
 //		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
 		
