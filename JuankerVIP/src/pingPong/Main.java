@@ -76,16 +76,27 @@ public class Main extends Service implements EventListener{
 		pelotaY -= Math.sin(Misc.DegToRad(anguloDireccion)) * velocidadPelota * App.getFTime();
 		if (pelotaY <= 0 + radioPelota) anguloDireccion = 360 - anguloDireccion; 
 		if (pelotaY >= WINDOW_HEIGHT - radioPelota) anguloDireccion = 360 - anguloDireccion;
-		System.out.println(App.getFTime());
-//		if (pelotaX <= 0 + grosorRaqueta && pelotaY >= player1Y && pelotaY <= player1Y + alturaRaqueta){
-//			anguloDireccion = 90 + anguloDireccion;
-//			pelotaX = 0 + grosorRaqueta;
-//		}
-//		
-//		if (pelotaX >= WINDOW_WIDTH - grosorRaqueta && pelotaY >= player2Y && pelotaY <= player2Y + alturaRaqueta){
-//			anguloDireccion = 90 + anguloDireccion;
-//			pelotaX = WINDOW_WIDTH - grosorRaqueta;
-//		}
+		// Colisiones con las raquetas
+		if (pelotaX - radioPelota <= grosorRaqueta && pelotaY >= player1Y && pelotaY <= player1Y + alturaRaqueta){
+			if (hemisferioAngulo(anguloDireccion) == 1){
+				anguloDireccion = 180 - anguloDireccion;
+				pelotaX = radioPelota + grosorRaqueta;
+			} else {
+				anguloDireccion = 180 - anguloDireccion;
+				pelotaX = radioPelota + grosorRaqueta;
+			}
+		
+		}
+		
+		if (pelotaX + radioPelota >= WINDOW_WIDTH - grosorRaqueta && pelotaY >= player2Y && pelotaY <= player2Y + alturaRaqueta){
+			if (hemisferioAngulo(anguloDireccion) == 1){
+				anguloDireccion = 180 - anguloDireccion;
+				pelotaX = WINDOW_WIDTH - grosorRaqueta - radioPelota;
+			} else {
+				anguloDireccion = 180 - anguloDireccion;
+				pelotaX = WINDOW_WIDTH - grosorRaqueta - radioPelota;
+			}
+		}
 		
 	}
 
@@ -93,29 +104,7 @@ public class Main extends Service implements EventListener{
 	protected void onDraw() {
 		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
 		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
-		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);
-		
-		if (pelotaX <= 0 + grosorRaqueta && pelotaY >= player1Y && pelotaY <= player1Y + alturaRaqueta){
-			if (hemisferioAngulo(anguloDireccion) == 1){
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = 0 + grosorRaqueta;
-			} else {
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = 0 + grosorRaqueta;
-			}
-		
-		}
-		
-		if (pelotaX >= WINDOW_WIDTH - grosorRaqueta && pelotaY >= player2Y && pelotaY <= player2Y + alturaRaqueta){
-			if (hemisferioAngulo(anguloDireccion) == 1){
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = WINDOW_WIDTH - grosorRaqueta;
-			} else {
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = WINDOW_WIDTH - grosorRaqueta;
-			}
-		}
-		
+		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
 	}
 
 	@Override
