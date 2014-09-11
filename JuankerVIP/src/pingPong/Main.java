@@ -6,8 +6,8 @@ public class Main extends Service implements EventListener{
 	private final static int WINDOW_WIDTH = 640;
 	private final static int WINDOW_HEIGHT = 640;
 	Color blanco = new Color(255,255,255);
-//	private Font font;
-//	private Color fontColor;
+	private Font font;
+	private Color fontColor;
 	private Texture bola;
 	private Texture player1;
 	private Texture player2;
@@ -27,8 +27,8 @@ public class Main extends Service implements EventListener{
 	@Override
 	protected void onStart() {
 		EventMan.addListener(this);
-//		font = new Font("data/COMIC.TTF", 18);
-//		fontColor = new Color(255,255,0);
+		font = new Font("data/COMIC.TTF", 18);
+		fontColor = new Color(255,255,0);
 		bola = new Texture("data/ping pong/Bola.png");
 		player1 = new Texture("data/ping pong/Raqueta1.png");
 		player2 = new Texture("data/ping pong/Raqueta2.png");
@@ -114,6 +114,7 @@ public class Main extends Service implements EventListener{
 		Render.DrawTexture(player1, jugador1.posX, jugador1.posY, blanco);
 		Render.DrawTexture(player2, jugador2.posX, jugador2.posY, blanco);
 		Render.DrawTexture(bola, pelota.getX(), pelota.getY(), blanco);
+		Render.DrawText(font, WINDOW_WIDTH /2 -5, 25, marcador.mostrarMarcador(), fontColor);
 	}
 
 	@Override
