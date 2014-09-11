@@ -5,29 +5,19 @@ import fge.*;
 public class Main extends Service implements EventListener{
 	private final static int WINDOW_WIDTH = 640;
 	private final static int WINDOW_HEIGHT = 640;
-	float grosorRaqueta = 20;
-	float alturaRaqueta = 150;
-	float player1X = 0;
-	float player1Y = WINDOW_HEIGHT/2 - alturaRaqueta/2;
-	float player2X = WINDOW_WIDTH - grosorRaqueta;
-	float player2Y = WINDOW_HEIGHT/2 - alturaRaqueta/2;
-	Color rojo = new Color(255, 0, 0);
-	Color azul = new Color(0, 0, 255);
 	Color blanco = new Color(255,255,255);
-	float radioPelota = 12.5f;
-	float velocidadRaqueta = 15;
-	float velocidadPelota = 500;
-	float pelotaX = player1X + grosorRaqueta + radioPelota;
-	float pelotaY = WINDOW_HEIGHT/2;
-	float anguloDireccion = 60;
-	private Font font;
-	private Color fontColor;
+//	private Font font;
+//	private Color fontColor;
 	private Texture bola;
 	private Texture player1;
 	private Texture player2;
+	private Texture fondo;
+	private Marcador marcador;
+	private boolean outOfScreen = false;
 	
-	
-	
+	Raqueta jugador1 = new Raqueta(1);
+	Raqueta jugador2 = new Raqueta(2);
+	Pelota pelota = new Pelota();
 	
 	public static void main(String[] args) {
 		App.run(new Main(), WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -37,11 +27,14 @@ public class Main extends Service implements EventListener{
 	@Override
 	protected void onStart() {
 		EventMan.addListener(this);
-		font = new Font("data/COMIC.TTF", 18);
-		fontColor = new Color(255,255,0);
+//		font = new Font("data/COMIC.TTF", 18);
+//		fontColor = new Color(255,255,0);
 		bola = new Texture("data/ping pong/Bola.png");
 		player1 = new Texture("data/ping pong/Raqueta1.png");
 		player2 = new Texture("data/ping pong/Raqueta2.png");
+		fondo = new Texture("data/ping pong/background1.jpg");
+		marcador = new Marcador(0, 0);
+
 	}
 
 	@Override
@@ -65,56 +58,62 @@ public class Main extends Service implements EventListener{
 	@Override
 	protected void onMove() {
 		
+//		jugador2.posY = (pelota.posY-75);
+//		jugador1.posY = (pelota.posY-75);
+		
 		//PLAYER 1
-		if (Keyboard.isKeyPressed(Keyboard.KEY_W)) player1Y -= velocidadRaqueta;
-		if (Keyboard.isKeyPressed(Keyboard.KEY_S)) player1Y += velocidadRaqueta;
-		if (player1Y < 0) player1Y = 0;
-		if (player1Y > WINDOW_HEIGHT - alturaRaqueta) player1Y = WINDOW_HEIGHT - alturaRaqueta;
+		if (Keyboard.isKeyPressed(Keyboard.KEY_W)) jugador1.posY -= Raqueta.velocidad;
+		if (Keyboard.isKeyPressed(Keyboard.KEY_S)) jugador1.posY += Raqueta.velocidad;
+		if (jugador1.posY < 0) jugador1.posY = 0;
+		if (jugador1.posY > WINDOW_HEIGHT - Raqueta.alturaRaqueta) jugador1.posY = WINDOW_HEIGHT - Raqueta.alturaRaqueta;
 
 		//PLAYER 2
-		if (Keyboard.isKeyPressed(Keyboard.KEY_UP)) player2Y -= velocidadRaqueta;
-		if (Keyboard.isKeyPressed(Keyboard.KEY_DOWN)) player2Y += velocidadRaqueta;
-		if (player2Y < 0) player2Y = 0;
-		if (player2Y > WINDOW_HEIGHT - alturaRaqueta) player2Y = WINDOW_HEIGHT - alturaRaqueta;
+		if (Keyboard.isKeyPressed(Keyboard.KEY_UP)) jugador2.posY -= Raqueta.velocidad;
+		if (Keyboard.isKeyPressed(Keyboard.KEY_DOWN)) jugador2.posY += Raqueta.velocidad;
+		if (jugador2.posY < 0) jugador2.posY = 0;
+		if (jugador2.posY > WINDOW_HEIGHT - Raqueta.alturaRaqueta) jugador2.posY = WINDOW_HEIGHT - Raqueta.alturaRaqueta;
 		
 		//PELOTA
-		pelotaX += Math.cos(Misc.DegToRad(anguloDireccion)) * velocidadPelota * App.getFTime();
-		pelotaY -= Math.sin(Misc.DegToRad(anguloDireccion)) * velocidadPelota * App.getFTime();
-		if (pelotaY <= 0 + radioPelota) anguloDireccion = 360 - anguloDireccion; 
-		if (pelotaY >= WINDOW_HEIGHT - radioPelota) anguloDireccion = 360 - anguloDireccion;
+		pelota.posX += Math.cos(Misc.DegToRad(Pelota.angulo)) * Pelota.velocidad * App.getFTime();
+		pelota.posY -= Math.sin(Misc.DegToRad(Pelota.angulo)) * Pelota.velocidad * App.getFTime();
+		if (pelota.posY <= 0) Pelota.angulo = 360 - Pelota.angulo; 
+		if (pelota.posY >= WINDOW_HEIGHT - Pelota.diametro) Pelota.angulo = 360 - Pelota.angulo;
+		
+		
 		// Colisiones con las raquetas
-		if (pelotaX - radioPelota <= grosorRaqueta && pelotaY >= player1Y && pelotaY <= player1Y + alturaRaqueta){
-			if (hemisferioAngulo(anguloDireccion) == 1){
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = radioPelota + grosorRaqueta;
-			} else {
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = radioPelota + grosorRaqueta;
-			}
-		
+		if (pelota.posX <= Raqueta.getGrosorRaqueta() && pelota.posY >= jugador1.posY && pelota.posY <= jugador1.posY + Raqueta.alturaRaqueta){
+			Pelota.angulo = 180 - Pelota.angulo;
+			pelota.posX = Raqueta.getGrosorRaqueta();
+			outOfScreen = false;
 		}
 		
-		if (pelotaX + radioPelota >= WINDOW_WIDTH - grosorRaqueta && pelotaY >= player2Y && pelotaY <= player2Y + alturaRaqueta){
-			if (hemisferioAngulo(anguloDireccion) == 1){
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = WINDOW_WIDTH - grosorRaqueta - radioPelota;
-			} else {
-				anguloDireccion = 180 - anguloDireccion;
-				pelotaX = WINDOW_WIDTH - grosorRaqueta - radioPelota;
-			}
+		if (pelota.posX + Pelota.diametro >= WINDOW_WIDTH - Raqueta.getGrosorRaqueta() && pelota.posY >= jugador2.posY && pelota.posY <= jugador2.posY + Raqueta.alturaRaqueta){
+			Pelota.angulo = 180- Pelota.angulo;
+			pelota.posX = WINDOW_WIDTH - Raqueta.getGrosorRaqueta() - Pelota.diametro;
+			outOfScreen = false;
 		}
+		
+		if (!outOfScreen && pelota.posX <= 0){
+			marcador.incrementarScore2();
+			outOfScreen = true;
+			pelota.posX = Raqueta.getGrosorRaqueta();
+			pelota.posY = (jugador1.posY - Pelota.diametro) /2;
+		}
+		if (!outOfScreen && pelota.posX >= WINDOW_WIDTH){
+			marcador.incrementarScore1();
+			outOfScreen = true;
+		}
+		
+		System.out.println(marcador.mostrarMarcador());
 		
 	}
 
 	@Override
 	protected void onDraw() {
-		Render.DrawTexture(player1, player1X, player1Y, blanco);
-//		Render.DrawFilledRectangle(player1X, player1Y, grosorRaqueta, alturaRaqueta, azul);
-		Render.DrawTexture(player2, player2X, player2Y, blanco);
-//		Render.DrawFilledRectangle(player2X, player2Y, grosorRaqueta, alturaRaqueta, rojo);
-		Render.DrawTexture(bola, pelotaX-radioPelota, pelotaY-radioPelota, blanco);
-//		Render.DrawFilledCircle(pelotaX, pelotaY, radioPelota, blanco);	
-		
+		Render.DrawTexture(fondo, 0, 0, blanco);
+		Render.DrawTexture(player1, jugador1.posX, jugador1.posY, blanco);
+		Render.DrawTexture(player2, jugador2.posX, jugador2.posY, blanco);
+		Render.DrawTexture(bola, pelota.getX(), pelota.getY(), blanco);
 	}
 
 	@Override
@@ -146,9 +145,13 @@ public class Main extends Service implements EventListener{
 //	}
 	
 	
-	public int hemisferioAngulo(float angulo){
-		if (angulo >= 0 && angulo <= 180) return 1;
-		else return 2;
+	
+	public static float getHeight(){
+		return WINDOW_HEIGHT;
+	}
+
+	public static float getWidth() {
+		return WINDOW_WIDTH;
 	}
 	
 }

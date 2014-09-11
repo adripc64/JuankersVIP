@@ -10,9 +10,17 @@ public class Marcador {
 		this.score2 = score2;
 	}
 	
+	public int incrementarScore1(){
+		return ++score1;
+	}
 	
+	public int incrementarScore2(){
+		return ++score2;
+	}
 	
-	
+	public String mostrarMarcador(){
+		return score1 + " - " + score2;
+	}
 	
 	
 	
