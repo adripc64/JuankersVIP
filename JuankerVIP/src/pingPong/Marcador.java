@@ -18,10 +18,14 @@ public class Marcador {
 		return ++score2;
 	}
 	
-	public String mostrarMarcador(){
-		return score1 + " - " + score2;
+	public void mostrarMarcador(){
+		System.out.println(score1 + " - " + score2);
 	}
 	
+	@Override
+	public String toString(){
+		return score1 + " - " + score2;
+	}
 	
 	
 	

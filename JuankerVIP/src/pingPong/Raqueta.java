@@ -24,6 +24,9 @@ public class Raqueta {
 		return grosorRaqueta;
 	}
 
+	public static float getAlturaRaqueta(){
+		return alturaRaqueta;
+	}
 	
 	
 	
